@@ -17,7 +17,7 @@
    ========================================================================== */
 'use strict';
 
-var CACHE_VERSION = 'ff-v5';
+var CACHE_VERSION = 'ff-v6';
 
 var PRECACHE = [
   './',
@@ -37,6 +37,8 @@ var PRECACHE = [
   './js/ball.js',
   './js/playback.js',
   './js/announcer.js',
+  './js/mp4.js',
+  './js/recorder.js',
   './js/viewer.js',
   './js/roster.js',
   './js/play-editor.js',

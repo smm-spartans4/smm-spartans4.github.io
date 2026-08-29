@@ -74,17 +74,49 @@
     return supported() ? (window.speechSynthesis.getVoices() || []) : [];
   }
 
-  /* Prefer the saved voice; otherwise an English one from this device. */
+  /* Pick a voice, in order of preference:
+
+       1. whatever this viewer chose for themselves
+       2. the team default, published with the data - matched loosely, since
+          the full name differs by platform ("Microsoft Guy Online (Natural) -
+          English (United States)" vs just "Guy")
+       3. an English voice installed ON the device, which is the only kind
+          guaranteed to work with no signal
+       4. any English voice
+       5. anything at all
+
+     Steps 3 onward matter: the nicest voices tend to be the streaming ones,
+     and at a field with no bars those simply do not speak. */
   function chosenVoice() {
     var all = voices();
     if (!all.length) return null;
-    var want = getVoiceName();
-    for (var i = 0; i < all.length; i++) if (all[i].name === want) return all[i];
+
+    var mine = getVoiceName();
+    for (var i = 0; i < all.length; i++) if (all[i].name === mine) return all[i];
+
+    var preferred = '';
+    try { preferred = (FF.store.settings().defaultVoiceName || '').trim(); }
+    catch (e) { preferred = ''; }
+
+    if (preferred) {
+      for (var p = 0; p < all.length; p++) if (all[p].name === preferred) return all[p];
+      var needle = preferred.toLowerCase();
+      for (var q = 0; q < all.length; q++) {
+        if ((all[q].name || '').toLowerCase().indexOf(needle) !== -1) return all[q];
+      }
+    }
+
     for (var j = 0; j < all.length; j++) {
       if (all[j].localService && /^en/i.test(all[j].lang || '')) return all[j];
     }
     for (var k = 0; k < all.length; k++) if (/^en/i.test(all[k].lang || '')) return all[k];
     return all[0];
+  }
+
+  /* What is actually going to speak, for showing in the UI. */
+  function activeVoiceName() {
+    var v = chosenVoice();
+    return v ? v.name : '';
   }
 
   /* ---------- names ------------------------------------------------------- */
@@ -211,6 +243,7 @@
   FF.announcer = {
     supported: supported, ready: ready, voices: voices,
     getVoiceName: getVoiceName, setVoiceName: setVoiceName,
+    activeVoiceName: activeVoiceName,
     getRate: getRate, setRate: setRate,
     getAuto: getAuto, setAuto: setAuto,
     fill: fill, scriptFor: scriptFor, defaultScript: defaultScript,

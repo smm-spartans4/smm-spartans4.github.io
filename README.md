@@ -101,7 +101,7 @@ Everything is in **yards**, never pixels.
 - [x] **11.** Settings + export/import (pulled forward - backups matter)
 - [ ] **12.** Polish, accessibility, deploy to GitHub Pages
 - [x] **15.** Announcer — speaks the play, fills in this week’s names
-- [ ] **13.** Download any play as an MP4 (coach and parents) — for saving to an iPad
+- [x] **13.** Download any play as an MP4 (coach and parents) — for saving to an iPad
 - [x] **14.** Installable offline app (PWA) — Add to Home Screen, works with no signal
 
 Notes on 13 and 14:

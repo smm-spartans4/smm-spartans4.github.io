@@ -39,6 +39,7 @@ window.PUBLISHED_TEAM_DATA = {
       { "id": "RD",   "label": "Right Deep" }
     ],
     "lineupGroups": { "offense": 4, "defense": 2 },
+    "defaultVoiceName": "Microsoft Guy Online (Natural)",
     "passEligiblePositions": ["C", "X", "Y", "Z"],
     "handoffEligiblePositions": ["X", "Y", "Z"],
     "formations": [

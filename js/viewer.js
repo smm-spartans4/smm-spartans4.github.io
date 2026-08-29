@@ -333,6 +333,58 @@
       row.appendChild(speed);
       row.appendChild(voiceSel);
       controlsEl.appendChild(row);
+      buildDownloadRow();
+    }
+
+    /* ---- MP4 download ----------------------------------------------------- */
+
+    function buildDownloadRow() {
+      if (!FF.recorder || !FF.recorder.supported()) return;
+
+      var row = h('div', { 'class': 'ff-controls ff-controls-view' });
+      var status = h('span', { 'class': 'ff-small ff-muted' });
+
+      var save = h('button', { type: 'button', 'class': 'ff-btn secondary ff-small',
+        text: '⬇ Download MP4',
+        title: 'Save this play as a video, to keep on a phone or iPad' });
+
+      save.addEventListener('click', function () {
+        clock.pause();
+        FF.announcer && FF.announcer.cancel();
+        save.disabled = true;
+        status.textContent = 'Rendering…';
+
+        var box = svg.getBoundingClientRect();
+        var wide = Math.max(640, Math.min(1280, Math.round(box.width)));
+        var tall = Math.round(wide * (box.height / box.width));
+
+        FF.recorder.record({
+          svg: svg,
+          duration: play.durationSeconds || 5,
+          width: wide,
+          height: tall,
+          drawAt: function (t) { renderFrame(t); },
+          onProgress: function (p) {
+            status.textContent = 'Rendering… ' + Math.round(p * 100) + '%';
+          }
+        }).then(function (blob) {
+          FF.recorder.download(blob, FF.recorder.safeFilename(play.name) + '.mp4');
+          status.textContent = 'Saved (' + Math.round(blob.size / 1024) + ' KB)';
+          save.disabled = false;
+          renderFrame(clock.getTime());
+        })['catch'](function (err) {
+          console.error(err);
+          status.textContent = err.message || 'Could not make the video.';
+          save.disabled = false;
+          renderFrame(clock.getTime());
+        });
+      });
+
+      row.appendChild(save);
+      row.appendChild(h('span', { 'class': 'ff-small ff-muted',
+        text: 'Silent — the announcer cannot be recorded.' }));
+      row.appendChild(status);
+      controlsEl.appendChild(row);
     }
 
     /* Offer only as many groups as this side actually has people in - four

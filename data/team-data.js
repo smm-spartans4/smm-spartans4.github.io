@@ -38,6 +38,7 @@ window.PUBLISHED_TEAM_DATA = {
       { "id": "LD",   "label": "Left Deep" },
       { "id": "RD",   "label": "Right Deep" }
     ],
+    "lineupGroups": { "offense": 4, "defense": 2 },
     "passEligiblePositions": ["C", "X", "Y", "Z"],
     "handoffEligiblePositions": ["X", "Y", "Z"],
     "formations": [

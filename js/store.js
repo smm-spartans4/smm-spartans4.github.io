@@ -202,7 +202,14 @@
        players  positionId -> the player in the requested group (or null)
        groups   positionId -> every player listed at that position
      Kids are assigned per EVENT, not per play, so a play never stores a name. */
-  function LINEUP_GROUPS() { return 2; }
+  /* How many deep each side runs. Offense defaults to four so ten kids can
+     each cover two spots across the week; defense to two. Both are settings,
+     because roster size and how much rotation a coach wants will vary. */
+  function LINEUP_GROUPS(side) {
+    var cfg = settings().lineupGroups || {};
+    var n = side === 'defense' ? cfg.defense : cfg.offense;
+    return Math.max(1, Math.min(6, parseInt(n, 10) || 2));
+  }
 
   function lineupList(evt, positionId) {
     var v = (evt && evt.lineup) ? evt.lineup[positionId] : null;

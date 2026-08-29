@@ -49,6 +49,19 @@
       return p ? p.name : null;
     }
 
+    /* First name plus last initial - "Jake M." - which is what it takes to tell
+       two Jakes apart. Works whether the roster says "Jake M." or "Jake
+       Miller"; a single-word name is left alone. A full surname would be wider
+       than the player it sits above. */
+    function shortName(full) {
+      var parts = String(full || '').trim().split(/\s+/).filter(Boolean);
+      if (!parts.length) return '';
+      if (parts.length === 1) return parts[0];
+      var last = parts[parts.length - 1].replace(/\./g, '');
+      if (!last) return parts[0];
+      return parts[0] + ' ' + last.charAt(0).toUpperCase() + '.';
+    }
+
     /* What goes on the token itself. Position for the coach drawing plays;
        number or name for the kids, who find themselves far faster by their own
        jersey than by remembering they are the Y this week. Falls back to the
@@ -56,7 +69,7 @@
     function labelFor(pl) {
       var who = lineup[pl.positionId];
       if (labelMode === 'number' && who && who.jersey) return String(who.jersey);
-      if (labelMode === 'name' && who && who.name) return who.name.split(' ')[0];
+      if (labelMode === 'name' && who && who.name) return shortName(who.name);
       return pl.positionId;
     }
 
@@ -206,14 +219,14 @@
 
       /* Every spot runs two deep, so both groups need to be able to find
          themselves. Only worth showing when a second group actually exists. */
-      if (hasSecondGroup()) {
+      if (groupCount() > 1) {
         els.groupSel = h('select', { 'class': 'ff-select ff-small',
           'aria-label': 'Which group' });
-        ['Group 1', 'Group 2'].forEach(function (name, i) {
-          var o = h('option', { value: String(i), text: name });
-          if (i === lineupGroup) o.selected = true;
+        for (var gi = 0; gi < groupCount(); gi++) {
+          var o = h('option', { value: String(gi), text: 'Group ' + (gi + 1) });
+          if (gi === lineupGroup) o.selected = true;
           els.groupSel.appendChild(o);
-        });
+        }
         els.groupSel.addEventListener('change', function () {
           lineupGroup = parseInt(els.groupSel.value, 10) || 0;
           lineup = FF.store.activeLineup(null, lineupGroup).players || {};
@@ -226,9 +239,17 @@
       controlsEl.appendChild(viewRow);
     }
 
-    function hasSecondGroup() {
-      var g = FF.store.activeLineup(null, 0).groups || {};
-      return Object.keys(g).some(function (pos) { return (g[pos] || []).length > 1; });
+    /* Offer only as many groups as this side actually has people in - four
+       empty offensive groups would be four ways to see no names at all. */
+    function groupCount() {
+      var configured = FF.store.LINEUP_GROUPS(play.side);
+      var groups = FF.store.activeLineup(null, 0).groups || {};
+      var here = (FF.store.positionsFor(play.side) || [])
+        .map(function (p) { return p.id; });
+      var deepest = here.reduce(function (max, pos) {
+        return Math.max(max, (groups[pos] || []).length);
+      }, 0);
+      return Math.max(1, Math.min(configured, deepest));
     }
 
     function syncTime(t) {

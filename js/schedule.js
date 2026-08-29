@@ -369,29 +369,31 @@
             + 'Numbers or Names and the kids will see themselves on the field.' })
     ]);
 
-    /* Two deep at every spot: group 1 starts there, group 2 rotates in. */
-    var groups = FF.store.LINEUP_GROUPS();
-
-    var headRow = h('div', { 'class': 'ff-depth-head' }, [
-      h('span', { text: '' }),
-      h('span', { 'class': 'ff-small ff-muted', text: 'Group 1' }),
-      h('span', { 'class': 'ff-small ff-muted', text: 'Group 2' })
-    ]);
-    card.appendChild(headRow);
+    /* Group 1 starts at a spot; the rest rotate through it. Offense runs four
+       deep so every kid can cover two positions across a week. */
+    var groups = FF.store.LINEUP_GROUPS(side);
 
     positionIds(side).forEach(function (pos) {
       var row = h('div', { 'class': 'ff-depth-row' }, [
         h('span', { 'class': 'ff-pill', text: pos })
       ]);
+      var slots = h('div', { 'class': 'ff-depth-slots' });
       var list = FF.store.lineupList(evt, pos);
 
       for (var g = 0; g < groups; g++) {
         (function (slot) {
+          var cell = h('div', { 'class': 'ff-depth-cell' }, [
+            h('span', { 'class': 'ff-depth-num', text: String(slot + 1) })
+          ]);
           var sel = h('select', { 'aria-label': pos + ' group ' + (slot + 1) });
-          sel.appendChild(h('option', { value: '', text: '— none —' }));
+          sel.appendChild(h('option', { value: '', text: '—' }));
           availableRoster(evt).forEach(function (p) {
-            /* The same kid cannot fill both groups of one position. */
-            if (list[1 - slot] === p.id) return;
+            /* One kid cannot fill two groups of the SAME position - that spot
+               would have no rotation behind them. */
+            var heldElsewhereHere = list.some(function (id, i) {
+              return i !== slot && id === p.id;
+            });
+            if (heldElsewhereHere) return;
             var o = h('option', { value: p.id, text: playerLabel(p) });
             if (list[slot] === p.id) o.selected = true;
             sel.appendChild(o);
@@ -405,9 +407,11 @@
             saveNow();
             renderEvent(evt);
           });
-          row.appendChild(sel);
+          cell.appendChild(sel);
+          slots.appendChild(cell);
         })(g);
       }
+      row.appendChild(slots);
       card.appendChild(row);
     });
 
@@ -631,19 +635,21 @@
     }
 
     ['offense', 'defense'].forEach(function (side) {
+      var groups = FF.store.LINEUP_GROUPS(side);
       var table = h('table', { 'class': 'ff-printtable' });
-      table.appendChild(h('tr', {}, [
-        h('th', { text: side === 'defense' ? 'Defense' : 'Offense' }),
-        h('th', { text: 'Group 1' }),
-        h('th', { text: 'Group 2' })
-      ]));
+      var head = [h('th', { text: side === 'defense' ? 'Defense' : 'Offense' })];
+      for (var g = 0; g < groups; g++) head.push(h('th', { text: String(g + 1) }));
+      table.appendChild(h('tr', {}, head));
+
       positionIds(side).forEach(function (pos) {
         var list = FF.store.lineupList(evt, pos);
-        table.appendChild(h('tr', {}, [
-          h('td', { text: pos }),
-          h('td', { text: (FF.store.playerById(list[0]) || {}).name || '—' }),
-          h('td', { text: (FF.store.playerById(list[1]) || {}).name || '—' })
-        ]));
+        var cells = [h('td', { text: pos })];
+        for (var g2 = 0; g2 < groups; g2++) {
+          cells.push(h('td', {
+            text: (FF.store.playerById(list[g2]) || {}).name || '—'
+          }));
+        }
+        table.appendChild(h('tr', {}, cells));
       });
       sheet.appendChild(table);
     });

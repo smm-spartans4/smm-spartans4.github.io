@@ -652,16 +652,33 @@ input[type="file"] {
 
 /* ---------- two-deep lineup ------------------------------------------------ */
 
-.ff-depth-head,
+/* A position and its groups. The group cells wrap on their own, so two-deep
+   defense and four-deep offense both lay out sensibly, phone included. */
 .ff-depth-row {
   display: grid;
-  gap: 8px;
-  grid-template-columns: 54px minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+  grid-template-columns: 54px minmax(0, 1fr);
   align-items: center;
+  padding: 7px 0;
 }
-.ff-depth-head { padding-bottom: 4px; }
-.ff-depth-row { padding: 6px 0; }
-.ff-depth-row select { width: 100%; }
+
+.ff-depth-slots {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+}
+
+.ff-depth-cell { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.ff-depth-cell select { width: 100%; min-width: 0; }
+
+.ff-depth-num {
+  flex: 0 0 auto;
+  width: 18px;
+  text-align: center;
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
 
 .ff-depth-checks { margin-top: 12px; }
 .ff-note {

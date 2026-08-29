@@ -293,6 +293,22 @@
     return copy;
   }
 
+  /* Move a play earlier or later in the library. The stored order IS the
+     display order everywhere - the play list, and every dropdown that offers
+     a play - so companion plays can sit next to each other. */
+  function movePlay(id, delta) {
+    update(function (d) {
+      var from = -1;
+      for (var i = 0; i < d.plays.length; i++) {
+        if (d.plays[i].id === id) { from = i; break; }
+      }
+      var to = from + delta;
+      if (from < 0 || to < 0 || to >= d.plays.length) return;
+      var moved = d.plays.splice(from, 1)[0];
+      d.plays.splice(to, 0, moved);
+    });
+  }
+
   /* Delete a play, and unlink it from any practice block that referenced it -
      otherwise the schedule keeps a View Play button pointing at nothing. */
   function deletePlay(id) {
@@ -377,6 +393,7 @@
     playerById: playerById, eventById: eventById,
     positionsFor: positionsFor, eventsSorted: eventsSorted, nextEvent: nextEvent,
     duplicatePlay: duplicatePlay, mirrorPlayAsNew: mirrorPlayAsNew,
+    movePlay: movePlay, deletePlay: deletePlay,
     activeLineup: activeLineup, lineupList: lineupList, lineupLoad: lineupLoad,
     lineupEvent: lineupEvent,
     LINEUP_GROUPS: LINEUP_GROUPS,

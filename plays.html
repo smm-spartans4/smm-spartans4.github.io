@@ -98,6 +98,13 @@
       h('span', { 'class': 'ff-small ff-muted', text: tags.join(', ') })
     ]));
 
+    var order = h('div', { 'class': 'ff-playcard-order' }, [
+      h('button', { type: 'button', 'class': 'ff-row-del', 'data-up': play.id,
+        text: '◀', title: 'Move ' + play.name + ' earlier' }),
+      h('button', { type: 'button', 'class': 'ff-row-del', 'data-down': play.id,
+        text: '▶', title: 'Move ' + play.name + ' later' })
+    ]);
+
     var tools = h('div', { 'class': 'ff-playcard-tools' }, [
       h('a', { 'class': 'ff-btn secondary ff-small',
         href: 'play-editor.html?id=' + play.id, text: 'Edit' }),
@@ -109,7 +116,7 @@
         'data-del': play.id, text: '×', title: 'Delete ' + play.name })
     ]);
 
-    return h('li', { 'class': 'ff-playcard' }, [link, tools]);
+    return h('li', { 'class': 'ff-playcard' }, [link, order, tools]);
   }
 
   function render() {
@@ -126,14 +133,33 @@
       return;
     }
 
-    /* Offense first, then defense, each in the order they were created. */
-    plays.slice().sort(function (a, b) {
-      if (a.side === b.side) return 0;
-      return a.side === 'offense' ? -1 : 1;
-    }).forEach(function (p) { list.appendChild(card(p)); });
+    /* Shown in the stored order, which the arrows control - so companion plays
+       like a run and its matching pass sit side by side. */
+    plays.forEach(function (p, i) {
+      var el = card(p);
+      if (i === 0) el.querySelector('[data-up]').disabled = true;
+      if (i === plays.length - 1) el.querySelector('[data-down]').disabled = true;
+      list.appendChild(el);
+    });
   }
 
   list.addEventListener('click', function (e) {
+    var up = e.target.closest('[data-up]');
+    if (up) {
+      FF.store.movePlay(up.getAttribute('data-up'), -1);
+      FF.ui.refreshBanner();
+      render();
+      return;
+    }
+
+    var down = e.target.closest('[data-down]');
+    if (down) {
+      FF.store.movePlay(down.getAttribute('data-down'), 1);
+      FF.ui.refreshBanner();
+      render();
+      return;
+    }
+
     var dupe = e.target.closest('[data-dupe]');
     if (dupe) {
       var src = FF.store.playById(dupe.getAttribute('data-dupe'));

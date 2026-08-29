@@ -756,3 +756,19 @@ input[type="file"] {
 .ff-playcard-tools .ff-row-del { width: 36px; height: 36px; margin-left: auto; }
 
 .ff-playgrid .ff-empty { grid-column: 1 / -1; }
+
+/* Reorder arrows sit over the thumbnail's bottom corner, out of the way of
+   the card's own buttons but still a full tap target. */
+.ff-playcard { position: relative; }
+
+.ff-playcard-order {
+  display: flex;
+  gap: 4px;
+  padding: 6px 12px 0;
+}
+.ff-playcard-order .ff-row-del {
+  width: 38px;
+  height: 32px;
+  font-size: .8rem;
+}
+.ff-playcard-order .ff-row-del:disabled { opacity: .3; cursor: default; }

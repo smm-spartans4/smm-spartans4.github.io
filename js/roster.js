@@ -83,9 +83,30 @@
     ]);
   }
 
+  /* A parent sees the team, not a form: number and name, nothing to type in
+     and nothing to delete. */
+  function readOnlyRow(player) {
+    return h('li', { 'class': 'ff-roster-row is-readonly' }, [
+      h('span', { 'class': 'ff-f-jersey ff-rosternum', text: player.jersey || '—' }),
+      h('span', { 'class': 'ff-f-name', text: player.name || 'Unnamed' })
+    ]);
+  }
+
   function render() {
     var roster = FF.store.roster();
+    var coach = FF.ui.isCoach();
     listEl.innerHTML = '';
+
+    if (!coach) {
+      roster.forEach(function (p) { listEl.appendChild(readOnlyRow(p)); });
+      if (!roster.length) {
+        listEl.appendChild(h('li', { 'class': 'ff-empty' }, [
+          h('p', { text: 'No players on the roster yet.' })
+        ]));
+      }
+      countEl.textContent = roster.length + (roster.length === 1 ? ' player' : ' players');
+      return;
+    }
 
     if (!roster.length) {
       listEl.appendChild(h('li', { 'class': 'ff-empty' }, [

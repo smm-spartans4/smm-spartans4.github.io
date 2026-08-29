@@ -249,17 +249,59 @@
     });
     host.appendChild(file);
 
-    /* --- reset --- */
+  }
+
+  /* Reset is the one destructive action a PARENT gets, and deliberately so:
+     if a tap ever put their copy in a strange state, this is how they get
+     back to what the coach published, without needing to ask. */
+  function renderReset() {
+    var host = document.getElementById('resetSection');
+    if (!host) return;
+
+    var coach = FF.ui.isCoach();
     var reset = h('button', { type: 'button', 'class': 'ff-btn danger',
       text: 'Reset to published version' });
     reset.addEventListener('click', function () {
-      if (!window.confirm('Throw away every change made in this browser?\n\n'
+      var warning = coach
+        ? 'Throw away every change made in this browser?\n\n'
           + 'Everything goes back to whatever is in data/team-data.js. '
-          + 'If you have not exported, this cannot be undone.')) return;
+          + 'If you have not exported, this cannot be undone.'
+        : 'Put everything back to the published version?';
+      if (!window.confirm(warning)) return;
       FF.store.resetToPublished();
       location.reload();
     });
-    host.appendChild(h('div', { 'class': 'ff-panel-foot' }, [reset]));
+    host.appendChild(reset);
+  }
+
+  /* Coach mode is a guardrail, not a lock - so the copy here says exactly
+     that, rather than implying the site is protected. */
+  function renderCoachMode() {
+    var host = document.getElementById('coachSection');
+    if (!host) return;
+
+    host.appendChild(h('p', { 'class': 'ff-small',
+      text: 'Coach mode is ON for this device. Everyone else sees the site '
+          + 'read-only: no editing, no adding, no deleting.' }));
+    host.appendChild(h('p', { 'class': 'ff-small ff-muted',
+      text: 'It is a guardrail, not a lock. It keeps a parent or a kid from '
+          + 'changing their own copy by accident — it is not a password, and '
+          + 'nothing anyone else does can reach your work or the published site.' }));
+
+    var off = h('button', { type: 'button', 'class': 'ff-btn secondary',
+      text: 'Turn off — see what parents see' });
+    off.addEventListener('click', function () {
+      if (!window.confirm('Turn off coach mode on this device?\n\n'
+          + 'Nothing is deleted. To switch it back on, open:\n'
+          + location.origin + location.pathname.replace(/[^/]*$/, '') + '?coach=1')) return;
+      FF.ui.setCoach(false);
+      location.href = 'index.html';
+    });
+    host.appendChild(h('div', { 'class': 'ff-toolbar' }, [off]));
+
+    var url = location.origin + location.pathname.replace(/[^/]*$/, '') + '?coach=1';
+    host.appendChild(h('p', { 'class': 'ff-small ff-muted',
+      text: 'Bookmark this to switch coach mode on for any device: ' + url }));
   }
 
   /* ---------- boot --------------------------------------------------------- */
@@ -267,12 +309,19 @@
   function init() {
     FF.ui.init();
     saveStateEl = document.getElementById('saveState');
+
+    /* Everyone gets these two. */
+    renderOfflineState();
+    renderReset();
+
+    if (!FF.ui.isCoach()) return;
+
     renderTeam();
     renderField();
     renderBallRules();
     renderData();
     renderStats();
-    renderOfflineState();
+    renderCoachMode();
 
     window.addEventListener('beforeunload', function () {
       if (saveTimer) { clearTimeout(saveTimer); FF.store.save(); }

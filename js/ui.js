@@ -31,6 +31,43 @@
     return f === '' ? 'index.html' : f;
   }
 
+  /* ---------- coach mode ---------------------------------------------------
+     The site defaults to read-only. Editing appears only on devices where the
+     coach has switched it on, by visiting ?coach=1 once.
+
+     This is a guardrail, NOT security. A static site has no server to check
+     anything against, so any password would be checked in JavaScript that
+     anyone can read - protection in appearance only. What this actually
+     prevents is a parent or a kid wrecking their own copy of a play by
+     accident and then believing the site is broken.
+     ---------------------------------------------------------------------- */
+  var COACH_KEY = 'ff.coach';
+
+  function readCoach() {
+    try { return localStorage.getItem(COACH_KEY) === '1'; }
+    catch (e) { return false; }
+  }
+
+  function setCoach(on) {
+    try {
+      if (on) localStorage.setItem(COACH_KEY, '1');
+      else localStorage.removeItem(COACH_KEY);
+    } catch (e) { /* private mode: coach mode lasts for this page only */ }
+    coachMode = !!on;
+    document.documentElement.setAttribute('data-coach', coachMode ? '1' : '0');
+  }
+
+  var coachMode = false;
+
+  function initCoach() {
+    coachMode = readCoach();
+    var flag = new URLSearchParams(location.search).get('coach');
+    if (flag === '1' || flag === '0') setCoach(flag === '1');
+    else document.documentElement.setAttribute('data-coach', coachMode ? '1' : '0');
+  }
+
+  function isCoach() { return coachMode; }
+
   function applyTeamColors() {
     var t = FF.store.team();
     var root = document.documentElement;
@@ -71,6 +108,7 @@
 
   /* A quiet reminder that this browser is holding unpublished edits. */
   function buildLocalEditsBanner() {
+    if (!coachMode) return null;
     if (!FF.store.hasLocalEdits()) return null;
     return h('div', { 'class': 'ff-banner' }, [
       h('span', { text: 'You have unpublished changes saved in this browser.' }),
@@ -104,6 +142,7 @@
   }
 
   function init() {
+    initCoach();
     FF.store.load();
     applyTeamColors();
     registerWorker();
@@ -119,6 +158,7 @@
   FF.ui = {
     init: init, h: h, NAV: NAV,
     applyTeamColors: applyTeamColors,
-    refreshBanner: refreshBanner
+    refreshBanner: refreshBanner,
+    isCoach: isCoach, setCoach: setCoach
   };
 })(window.FF = window.FF || {});

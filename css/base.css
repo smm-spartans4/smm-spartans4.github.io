@@ -772,3 +772,31 @@ input[type="file"] {
   font-size: .8rem;
 }
 .ff-playcard-order .ff-row-del:disabled { opacity: .3; cursor: default; }
+
+/* ---------- coach mode ------------------------------------------------------
+   Everything that edits data carries .ff-coach-only and is simply absent for
+   a parent. The attribute is set before first paint, so nothing flashes into
+   view and then disappears. */
+html[data-coach="0"] .ff-coach-only { display: none !important; }
+
+.ff-coachbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: #E8F0E9;
+  border: 1px solid #C6DCC9;
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: var(--gap);
+  font-size: .85rem;
+}
+
+/* Read-only variants: same layout, no form controls. */
+.ff-roster-row.is-readonly { grid-template-columns: 78px minmax(0, 1fr); }
+.ff-rosternum { font-weight: 700; text-align: center; color: var(--ink-soft); }
+
+.ff-depth-row.is-readonly { grid-template-columns: 54px minmax(0, 1fr); }
+.ff-itin.is-readonly { grid-template-columns: 74px minmax(0, 1fr); }
+.ff-itin.is-readonly .ff-itin-body { gap: 4px; align-items: flex-start; }
+.ff-itin.is-readonly .ff-btn { align-self: flex-start; }

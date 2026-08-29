@@ -25,12 +25,12 @@
     </div>
 
     <p class="ff-small ff-muted">
-      Everything saves as you type. Who plays which position is set per week
+      <span class="ff-coach-only">Everything saves as you type. </span>Who plays which position is set per week
       over on <a href="schedule.html">Schedule</a>, not here &mdash; so you can
       shuffle the lineup by availability without touching your plays.
     </p>
 
-    <div class="ff-toolbar">
+    <div class="ff-toolbar ff-coach-only">
       <label class="ff-small ff-muted" for="sortBy">Sort</label>
       <select id="sortBy" class="ff-select ff-small">
         <option value="">Choose&hellip;</option>
@@ -45,7 +45,7 @@
 
     <ul id="rosterList" class="ff-list ff-roster"></ul>
 
-    <div class="ff-toolbar" style="margin-top:14px">
+    <div class="ff-toolbar ff-coach-only" style="margin-top:14px">
       <button id="addPlayer" class="ff-btn" type="button">+ Add Player</button>
       <span id="saveState" class="ff-savestate ff-small"></span>
     </div>

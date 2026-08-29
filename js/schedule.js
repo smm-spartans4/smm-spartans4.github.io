@@ -124,7 +124,7 @@
     ]);
 
     var tools = h('div', { 'class': 'ff-toolbar' });
-    [['practice', '+ Practice'], ['game', '+ Game']].forEach(function (t) {
+    if (FF.ui.isCoach()) [['practice', '+ Practice'], ['game', '+ Game']].forEach(function (t) {
       var b = h('button', { type: 'button',
         'class': 'ff-btn' + (t[0] === 'game' ? ' secondary' : ''), text: t[1] });
       b.addEventListener('click', function () { createEvent(t[0]); });
@@ -190,7 +190,111 @@
 
   /* ---------- event view -------------------------------------------------- */
 
+  /* ---------- read-only event, for parents ---------------------------------
+     Same information, no controls: nothing to change, nothing to delete, and
+     no chance of a tap turning into an edit. */
+
+  function renderEventReadOnly(evt) {
+    rootEl.innerHTML = '';
+
+    var card = h('section', { 'class': 'ff-card' });
+    card.appendChild(h('div', { 'class': 'ff-card-head' }, [
+      h('a', { 'class': 'ff-small', href: 'schedule.html', text: '← All events' }),
+      h('span', { 'class': 'ff-pill' + (evt.type === 'game' ? ' is-game' : ''),
+        text: evt.type === 'game' ? 'Game' : 'Practice' })
+    ]));
+    card.appendChild(h('h1', { text: dateLabel(evt.date) }));
+    card.appendChild(h('p', {
+      text: clockLabel(toMinutes(evt.startTime))
+        + (evt.location ? ' · ' + evt.location : '')
+        + (evt.type === 'game' && evt.opponent ? ' · vs ' + evt.opponent : '')
+    }));
+
+    var caps = (evt.captainRosterPlayerIds || [])
+      .map(function (id) { var p = FF.store.playerById(id); return p ? p.name : null; })
+      .filter(Boolean);
+    if (caps.length) {
+      card.appendChild(h('p', {}, [
+        h('strong', { text: 'Captains: ' }),
+        h('span', { text: caps.join(' & ') })
+      ]));
+    }
+    rootEl.appendChild(card);
+
+    ['offense', 'defense'].forEach(function (side) {
+      var ids = positionIds(side);
+      var anyone = ids.some(function (pos) {
+        return FF.store.lineupList(evt, pos).filter(Boolean).length > 0;
+      });
+      if (!anyone) return;
+
+      var groups = FF.store.LINEUP_GROUPS(side);
+      var block = h('section', { 'class': 'ff-card' }, [
+        h('h2', { text: side === 'defense' ? 'Defense' : 'Offense' })
+      ]);
+
+      ids.forEach(function (pos) {
+        var list = FF.store.lineupList(evt, pos);
+        var names = [];
+        for (var g = 0; g < groups; g++) {
+          var p = FF.store.playerById(list[g]);
+          if (p) names.push(p.name);
+        }
+        if (!names.length) return;
+        block.appendChild(h('div', { 'class': 'ff-depth-row is-readonly' }, [
+          h('span', { 'class': 'ff-pill', text: pos }),
+          h('span', { text: names.join(', ') })
+        ]));
+      });
+      rootEl.appendChild(block);
+    });
+
+    if ((evt.itinerary || []).length) {
+      var plan = h('section', { 'class': 'ff-card' }, [
+        h('div', { 'class': 'ff-card-head' }, [
+          h('h2', { text: 'Plan' }),
+          h('span', { 'class': 'ff-small ff-muted',
+            text: totalMinutes(evt) + ' min · ends '
+              + clockLabel(toMinutes(evt.startTime) + totalMinutes(evt)) })
+        ])
+      ]);
+
+      var running = toMinutes(evt.startTime);
+      evt.itinerary.forEach(function (b) {
+        var mins = parseInt(b.durationMinutes, 10) || 0;
+        var row = h('div', { 'class': 'ff-itin is-readonly' }, [
+          h('div', { 'class': 'ff-itin-time' }, [
+            h('strong', { text: clockLabel(running) }),
+            h('span', { 'class': 'ff-small ff-muted', text: clockLabel(running + mins) })
+          ])
+        ]);
+        var body = h('div', { 'class': 'ff-itin-body' }, [
+          h('strong', { text: b.label || 'Block' })
+        ]);
+        if (b.notes) body.appendChild(h('div', { 'class': 'ff-small ff-muted', text: b.notes }));
+        if (b.linkedPlayId && FF.store.playById(b.linkedPlayId)) {
+          body.appendChild(h('a', { 'class': 'ff-btn secondary ff-small',
+            href: 'play-viewer.html?id=' + b.linkedPlayId,
+            text: 'View ' + FF.store.playById(b.linkedPlayId).name }));
+        }
+        row.appendChild(body);
+        plan.appendChild(row);
+        running += mins;
+      });
+      rootEl.appendChild(plan);
+    }
+
+    rootEl.appendChild(renderPrintSheet(evt));
+
+    var footer = h('section', { 'class': 'ff-card' });
+    var print = h('button', { type: 'button', 'class': 'ff-btn', text: '🖨 Print' });
+    print.addEventListener('click', function () { window.print(); });
+    footer.appendChild(h('div', { 'class': 'ff-toolbar' }, [print]));
+    rootEl.appendChild(footer);
+  }
+
   function renderEvent(evt) {
+    if (!FF.ui.isCoach()) { renderEventReadOnly(evt); return; }
     rootEl.innerHTML = '';
 
     /* --- details --- */

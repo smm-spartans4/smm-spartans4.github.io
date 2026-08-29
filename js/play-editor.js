@@ -1103,6 +1103,14 @@
   function init() {
     FF.ui.init();
 
+    /* The editor is coach-only. A parent who lands here - a stale link, a
+       bookmark - is sent to the viewer rather than shown a wall of controls. */
+    if (!FF.ui.isCoach()) {
+      var wanted = qs('id');
+      location.replace(wanted ? 'play-viewer.html?id=' + wanted : 'plays.html');
+      return;
+    }
+
     svg = document.getElementById('field');
     panelEl = document.getElementById('panel');
     warnEl = document.getElementById('warn');

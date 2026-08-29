@@ -23,7 +23,7 @@
     <span id="saveState" class="ff-savestate ff-small"></span>
   </div>
 
-  <section class="ff-card ff-explain">
+  <section class="ff-card ff-explain ff-coach-only">
     <h2>How publishing works</h2>
     <p class="ff-small">
       Everything you build — roster, plays, schedule — saves instantly,
@@ -44,7 +44,7 @@
     <p class="ff-small" id="stats"></p>
   </section>
 
-  <div class="ff-grid cols-2">
+  <div class="ff-grid cols-2 ff-coach-only">
     <section class="ff-card">
       <h2>Data</h2>
       <div id="dataSection"></div>
@@ -75,7 +75,7 @@
     <p class="ff-small" id="offlineState"></p>
   </section>
 
-  <section class="ff-card">
+  <section class="ff-card ff-coach-only">
     <h2>Who can get the ball</h2>
     <p class="ff-small ff-muted">
       These drive the choices offered in the play editor. The quarterback is
@@ -84,13 +84,27 @@
     <div id="ballSection"></div>
   </section>
 
-  <section class="ff-card">
+  <section class="ff-card ff-coach-only">
     <h2>Field &amp; league rules</h2>
     <p class="ff-small ff-muted">
       These drive every diagram in the site. Change them once here if the league
       changes the rules, or if you move to a different field.
     </p>
     <div id="fieldSection"></div>
+  </section>
+
+  <section class="ff-card">
+    <h2>Something look wrong?</h2>
+    <p class="ff-small ff-muted">
+      This puts everything back to the version the coach published. Anything
+      changed on this device is discarded.
+    </p>
+    <div id="resetSection"></div>
+  </section>
+
+  <section class="ff-card ff-coach-only">
+    <h2>Coach mode</h2>
+    <div id="coachSection"></div>
   </section>
 
 </main>

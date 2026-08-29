@@ -87,6 +87,25 @@ Everything is in **yards**, never pixels.
   it. That way a play can be run from anywhere on the field without redrawing.
   `absoluteY = 10 + play.lineOfScrimmageYard + relativeY`.
 
+## Coach mode
+
+The site is read-only by default. Editing appears only where the coach has
+switched it on:
+
+    https://smm-spartans4.github.io/?coach=1
+
+That sets a flag in that browser and stays until it is turned off (Settings →
+Coach mode, or ?coach=0). Parents get: watch plays with flip, labels, the
+announcer and MP4 download; read the roster; read the schedule and lineups;
+print an itinerary; install the app; and reset to the published version if
+their copy ever looks wrong. They get no add, edit, delete or reorder anywhere.
+
+This is a guardrail, not a lock. A static site has no server to check a
+password against, so any password would be checked in JavaScript that anyone
+can read - protection in appearance only. What it actually prevents is a
+parent or a kid changing their own copy by accident and concluding the site is
+broken. Nobody but the coach can change what is published, with or without it.
+
 ## Build progress
 
 - [x] **1.** Scaffold, data store, to-scale field renderer

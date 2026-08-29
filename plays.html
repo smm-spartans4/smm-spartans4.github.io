@@ -24,7 +24,7 @@
       <span class="ff-pill" id="playCount"></span>
     </div>
 
-    <div class="ff-toolbar">
+    <div class="ff-toolbar ff-coach-only">
       <a class="ff-btn" href="play-editor.html?new=offense">+ Offensive Play</a>
       <a class="ff-btn secondary" href="play-editor.html?new=defense">+ Defensive Play</a>
     </div>
@@ -116,6 +116,8 @@
         'data-del': play.id, text: '×', title: 'Delete ' + play.name })
     ]);
 
+    /* A parent gets the card and nothing else: no reorder, no edit, no delete. */
+    if (!FF.ui.isCoach()) return h('li', { 'class': 'ff-playcard' }, [link]);
     return h('li', { 'class': 'ff-playcard' }, [link, order, tools]);
   }
 
@@ -137,8 +139,10 @@
        like a run and its matching pass sit side by side. */
     plays.forEach(function (p, i) {
       var el = card(p);
-      if (i === 0) el.querySelector('[data-up]').disabled = true;
-      if (i === plays.length - 1) el.querySelector('[data-down]').disabled = true;
+      var up = el.querySelector('[data-up]');
+      var down = el.querySelector('[data-down]');
+      if (up && i === 0) up.disabled = true;
+      if (down && i === plays.length - 1) down.disabled = true;
       list.appendChild(el);
     });
   }

@@ -16,6 +16,7 @@
   function h(tag, attrs, kids) { return FF.ui.h(tag, attrs, kids); }
 
   var LABEL_KEY = 'ff.labelMode';
+  var ROUTES_KEY = 'ff.showRoutes';
 
   function readLabelMode() {
     try { return localStorage.getItem(LABEL_KEY) || 'position'; }
@@ -23,6 +24,16 @@
   }
   function writeLabelMode(v) {
     try { localStorage.setItem(LABEL_KEY, v); } catch (e) { /* private mode */ }
+  }
+
+  /* Remembered per device, so a parent who prefers a clean field keeps it. */
+  function readShowRoutes() {
+    try { return localStorage.getItem(ROUTES_KEY) !== '0'; }
+    catch (e) { return true; }
+  }
+  function writeShowRoutes(on) {
+    try { localStorage.setItem(ROUTES_KEY, on ? '1' : '0'); }
+    catch (e) { /* private mode */ }
   }
 
   function create(opts) {
@@ -34,7 +45,8 @@
     var settings = opts.settings || FF.store.settings();
     var controlsEl = opts.controls || null;
     var legendEl = opts.legend || null;
-    var showRoutes = opts.showRoutes !== false;
+    var routesAllowed = opts.showRoutes !== false;   // set by the host page
+    var showRouteLines = readShowRoutes();           // set by whoever is watching
 
     var ctx = null;
     var clock = null;
@@ -91,7 +103,7 @@
         showNoRush: play.side === 'defense'
       });
 
-      if (!showRoutes) return;
+      if (!routesAllowed || !showRouteLines) return;
       play.players.forEach(function (pl) {
         if (FF.routes.isStatic(pl.route)) return;
         FF.field.drawRoute(ctx, pl.route, {
@@ -211,8 +223,23 @@
         renderFrame(clock.getTime());
       });
 
+      /* Watching a play with the routes drawn is for learning it; watching it
+         without them is closer to seeing it happen. Both are useful. */
+      els.routesBtn = h('button', { type: 'button',
+        'class': 'ff-btn secondary ff-small',
+        text: showRouteLines ? 'Hide routes' : 'Show routes',
+        title: 'Draw or hide the route lines and arrows' });
+      els.routesBtn.addEventListener('click', function () {
+        showRouteLines = !showRouteLines;
+        writeShowRoutes(showRouteLines);
+        els.routesBtn.textContent = showRouteLines ? 'Hide routes' : 'Show routes';
+        renderStatic();
+        renderFrame(clock.getTime());
+      });
+
       var viewRow = h('div', { 'class': 'ff-controls ff-controls-view' }, [
         els.flipBtn,
+        els.routesBtn,
         h('span', { 'class': 'ff-small ff-muted', text: 'Label players by' }),
         labels
       ]);

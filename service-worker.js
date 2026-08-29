@@ -17,7 +17,7 @@
    ========================================================================== */
 'use strict';
 
-var CACHE_VERSION = 'ff-v2';
+var CACHE_VERSION = 'ff-v3';
 
 var PRECACHE = [
   './',
@@ -45,7 +45,8 @@ var PRECACHE = [
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  './icons/apple-touch-icon.png'
+  './icons/apple-touch-icon.png',
+  './icons/spartan-white.png'
 ];
 
 self.addEventListener('install', function (event) {

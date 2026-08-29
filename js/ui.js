@@ -39,30 +39,15 @@
     document.title = (document.title ? document.title + ' - ' : '') + t.name;
   }
 
-  /* Brand mark: a football, drawn inline so it inherits the header color and
-     stays crisp at any size. No external image to load or path to get wrong. */
-  var BALL_SVG =
-    '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">' +
-      '<g transform="rotate(-24 16 16)">' +
-        '<path d="M 3 16 Q 16 7.4 29 16 Q 16 24.6 3 16 Z" ' +
-              'fill="currentColor" stroke="currentColor" stroke-width="1" ' +
-              'stroke-linejoin="round"/>' +
-        '<g class="ff-ball-laces">' +
-          '<path d="M 10.5 16 H 21.5"/>' +
-          '<path d="M 12.2 13.6 V 18.4"/>' +
-          '<path d="M 15 13.2 V 18.8"/>' +
-          '<path d="M 17.8 13.2 V 18.8"/>' +
-          '<path d="M 20.6 13.6 V 18.4"/>' +
-        '</g>' +
-      '</g>' +
-    '</svg>';
-
+  /* Brand mark: the Spartan helmet, in the white version - the source art is
+     dark green and would disappear against the dark green header. */
   function buildHeader() {
     var t = FF.store.team();
     var page = currentPage();
 
     var brand = h('a', { 'class': 'ff-brand', href: 'index.html' }, [
-      h('span', { 'class': 'ff-brand-mark', html: BALL_SVG }),
+      h('img', { 'class': 'ff-brand-mark', src: 'icons/spartan-white.png',
+        alt: '', width: '40', height: '40' }),
       h('span', { 'class': 'ff-brand-text' }, [
         h('strong', { text: t.name }),
         h('small', { text: t.season || '' })

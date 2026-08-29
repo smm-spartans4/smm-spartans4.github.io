@@ -70,18 +70,10 @@ a { color: #1B5E20; }
 
 .ff-brand-mark {
   display: block;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   flex: 0 0 auto;
-}
-.ff-brand-mark svg { display: block; width: 100%; height: 100%; }
-
-/* Laces are cut out in the header green so they read at any size. */
-.ff-ball-laces path {
-  stroke: var(--team-primary);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  fill: none;
+  object-fit: contain;
 }
 
 .ff-brand-text { display: flex; flex-direction: column; line-height: 1.15; }

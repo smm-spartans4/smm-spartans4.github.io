@@ -692,3 +692,67 @@ input[type="file"] {
   font-weight: 600;
   font-size: .85rem;
 }
+
+/* ---------- play library --------------------------------------------------- */
+
+/* One column on a phone, two on a tablet, three on a laptop. auto-fill with a
+   minimum keeps the cards a sensible size at every width without breakpoints
+   guessing at specific devices. */
+.ff-playgrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.ff-playcard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #fff;
+  padding: 0;
+}
+
+.ff-playcard-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.ff-playcard-link:hover .ff-playcard-thumb { filter: brightness(1.06); }
+.ff-playcard-link:focus-visible { outline: 2px solid var(--team-primary); }
+
+.ff-playcard-thumb {
+  background: #17401A;
+  transition: filter .15s;
+}
+.ff-thumb-svg { display: block; width: 100%; height: auto; }
+
+.ff-playcard-name {
+  font-weight: 700;
+  padding: 10px 12px 2px;
+  line-height: 1.25;
+}
+
+.ff-playcard-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 0 12px 10px;
+}
+
+.ff-playcard-tools {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 0 12px 12px;
+  margin-top: auto;
+}
+.ff-playcard-tools .ff-btn { min-height: 36px; padding: 6px 11px; }
+.ff-playcard-tools .ff-row-del { width: 36px; height: 36px; margin-left: auto; }
+
+.ff-playgrid .ff-empty { grid-column: 1 / -1; }

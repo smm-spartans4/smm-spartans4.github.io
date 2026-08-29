@@ -92,6 +92,15 @@
     return { yFrom: 0, yTo: totalLength(settings) };
   }
 
+  /* A tighter, wider crop for play-library thumbnails: enough field to read the
+     shape of the play, without the first-down line forcing a tall frame. */
+  function viewForThumb(settings, play) {
+    var total = totalLength(settings);
+    var los = absY(settings, play ? play.lineOfScrimmageYard : settings.defaultStartingYardLine, 0);
+    var yFrom = clamp(los - 8, 0, total - 24);
+    return { yFrom: yFrom, yTo: clamp(yFrom + 24, 0, total) };
+  }
+
   /* ------------------------------------------------------------------------
      render(svg, opts)
 
@@ -241,7 +250,7 @@
 
     var firstDownAbs = ownGoal + s.firstDownLineYards;
     hLine(firstDownAbs, 0.34, 1, '1.2 0.7', COLOR.firstDown, gMarks, true);
-    if (firstDownAbs >= yFrom && firstDownAbs <= yTo) {
+    if (opts.labels !== false && firstDownAbs >= yFrom && firstDownAbs <= yTo) {
       var fdLbl = el('text', {
         x: 0.5, y: uy(firstDownAbs) - 0.45,
         'text-anchor': 'start',
@@ -267,7 +276,7 @@
       if (opts.showNoRush) {
         var nrAbs = absY(s, los, s.noRushZoneYards);
         hLine(nrAbs, 0.18, 0.95, '1.4 0.7', COLOR.noRush, gGuides);
-        if (nrAbs >= yFrom && nrAbs <= yTo) {
+        if (opts.labels !== false && nrAbs >= yFrom && nrAbs <= yTo) {
           var lbl = el('text', {
             x: W - 0.5, y: uy(nrAbs) - 0.45,
             'text-anchor': 'end',
@@ -530,6 +539,7 @@
     drawStartPositions: drawStartPositions,
     viewForPlay: viewForPlay,
     fullView: fullView,
+    viewForThumb: viewForThumb,
     totalLength: totalLength,
     absY: absY,
     COLOR: COLOR,

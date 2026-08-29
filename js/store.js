@@ -293,6 +293,19 @@
     return copy;
   }
 
+  /* Delete a play, and unlink it from any practice block that referenced it -
+     otherwise the schedule keeps a View Play button pointing at nothing. */
+  function deletePlay(id) {
+    update(function (d) {
+      d.plays = d.plays.filter(function (p) { return p.id !== id; });
+      (d.practices || []).forEach(function (evt) {
+        (evt.itinerary || []).forEach(function (block) {
+          if (block.linkedPlayId === id) block.linkedPlayId = null;
+        });
+      });
+    });
+  }
+
   /* ---------- export / import / reset ------------------------------------ */
 
   function download(filename, text, mime) {

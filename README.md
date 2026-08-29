@@ -96,7 +96,7 @@ Everything is in **yards**, never pixels.
 - [x] **5.** Ball logic (snap → handoff/pass, fakes, QB rollout)
 - [x] **6.** Play viewer: playback, scrub, role legend
 - [x] **7.** Flip/mirror + label toggle
-- [ ] **9.** Play library with filters
+- [x] **9.** Play library with thumbnails
 - [x] **10.** Schedule: practices, games, weekly lineups, print
 - [x] **11.** Settings + export/import (pulled forward - backups matter)
 - [ ] **12.** Polish, accessibility, deploy to GitHub Pages

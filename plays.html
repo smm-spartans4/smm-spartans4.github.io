@@ -29,11 +29,7 @@
       <a class="ff-btn secondary" href="play-editor.html?new=defense">+ Defensive Play</a>
     </div>
 
-    <ul id="playList" class="ff-list"></ul>
-
-    <p class="ff-small ff-muted" style="margin-top:14px">
-      Filters, thumbnails, duplicate and flip-and-save arrive in step 9.
-    </p>
+    <ul id="playList" class="ff-playgrid"></ul>
 
   </section>
 </main>
@@ -50,39 +46,94 @@
   FF.ui.init();
 
   var list = document.getElementById('playList');
-  var plays = FF.store.plays();
+  var SVGNS = 'http://www.w3.org/2000/svg';
 
-  document.getElementById('playCount').textContent =
-    plays.length + (plays.length === 1 ? ' play' : ' plays');
+  function h(tag, attrs, kids) { return FF.ui.h(tag, attrs, kids); }
 
-  if (!plays.length) {
-    list.innerHTML = '<li class="ff-empty"><p>No plays yet.</p>'
-      + '<p class="ff-small">Start one with the buttons above.</p></li>';
-    return;
+  /* A still of the play at the snap: everyone where they line up, with their
+     routes drawn, so a play is recognised by its shape and not by reading a
+     list of near-identical names. */
+  function thumbnail(play) {
+    var svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('class', 'ff-thumb-svg');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', play.name);
+
+    var s = FF.store.settings();
+    var ctx = FF.field.render(svg, {
+      settings: s,
+      view: FF.field.viewForThumb(s, play),
+      lineOfScrimmageYard: play.lineOfScrimmageYard,
+      showNoRush: play.side === 'defense',
+      yardNumbers: false,      // unreadable at this size, and just noise
+      labels: false
+    });
+
+    (play.players || []).forEach(function (pl) {
+      if (FF.routes.isStatic(pl.route)) return;
+      FF.field.drawRoute(ctx, pl.route, {
+        lineOfScrimmageYard: play.lineOfScrimmageYard,
+        color: '#FFFFFF',
+        width: 0.3,
+        opacity: 0.9
+      });
+    });
+
+    FF.field.drawStartPositions(ctx, play);
+    return svg;
   }
 
-  plays.forEach(function (p) {
-    var tags = (p.tags || []).length
-      ? ' &middot; ' + p.tags.join(', ')
-      : '';
-    var li = document.createElement('li');
-    li.innerHTML =
-      '<div>'
-      +   '<strong>' + p.name + '</strong><br>'
-      +   '<span class="ff-small ff-muted">'
-      +     (p.side === 'offense' ? 'Offense' : 'Defense')
-      +     ' &middot; from the ' + p.lineOfScrimmageYard + tags
-      +   '</span>'
-      + '</div>'
-      + '<a class="ff-btn ff-small" href="play-viewer.html?id=' + p.id + '">View</a>'
-      + ' <a class="ff-btn secondary ff-small" href="play-editor.html?id=' + p.id + '">Edit</a>'
-      + ' <button class="ff-btn secondary ff-small" data-dupe="' + p.id + '" type="button">Duplicate</button>'
-      + ' <button class="ff-btn secondary ff-small" data-flip="' + p.id + '" type="button">⇄ Flip &amp; save</button>';
-    list.appendChild(li);
-  });
+  function card(play) {
+    var tags = (play.tags || []).filter(Boolean);
+
+    var link = h('a', { 'class': 'ff-playcard-link',
+      href: 'play-viewer.html?id=' + play.id });
+    var thumb = h('div', { 'class': 'ff-playcard-thumb' });
+    thumb.appendChild(thumbnail(play));
+    link.appendChild(thumb);
+    link.appendChild(h('div', { 'class': 'ff-playcard-name', text: play.name }));
+    link.appendChild(h('div', { 'class': 'ff-playcard-meta' }, [
+      h('span', { 'class': 'ff-pill' + (play.side === 'defense' ? ' is-game' : ''),
+        text: play.side === 'defense' ? 'Defense' : 'Offense' }),
+      h('span', { 'class': 'ff-small ff-muted', text: tags.join(', ') })
+    ]));
+
+    var tools = h('div', { 'class': 'ff-playcard-tools' }, [
+      h('a', { 'class': 'ff-btn secondary ff-small',
+        href: 'play-editor.html?id=' + play.id, text: 'Edit' }),
+      h('button', { type: 'button', 'class': 'ff-btn secondary ff-small',
+        'data-dupe': play.id, text: 'Copy' }),
+      h('button', { type: 'button', 'class': 'ff-btn secondary ff-small',
+        'data-flip': play.id, text: '⇄ Flip' }),
+      h('button', { type: 'button', 'class': 'ff-row-del',
+        'data-del': play.id, text: '×', title: 'Delete ' + play.name })
+    ]);
+
+    return h('li', { 'class': 'ff-playcard' }, [link, tools]);
+  }
+
+  function render() {
+    var plays = FF.store.plays();
+    list.innerHTML = '';
+    document.getElementById('playCount').textContent =
+      plays.length + (plays.length === 1 ? ' play' : ' plays');
+
+    if (!plays.length) {
+      list.appendChild(h('li', { 'class': 'ff-empty' }, [
+        h('p', { text: 'No plays yet.' }),
+        h('p', { 'class': 'ff-small', text: 'Start one with the buttons above.' })
+      ]));
+      return;
+    }
+
+    /* Offense first, then defense, each in the order they were created. */
+    plays.slice().sort(function (a, b) {
+      if (a.side === b.side) return 0;
+      return a.side === 'offense' ? -1 : 1;
+    }).forEach(function (p) { list.appendChild(card(p)); });
+  }
 
   list.addEventListener('click', function (e) {
-    /* Duplicate: copy a finished play whole, then edit only what differs. */
     var dupe = e.target.closest('[data-dupe]');
     if (dupe) {
       var src = FF.store.playById(dupe.getAttribute('data-dupe'));
@@ -93,7 +144,6 @@
       return;
     }
 
-    /* Flip & save: the mirrored version becomes its own callable play. */
     var flip = e.target.closest('[data-flip]');
     if (flip) {
       var orig = FF.store.playById(flip.getAttribute('data-flip'));
@@ -101,9 +151,22 @@
       var flipName = window.prompt('Name for the mirrored play:', suggested);
       if (flipName === null) return;
       var made = FF.store.mirrorPlayAsNew(orig.id, flipName.trim() || suggested);
-      if (made) location.href = 'play-viewer.html?id=' + made.id;
+      if (made) { FF.ui.refreshBanner(); render(); }
+      return;
+    }
+
+    var del = e.target.closest('[data-del]');
+    if (del) {
+      var doomed = FF.store.playById(del.getAttribute('data-del'));
+      if (!doomed) return;
+      if (!window.confirm('Delete "' + doomed.name + '"? This cannot be undone.')) return;
+      FF.store.deletePlay(doomed.id);
+      FF.ui.refreshBanner();
+      render();
     }
   });
+
+  render();
 })();
 </script>
 </body>

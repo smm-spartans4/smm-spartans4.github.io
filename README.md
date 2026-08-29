@@ -35,18 +35,25 @@ and reloads whatever is in `data/team-data.js`.
 > when you open it locally. The `.js` wrapper is the same data, and it works
 > both ways. Import still accepts either format.
 
-## Deploying (GitHub Pages)
+## Deploying
+
+The site is live at **https://smm-spartans4.github.io/**, hosted free by
+GitHub Pages out of the repo `smm-spartans4/smm-spartans4.github.io`.
+Pages is already configured, so publishing is just:
 
 ```bash
-git init
 git add .
-git commit -m "Team site"
-gh repo create flag-football-4th --public --source=. --push
+git commit -m "what changed"
+git push
 ```
 
-Then in the repo: **Settings → Pages → Source: deploy from branch → `main` / root**.
-The site lands at `https://<you>.github.io/flag-football-4th/`. All asset paths
-are relative, so the subpath works fine.
+GitHub rebuilds within a minute or so. Remember that pushing code is not the
+same as publishing your plays — for those, export from Settings first and
+replace `data/team-data.js` (see above).
+
+The repo is named after the org on purpose: a repo called
+`<org>.github.io` is served at the apex URL instead of under a
+`/repo-name/` path. All asset paths are relative, so the site works either way.
 
 ---
 

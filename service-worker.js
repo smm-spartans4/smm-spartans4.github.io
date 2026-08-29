@@ -17,7 +17,7 @@
    ========================================================================== */
 'use strict';
 
-var CACHE_VERSION = 'ff-v3';
+var CACHE_VERSION = 'ff-v4';
 
 var PRECACHE = [
   './',

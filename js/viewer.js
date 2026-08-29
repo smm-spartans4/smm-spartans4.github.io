@@ -264,6 +264,75 @@
       }
 
       controlsEl.appendChild(viewRow);
+      buildAnnouncerRow();
+    }
+
+    /* ---- announcer ------------------------------------------------------- */
+
+    function speakScript() {
+      FF.announcer.speak(
+        FF.announcer.fill(FF.announcer.scriptFor(play), play, lineup));
+    }
+
+    function buildAnnouncerRow() {
+      if (!FF.announcer || !FF.announcer.supported()) return;
+
+      var row = h('div', { 'class': 'ff-controls ff-controls-view' });
+
+      var say = h('button', { type: 'button', 'class': 'ff-btn secondary ff-small',
+        text: '🔊 Announce', title: 'Read the play out loud' });
+      say.addEventListener('click', function () {
+        if (FF.announcer.isSpeaking()) { FF.announcer.cancel(); return; }
+        speakScript();
+      });
+
+      var jobs = h('button', { type: 'button', 'class': 'ff-btn secondary ff-small',
+        text: '🗣 Assignments', title: 'Read each player their job' });
+      jobs.addEventListener('click', function () {
+        if (FF.announcer.isSpeaking()) { FF.announcer.cancel(); return; }
+        FF.announcer.speak(FF.announcer.assignmentLines(play, lineup));
+      });
+
+      var autoBox = h('input', { type: 'checkbox', id: 'ff-auto-announce' });
+      autoBox.checked = FF.announcer.getAuto();
+      autoBox.addEventListener('change', function () {
+        FF.announcer.setAuto(autoBox.checked);
+      });
+      var autoLabel = h('label', { 'class': 'ff-check', for: 'ff-auto-announce' });
+      autoLabel.appendChild(autoBox);
+      autoLabel.appendChild(h('span', { text: 'Announce on play' }));
+
+      var speed = h('select', { 'class': 'ff-select ff-small', 'aria-label': 'Speaking speed' });
+      [[0.75, 'Slow'], [0.95, 'Normal'], [1.15, 'Quick']].forEach(function (r) {
+        var o = h('option', { value: String(r[0]), text: r[1] });
+        if (Math.abs(FF.announcer.getRate() - r[0]) < 0.01) o.selected = true;
+        speed.appendChild(o);
+      });
+      speed.addEventListener('change', function () {
+        FF.announcer.setRate(parseFloat(speed.value) || 0.95);
+      });
+
+      var voiceSel = h('select', { 'class': 'ff-select ff-small', 'aria-label': 'Voice' });
+      voiceSel.appendChild(h('option', { value: '', text: 'Default voice' }));
+      voiceSel.addEventListener('change', function () {
+        FF.announcer.setVoiceName(voiceSel.value);
+      });
+      /* Voices arrive late, so fill the menu once the device has them. */
+      FF.announcer.ready(function (list) {
+        list.filter(function (v) { return /^en/i.test(v.lang || ''); })
+          .forEach(function (v) {
+            var o = h('option', { value: v.name, text: v.name });
+            if (v.name === FF.announcer.getVoiceName()) o.selected = true;
+            voiceSel.appendChild(o);
+          });
+      });
+
+      row.appendChild(say);
+      row.appendChild(jobs);
+      row.appendChild(autoLabel);
+      row.appendChild(speed);
+      row.appendChild(voiceSel);
+      controlsEl.appendChild(row);
     }
 
     /* Offer only as many groups as this side actually has people in - four
@@ -290,9 +359,16 @@
     }
 
     function syncButtons(playing) {
-      if (!els.playBtn) return;
-      els.playBtn.textContent = playing ? '❚❚ Pause' : '▶ Play';
-      els.playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+      if (els.playBtn) {
+        els.playBtn.textContent = playing ? '❚❚ Pause' : '▶ Play';
+        els.playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+      }
+
+      /* Called synchronously from the Play tap, which is what lets iOS speak -
+         it refuses any utterance not started inside a real gesture. */
+      if (!FF.announcer || !FF.announcer.supported()) return;
+      if (playing && FF.announcer.getAuto()) speakScript();
+      else if (!playing) FF.announcer.cancel();
     }
 
     /* ---- role legend ----------------------------------------------------- */

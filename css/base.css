@@ -683,3 +683,12 @@ input[type="file"] {
 }
 .ff-note.is-warn { background: #FFF6DC; color: #6B5518; }
 .ff-note.is-ok { background: #EAF4EB; color: #29502F; }
+
+/* ---------- announcer controls --------------------------------------------- */
+
+.ff-controls .ff-check {
+  min-height: 40px;
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: .85rem;
+}

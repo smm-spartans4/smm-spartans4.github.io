@@ -737,6 +737,66 @@
 
   /* ---------- side panel --------------------------------------------------- */
 
+  /* ---------- announcer script --------------------------------------------- */
+
+  function renderAnnouncerSection() {
+    if (!FF.announcer) return;
+
+    panelEl.appendChild(h('h3', { 'class': 'ff-panel-head', text: 'Announcer' }));
+
+    if (!FF.announcer.supported()) {
+      panelEl.appendChild(h('p', { 'class': 'ff-small ff-muted',
+        text: 'This browser cannot speak. The script still saves, and devices '
+            + 'that can speak will read it.' }));
+    }
+
+    var tokens = play.players.map(function (p) { return '{' + p.positionId + '}'; })
+      .concat(['{play}']).join('  ');
+
+    panelEl.appendChild(h('p', { 'class': 'ff-small ff-muted',
+      text: 'Write what the announcer says. Use ' + tokens + ' — each is replaced '
+          + 'with whoever is playing that spot this week, so the script never '
+          + 'needs rewriting when the lineup changes.' }));
+
+    var ta = h('textarea', { rows: '4', 'aria-label': 'Announcer script',
+      placeholder: FF.announcer.defaultScript(play) });
+    ta.value = play.narration || '';
+    ta.addEventListener('input', function () {
+      play.narration = ta.value;
+      saveSoon();
+    });
+    panelEl.appendChild(ta);
+
+    var tools = h('div', { 'class': 'ff-toolbar ff-tight' });
+
+    var test = h('button', { type: 'button', 'class': 'ff-btn secondary ff-small',
+      text: '🔊 Test' });
+    test.addEventListener('click', function () {
+      if (!FF.announcer.supported()) { notify('This browser cannot speak.'); return; }
+      if (FF.announcer.isSpeaking()) { FF.announcer.cancel(); return; }
+      var lineup = FF.store.activeLineup().players || {};
+      FF.announcer.speak(
+        FF.announcer.fill(FF.announcer.scriptFor(play), play, lineup));
+    });
+    tools.appendChild(test);
+
+    var useDefault = h('button', { type: 'button', 'class': 'ff-btn secondary ff-small',
+      text: 'Start from the ball events' });
+    useDefault.title = 'Fill the box with a script built from the snap, fakes and handoff';
+    useDefault.addEventListener('click', function () {
+      ta.value = FF.announcer.defaultScript(play);
+      play.narration = ta.value;
+      saveNow();
+    });
+    tools.appendChild(useDefault);
+
+    panelEl.appendChild(tools);
+    panelEl.appendChild(h('p', { 'class': 'ff-small ff-muted',
+      text: 'Leave it empty and the announcer reads the ball events instead. '
+          + 'Each player’s job is read from the assignment notes above, so '
+          + 'those need no extra writing.' }));
+  }
+
   function updateReadouts() {
     play.players.forEach(function (pl) {
       var row = panelEl.querySelector('[data-pos="' + pl.positionId + '"] .js-readout');
@@ -851,6 +911,7 @@
       }));
 
     renderBallSection();
+    renderAnnouncerSection();
 
     /* --- per-player --- */
     panelEl.appendChild(h('h3', { 'class': 'ff-panel-head', text: 'Players & routes' }));

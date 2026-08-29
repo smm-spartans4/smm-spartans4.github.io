@@ -105,9 +105,23 @@
     if (banner) headerEl.insertAdjacentElement('afterend', banner);
   }
 
+  /* Registering the service worker is what lets the site open with no signal.
+     It needs a secure origin, so it does nothing when the file is opened
+     straight off disk - that is expected, not a failure. */
+  function registerWorker() {
+    if (!('serviceWorker' in navigator)) return;
+    if (location.protocol !== 'https:' && location.hostname !== 'localhost') return;
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('service-worker.js')['catch'](function (err) {
+        console.warn('Offline support unavailable:', err);
+      });
+    });
+  }
+
   function init() {
     FF.store.load();
     applyTeamColors();
+    registerWorker();
 
     var mount = document.getElementById('ff-header') || document.body.firstChild;
     headerEl = buildHeader();

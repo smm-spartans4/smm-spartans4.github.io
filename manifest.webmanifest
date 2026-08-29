@@ -1,0 +1,20 @@
+{
+  "name": "SMM Spartans",
+  "short_name": "Spartans",
+  "description": "Plays, practice schedule and lineups for the SMM Spartans flag football team.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#17401A",
+  "theme_color": "#17401A",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Plays", "url": "./plays.html" },
+    { "name": "Schedule", "url": "./schedule.html" }
+  ]
+}

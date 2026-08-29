@@ -162,6 +162,40 @@
       function (v) { s.passEligiblePositions = v; });
   }
 
+  /* Say plainly whether this device is actually set up to work offline, so
+     the coach is not guessing at the field. */
+  function renderOfflineState() {
+    var el = document.getElementById('offlineState');
+    if (!el) return;
+
+    if (!('serviceWorker' in navigator)) {
+      el.className = 'ff-note is-warn';
+      el.textContent = 'This browser cannot store the site for offline use.';
+      return;
+    }
+    if (location.protocol === 'file:') {
+      el.className = 'ff-note';
+      el.textContent = 'You are viewing a local copy of the files. '
+        + 'Offline install only works from the published site.';
+      return;
+    }
+    navigator.serviceWorker.getRegistration().then(function (reg) {
+      if (reg && navigator.serviceWorker.controller) {
+        el.className = 'ff-note is-ok';
+        el.textContent = 'Ready — this device already has the site stored '
+          + 'and will open without a connection.';
+      } else if (reg) {
+        el.className = 'ff-note';
+        el.textContent = 'Storing the site now. Reload once and it will be '
+          + 'ready to use offline.';
+      } else {
+        el.className = 'ff-note';
+        el.textContent = 'Not stored on this device yet. Reload the page once '
+          + 'while online.';
+      }
+    })['catch'](function () { /* nothing useful to say */ });
+  }
+
   function renderStats() {
     var d = FF.store.get();
     document.getElementById('stats').textContent =
@@ -238,6 +272,7 @@
     renderBallRules();
     renderData();
     renderStats();
+    renderOfflineState();
 
     window.addEventListener('beforeunload', function () {
       if (saveTimer) { clearTimeout(saveTimer); FF.store.save(); }

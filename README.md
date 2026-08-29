@@ -101,7 +101,7 @@ Everything is in **yards**, never pixels.
 - [x] **11.** Settings + export/import (pulled forward - backups matter)
 - [ ] **12.** Polish, accessibility, deploy to GitHub Pages
 - [ ] **13.** Download any play as an MP4 (coach and parents) — for saving to an iPad
-- [ ] **14.** Installable offline app (PWA) — Add to Home Screen, works with no signal
+- [x] **14.** Installable offline app (PWA) — Add to Home Screen, works with no signal
 
 Notes on 13 and 14:
 - MP4 is encoded in the browser (WebCodecs + a vendored muxer). No server, no build step.

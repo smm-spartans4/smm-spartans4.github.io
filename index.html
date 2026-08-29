@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home</title>
+<link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+<div id="ff-header"></div>
+
+<main class="ff-main">
+
+  <div class="ff-grid field-and-panel">
+
+    <section class="ff-card">
+      <div class="ff-field-wrap">
+        <svg id="field" role="img" aria-label="To-scale flag football field"></svg>
+      </div>
+      <div class="ff-legend">
+        <span><i style="border-color:#E53935"></i> First down (midfield)</span>
+        <span><i style="border-color:#000000"></i> Line of scrimmage</span>
+        <span><i style="border-color:#FFC400"></i> Rush line &mdash; rushers start here</span>
+      </div>
+      <p class="ff-small ff-muted" id="fieldCaption" style="margin-top:10px"></p>
+    </section>
+
+    <div>
+      <section class="ff-card">
+        <div class="ff-card-head">
+          <h2>Next Up</h2>
+          <a class="ff-small" href="schedule.html">Schedule</a>
+        </div>
+        <div id="nextEvent"></div>
+      </section>
+
+      <section class="ff-card">
+        <h2>Quick Links</h2>
+        <div class="ff-quicklinks">
+          <a class="ff-btn" href="plays.html">Plays</a>
+          <a class="ff-btn secondary" href="schedule.html">Schedule</a>
+          <a class="ff-btn secondary" href="roster.html">Roster</a>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+</main>
+
+<script src="data/team-data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/field.js"></script>
+<script src="js/ui.js"></script>
+<script>
+(function () {
+  'use strict';
+  FF.ui.init();
+
+  var svg = document.getElementById('field');
+  var caption = document.getElementById('fieldCaption');
+
+  /* Until the play editor exists (step 3), the dashboard renders the seeded
+     defensive play so the coordinate system is visible and verifiable. */
+  var play = FF.store.plays()[0] || null;
+  var s = FF.store.settings();
+
+  (function draw() {
+    var los = play ? play.lineOfScrimmageYard : s.defaultStartingYardLine;
+    var ctx = FF.field.render(svg, {
+      settings: s,
+      view: FF.field.viewForPlay(s, play),
+      lineOfScrimmageYard: los,
+      showNoRush: !play || play.side === 'defense'
+    });
+    if (play) FF.field.drawStartPositions(ctx, play);
+
+    caption.textContent = play
+      ? 'Showing "' + play.name + '" at the ' + play.lineOfScrimmageYard + '-yard line.'
+      : 'No plays yet.';
+  })();
+
+  /* ---- next event panel ------------------------------------------------- */
+
+  function fmtDate(iso) {
+    var p = iso.split('-');
+    var d = new Date(+p[0], +p[1] - 1, +p[2]);
+    return d.toLocaleDateString(undefined,
+      { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+
+  function fmtTime(hhmm) {
+    if (!hhmm) return '';
+    var p = hhmm.split(':');
+    var h = +p[0], m = p[1];
+    var ampm = h >= 12 ? 'pm' : 'am';
+    h = h % 12 || 12;
+    return h + ':' + m + ampm;
+  }
+
+  var host = document.getElementById('nextEvent');
+  var evt = FF.store.nextEvent();
+
+  if (!evt) {
+    host.innerHTML = '<p class="ff-muted">No practices or games scheduled yet.</p>';
+  } else {
+    var lineup = FF.store.activeLineup(evt.id).players;
+    var caps = (evt.captainRosterPlayerIds || [])
+      .map(function (id) { var p = FF.store.playerById(id); return p ? p.name : null; })
+      .filter(Boolean);
+
+    var filled = Object.keys(lineup).filter(function (k) { return lineup[k]; });
+
+    var html = '<p><span class="ff-pill">'
+      + (evt.type === 'game' ? 'Game' : 'Practice') + '</span> '
+      + '<strong>' + fmtDate(evt.date) + '</strong> ' + fmtTime(evt.startTime) + '<br>'
+      + '<span class="ff-muted ff-small">' + (evt.location || 'Location TBD')
+      + (evt.opponent ? ' &middot; vs ' + evt.opponent : '') + '</span></p>';
+
+    html += '<p class="ff-small"><strong>Captains:</strong> '
+      + (caps.length ? caps.join(' &amp; ') : '<span class="ff-muted">not set</span>') + '</p>';
+
+    html += '<p class="ff-small"><strong>Lineup:</strong> '
+      + (filled.length
+          ? filled.map(function (k) { return k + ' ' + lineup[k].name; }).join(', ')
+          : '<span class="ff-muted">not set for this week</span>')
+      + '</p>';
+
+    host.innerHTML = html;
+  }
+})();
+</script>
+</body>
+</html>

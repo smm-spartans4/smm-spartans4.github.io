@@ -1,0 +1,676 @@
+/* ============================================================================
+   Shared styles. Mobile-first: everything is laid out for a ~375px phone,
+   then widened at breakpoints. Team colors come from the data file via
+   FF.ui.applyTeamColors(), so changing them in Settings restyles the site.
+   ========================================================================== */
+
+:root {
+  --team-primary: #1B5E20;
+  --team-on-primary: #FFFFFF;
+
+  --ink: #16241A;
+  --ink-soft: #55635A;
+  --line: #DCE3DD;
+  --bg: #F6F8F6;
+  --card: #FFFFFF;
+  --danger: #C62828;
+
+  --radius: 10px;
+  --gap: 16px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 4px 14px rgba(0, 0, 0, .05);
+
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+h1, h2, h3 { line-height: 1.25; margin: 0 0 .4em; }
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.2rem; }
+h3 { font-size: 1rem; }
+p { margin: 0 0 1em; }
+
+a { color: #1B5E20; }
+
+/* ---------- header + nav --------------------------------------------------- */
+
+.ff-header {
+  background: var(--team-primary);
+  color: var(--team-on-primary);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .18);
+}
+
+.ff-header-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+}
+
+.ff-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ff-brand-mark {
+  display: block;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+}
+.ff-brand-mark svg { display: block; width: 100%; height: 100%; }
+
+/* Laces are cut out in the header green so they read at any size. */
+.ff-ball-laces path {
+  stroke: var(--team-primary);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.ff-brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+.ff-brand-text strong { font-size: 1rem; }
+.ff-brand-text small { font-size: .72rem; opacity: .8; }
+
+.ff-nav {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  padding: 0 8px 8px;
+  scrollbar-width: none;
+}
+.ff-nav::-webkit-scrollbar { display: none; }
+
+.ff-nav-link {
+  flex: 0 0 auto;
+  padding: 8px 13px;
+  border-radius: 999px;
+  color: inherit;
+  text-decoration: none;
+  font-size: .88rem;
+  font-weight: 600;
+  opacity: .82;
+  white-space: nowrap;
+}
+.ff-nav-link:hover { opacity: 1; background: rgba(255, 255, 255, .12); }
+.ff-nav-link.is-current {
+  opacity: 1;
+  background: var(--team-on-primary);
+  color: var(--team-primary);
+}
+
+/* ---------- layout --------------------------------------------------------- */
+
+.ff-main {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: var(--gap);
+}
+
+.ff-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: var(--gap);
+}
+
+.ff-card > h2 { margin-top: 0; }
+
+.ff-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ff-muted { color: var(--ink-soft); }
+.ff-small { font-size: .85rem; }
+
+.ff-banner {
+  background: #FFF6DC;
+  border-bottom: 1px solid #E8D9A6;
+  padding: 8px 14px;
+  font-size: .85rem;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ff-grid { display: grid; gap: var(--gap); }
+
+@media (min-width: 800px) {
+  .ff-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .ff-grid.field-and-panel { grid-template-columns: minmax(0, 1fr) 300px; }
+}
+
+/* ---------- buttons + quick links ------------------------------------------ */
+
+.ff-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  min-height: 44px;               /* comfortable tap target */
+  border: 1px solid var(--team-primary);
+  border-radius: 8px;
+  background: var(--team-primary);
+  color: var(--team-on-primary);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.ff-btn.secondary {
+  background: transparent;
+  color: var(--team-primary);
+}
+.ff-btn.danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+
+.ff-quicklinks { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ---------- field ---------------------------------------------------------- */
+
+.ff-field-wrap {
+  background: #17401A;
+  border-radius: var(--radius);
+  overflow: hidden;
+  padding: 6px;
+}
+
+svg.ff-field {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 84vh;
+  margin: 0 auto;
+  touch-action: manipulation;
+}
+
+.ff-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: .8rem;
+  color: var(--ink-soft);
+  margin-top: 10px;
+}
+.ff-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.ff-legend i {
+  width: 20px;
+  height: 0;
+  border-top-width: 3px;
+  border-top-style: dashed;
+  display: inline-block;
+}
+
+/* ---------- lists / tables ------------------------------------------------- */
+
+.ff-list { list-style: none; margin: 0; padding: 0; }
+.ff-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+.ff-list li:last-child { border-bottom: 0; }
+
+.ff-pill {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: #E8F0E9;
+  color: #29502F;
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+.ff-stub {
+  text-align: center;
+  padding: 40px 16px;
+  color: var(--ink-soft);
+}
+
+/* ---------- forms ---------------------------------------------------------- */
+
+input[type="text"], input[type="date"], input[type="time"],
+input[type="number"], select, textarea {
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 10px;
+  min-height: 42px;
+  width: 100%;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--team-primary);
+  outline-offset: 1px;
+  border-color: var(--team-primary);
+}
+
+.ff-select { width: auto; min-width: 150px; }
+
+.ff-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.ff-savestate {
+  color: var(--team-primary);
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.ff-savestate.is-on { opacity: 1; }
+
+/* ---------- roster --------------------------------------------------------- */
+
+/* Number, name, remove. One row per player at every width - with only two
+   fields there is nothing to stack, even on a phone.
+
+   The label strip shares these exact columns and assigns each label its own
+   column explicitly, so a header can never end up sitting over the wrong
+   field the way it could when placement was left to auto-flow. */
+.ff-roster-row,
+.ff-roster-labels {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 78px minmax(0, 1fr) 44px;
+  align-items: center;
+}
+
+.ff-roster-labels { padding: 0 0 6px; }
+.ff-roster-labels span:nth-child(1) { grid-column: 1; text-align: center; }
+.ff-roster-labels span:nth-child(2) { grid-column: 2; }
+.ff-roster-labels span:nth-child(3) { grid-column: 3; }
+
+.ff-roster-row { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.ff-roster-row:last-child { border-bottom: 0; }
+
+.ff-f-jersey { grid-column: 1; text-align: center; font-weight: 700; }
+.ff-f-name   { grid-column: 2; }
+.ff-row-del  { grid-column: 3; }
+
+.ff-row-del {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink-soft);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.ff-row-del:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+  background: #FDF2F2;
+}
+
+.ff-empty {
+  display: block;
+  text-align: center;
+  padding: 32px 12px;
+  color: var(--ink-soft);
+  border-bottom: 0;
+}
+.ff-empty p { margin: 0 0 4px; }
+
+@media (min-width: 700px) {
+  .ff-roster-row,
+  .ff-roster-labels { grid-template-columns: 88px minmax(0, 1fr) 44px; }
+}
+
+/* ---------- play editor ---------------------------------------------------- */
+
+.ff-token.is-draggable { cursor: grab; touch-action: none; }
+.ff-token.is-draggable:hover { filter: brightness(1.12); }
+.ff-token.is-dragging { cursor: grabbing; filter: brightness(1.2); }
+.ff-token.is-pickable { cursor: pointer; touch-action: none; }
+.ff-token.is-selected { filter: drop-shadow(0 0 .9px #FFEB3B) brightness(1.15); }
+
+svg.ff-field.is-drawing { cursor: crosshair; touch-action: none; }
+
+.ff-modes {
+  display: flex;
+  gap: 6px;
+  background: #EDF1EE;
+  border-radius: 999px;
+  padding: 4px;
+  margin-bottom: 10px;
+}
+.ff-mode {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  padding: 9px 10px;
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.ff-mode.is-on {
+  background: var(--team-primary);
+  color: var(--team-on-primary);
+}
+
+.ff-hint { margin-bottom: 14px; }
+.ff-toolbar.ff-tight { margin-bottom: 8px; gap: 6px; }
+.ff-toolbar.ff-tight .ff-btn { min-height: 36px; padding: 6px 11px; }
+
+.ff-assign.is-selected {
+  background: #FFFCE6;
+  border-left: 3px solid #E0B400;
+  padding: 10px 10px 4px;
+  margin-left: -10px;
+  border-radius: 6px;
+}
+
+.ff-warn {
+  margin: 10px 0 0;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: #FFF6DC;
+  border: 1px solid #E8D9A6;
+  color: #6B5518;
+  font-size: .85rem;
+}
+
+.ff-field-label {
+  display: block;
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin: 14px 0 5px;
+}
+.ff-field-label:first-child { margin-top: 0; }
+
+.ff-panel-head {
+  margin: 20px 0 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.ff-assign { margin-bottom: 12px; }
+.ff-assign-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+.ff-assign textarea { resize: vertical; line-height: 1.4; }
+
+.ff-panel-foot {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- print ---------------------------------------------------------- */
+
+@media print {
+  .ff-header, .ff-banner, .ff-quicklinks, .ff-btn { display: none !important; }
+  body { background: #fff; }
+  .ff-card { box-shadow: none; border: 0; padding: 0; }
+  .ff-main { max-width: none; padding: 0; }
+}
+
+/* ---------- ball events + scrubber ----------------------------------------- */
+
+.ff-scrub {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.ff-scrub input[type="range"] { flex: 1; width: auto; min-height: 0; }
+.ff-scrub .ff-btn { min-height: 36px; padding: 6px 12px; }
+.ff-scrub span { min-width: 42px; text-align: right; font-variant-numeric: tabular-nums; }
+
+.ff-evt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.ff-evt select { width: auto; min-width: 108px; }
+.ff-evt input[type="number"] { width: 74px; }
+.ff-evt .ff-row-del { width: 34px; height: 34px; font-size: 1.1rem; }
+
+.ff-pill.is-ball { background: #FDECC8; color: #6B4A05; }
+.ff-pill.is-fake { background: #FFF3D6; color: #8A6A12; }
+
+.ff-warn span { display: block; }
+.ff-warn span + span { margin-top: 6px; }
+
+/* ---------- viewer controls + role legend ---------------------------------- */
+
+.ff-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.ff-controls .ff-btn { min-height: 40px; padding: 8px 12px; }
+.ff-controls .ff-play { min-width: 96px; }
+.ff-controls .ff-select { min-width: 84px; min-height: 40px; }
+.ff-scrubber { flex: 1 1 180px; width: auto; min-height: 0; }
+.ff-time { min-width: 86px; text-align: right; font-variant-numeric: tabular-nums; }
+
+.ff-key b {
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,.35);
+  display: inline-block;
+}
+
+.ff-role {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  margin-bottom: 6px;
+  transition: background .15s, border-color .15s;
+}
+.ff-role.is-carrier {
+  background: #FDEDED;
+  border-color: #D32F2F;
+}
+.ff-role-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.ff-role p { margin: 0; }
+
+/* ---------- settings ------------------------------------------------------- */
+
+.ff-explain ol { margin: 0 0 12px; padding-left: 20px; }
+.ff-explain li { margin-bottom: 4px; }
+.ff-explain code {
+  background: #EDF1EE;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: .92em;
+}
+
+.ff-colorrow { display: flex; gap: 8px; align-items: center; }
+.ff-colorrow input[type="color"] {
+  width: 54px;
+  min-height: 42px;
+  padding: 3px;
+  cursor: pointer;
+}
+.ff-colorrow .ff-hex { width: auto; flex: 1; font-family: ui-monospace, monospace; }
+
+input[type="file"] {
+  font: inherit;
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+/* ---------- checkbox groups ------------------------------------------------ */
+
+.ff-checks { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+
+.ff-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+}
+.ff-check:has(input:checked) {
+  border-color: var(--team-primary);
+  background: #EDF4EE;
+  color: var(--team-primary);
+}
+.ff-check input { width: auto; min-height: 0; accent-color: var(--team-primary); }
+
+/* ---------- view controls (flip + labels) ---------------------------------- */
+
+.ff-controls-view { margin-top: 8px; }
+.ff-btn.secondary.is-on {
+  background: var(--team-primary);
+  color: var(--team-on-primary);
+}
+.ff-panel-foot { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- schedule ------------------------------------------------------- */
+
+.ff-formgrid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+  margin-bottom: 4px;
+}
+@media (min-width: 620px) {
+  .ff-formgrid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+}
+.ff-formfield .ff-field-label { margin-top: 0; }
+.ff-formfield select { width: 100%; }
+
+.ff-evt-title { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ff-pill.is-game { background: #FDECC8; color: #6B4A05; }
+
+.ff-check.is-out { border-color: var(--danger); background: #FDF2F2; color: var(--danger); }
+
+/* One itinerary block: clock on the left, the editable bits in the middle,
+   reorder and remove on the right. Stacks on a phone. */
+.ff-itin {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 74px minmax(0, 1fr) 40px;
+  align-items: start;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+.ff-itin-time { display: flex; flex-direction: column; padding-top: 9px; }
+.ff-itin-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.ff-itin-top { display: flex; gap: 8px; align-items: center; }
+.ff-itin-mins { width: 76px; flex: 0 0 auto; text-align: center; }
+.ff-itin-link { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ff-itin-link select { flex: 1 1 180px; width: auto; }
+.ff-itin-tools { display: flex; flex-direction: column; gap: 5px; }
+.ff-itin-tools .ff-row-del { width: 38px; height: 34px; font-size: 1rem; }
+.ff-itin-tools .ff-row-del:disabled { opacity: .35; cursor: default; }
+
+/* ---------- print sheet ---------------------------------------------------- */
+
+.ff-printonly { display: none; }
+
+.ff-printtable { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.ff-printtable th, .ff-printtable td {
+  border: 1px solid #999;
+  padding: 5px 7px;
+  text-align: left;
+  font-size: 11pt;
+  vertical-align: top;
+}
+.ff-printtable th { background: #eee; }
+
+@media print {
+  .ff-card, .ff-banner, .ff-header { display: none !important; }
+  .ff-printonly { display: block; }
+  .ff-printonly h1 { font-size: 17pt; margin-bottom: 2px; }
+  .ff-printonly p { margin: 2px 0; font-size: 11pt; }
+}
+
+/* Save confirmation that survives a re-render, since editing an event rebuilds
+   the whole form. Lives outside the rendered region. */
+.ff-savefloat {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 30;
+  padding: 8px 15px;
+  border-radius: 999px;
+  background: var(--team-primary);
+  color: var(--team-on-primary);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .22);
+}
+@media print { .ff-savefloat { display: none !important; } }
+
+/* ---------- two-deep lineup ------------------------------------------------ */
+
+.ff-depth-head,
+.ff-depth-row {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 54px minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+}
+.ff-depth-head { padding-bottom: 4px; }
+.ff-depth-row { padding: 6px 0; }
+.ff-depth-row select { width: 100%; }
+
+.ff-depth-checks { margin-top: 12px; }
+.ff-note {
+  margin: 0 0 6px;
+  padding: 8px 11px;
+  border-radius: 8px;
+  font-size: .85rem;
+  background: #EDF1EE;
+  color: var(--ink-soft);
+}
+.ff-note.is-warn { background: #FFF6DC; color: #6B5518; }
+.ff-note.is-ok { background: #EAF4EB; color: #29502F; }

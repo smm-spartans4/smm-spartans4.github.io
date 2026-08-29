@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play Viewer</title>
+<link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+<div id="ff-header"></div>
+
+<main class="ff-main ff-viewer">
+
+  <div class="ff-grid field-and-panel">
+
+    <section class="ff-card">
+      <div class="ff-card-head">
+        <h1 id="playName">Play</h1>
+        <a class="ff-small" id="editLink" href="plays.html">Edit</a>
+      </div>
+      <div class="ff-field-wrap">
+        <svg id="field" role="img" aria-label="Animated play diagram"></svg>
+      </div>
+      <div id="controls"></div>
+      <div class="ff-legend">
+        <span><i style="border-color:#E53935"></i> First down</span>
+        <span><i style="border-color:#000000"></i> Line of scrimmage</span>
+        <span class="ff-key"><b style="background:#FFEB3B"></b> Selling a fake</span>
+        <span class="ff-key"><b style="background:#D32F2F"></b> Has the ball</span>
+      </div>
+    </section>
+
+    <section class="ff-card">
+      <h2>Who does what</h2>
+      <div id="legend"></div>
+    </section>
+
+  </div>
+
+</main>
+
+<script src="data/team-data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/field.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/routes.js"></script>
+<script src="js/mirror.js"></script>
+<script src="js/ball.js"></script>
+<script src="js/playback.js"></script>
+<script src="js/viewer.js"></script>
+<script>
+(function () {
+  'use strict';
+  FF.ui.init();
+
+  var id = new URLSearchParams(location.search).get('id');
+  var play = id ? FF.store.playById(id) : FF.store.plays()[0];
+
+  if (!play) {
+    document.querySelector('.ff-viewer').innerHTML =
+      '<section class="ff-card"><div class="ff-stub"><p>That play could not be found.</p>'
+      + '<p><a class="ff-btn" href="plays.html">Back to Plays</a></p></div></section>';
+    return;
+  }
+
+  document.getElementById('playName').textContent = play.name;
+  document.getElementById('editLink').href = 'play-editor.html?id=' + play.id;
+
+  FF.viewer.create({
+    svg: document.getElementById('field'),
+    controls: document.getElementById('controls'),
+    legend: document.getElementById('legend'),
+    play: play
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plays</title>
+<link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+<div id="ff-header"></div>
+
+<main class="ff-main">
+  <section class="ff-card">
+
+    <div class="ff-card-head">
+      <h1>Plays</h1>
+      <span class="ff-pill" id="playCount"></span>
+    </div>
+
+    <div class="ff-toolbar">
+      <a class="ff-btn" href="play-editor.html?new=offense">+ Offensive Play</a>
+      <a class="ff-btn secondary" href="play-editor.html?new=defense">+ Defensive Play</a>
+    </div>
+
+    <ul id="playList" class="ff-list"></ul>
+
+    <p class="ff-small ff-muted" style="margin-top:14px">
+      Filters, thumbnails, duplicate and flip-and-save arrive in step 9.
+    </p>
+
+  </section>
+</main>
+
+<script src="data/team-data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/field.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/routes.js"></script>
+<script src="js/mirror.js"></script>
+<script>
+(function () {
+  'use strict';
+  FF.ui.init();
+
+  var list = document.getElementById('playList');
+  var plays = FF.store.plays();
+
+  document.getElementById('playCount').textContent =
+    plays.length + (plays.length === 1 ? ' play' : ' plays');
+
+  if (!plays.length) {
+    list.innerHTML = '<li class="ff-empty"><p>No plays yet.</p>'
+      + '<p class="ff-small">Start one with the buttons above.</p></li>';
+    return;
+  }
+
+  plays.forEach(function (p) {
+    var tags = (p.tags || []).length
+      ? ' &middot; ' + p.tags.join(', ')
+      : '';
+    var li = document.createElement('li');
+    li.innerHTML =
+      '<div>'
+      +   '<strong>' + p.name + '</strong><br>'
+      +   '<span class="ff-small ff-muted">'
+      +     (p.side === 'offense' ? 'Offense' : 'Defense')
+      +     ' &middot; from the ' + p.lineOfScrimmageYard + tags
+      +   '</span>'
+      + '</div>'
+      + '<a class="ff-btn ff-small" href="play-viewer.html?id=' + p.id + '">View</a>'
+      + ' <a class="ff-btn secondary ff-small" href="play-editor.html?id=' + p.id + '">Edit</a>'
+      + ' <button class="ff-btn secondary ff-small" data-dupe="' + p.id + '" type="button">Duplicate</button>'
+      + ' <button class="ff-btn secondary ff-small" data-flip="' + p.id + '" type="button">⇄ Flip &amp; save</button>';
+    list.appendChild(li);
+  });
+
+  list.addEventListener('click', function (e) {
+    /* Duplicate: copy a finished play whole, then edit only what differs. */
+    var dupe = e.target.closest('[data-dupe]');
+    if (dupe) {
+      var src = FF.store.playById(dupe.getAttribute('data-dupe'));
+      var name = window.prompt('Name for the copy:', src.name + ' (copy)');
+      if (name === null) return;
+      var copy = FF.store.duplicatePlay(src.id, name.trim() || (src.name + ' (copy)'));
+      if (copy) location.href = 'play-editor.html?id=' + copy.id;
+      return;
+    }
+
+    /* Flip & save: the mirrored version becomes its own callable play. */
+    var flip = e.target.closest('[data-flip]');
+    if (flip) {
+      var orig = FF.store.playById(flip.getAttribute('data-flip'));
+      var suggested = FF.mirror.mirrorName(orig.name);
+      var flipName = window.prompt('Name for the mirrored play:', suggested);
+      if (flipName === null) return;
+      var made = FF.store.mirrorPlayAsNew(orig.id, flipName.trim() || suggested);
+      if (made) location.href = 'play-viewer.html?id=' + made.id;
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play Editor</title>
+<link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+<div id="ff-header"></div>
+
+<main class="ff-main ff-editor">
+
+  <div class="ff-grid field-and-panel">
+
+    <section class="ff-card">
+      <div class="ff-card-head">
+        <span class="ff-pill" id="sideBadge"></span>
+        <a class="ff-small" href="plays.html">&larr; All plays</a>
+      </div>
+      <div class="ff-field-wrap">
+        <svg id="field" role="application"
+             aria-label="Play editor field. Drag each player to position them."></svg>
+      </div>
+      <div class="ff-scrub">
+        <button type="button" id="scrubPlay" class="ff-btn ff-small" title="Play the whole play">&#9654;</button>
+        <button type="button" id="scrubReset" class="ff-btn secondary ff-small" title="Back to the snap">&#8634;</button>
+        <input type="range" id="scrub" min="0" max="5" step="0.05" value="0"
+               aria-label="Preview time">
+        <span class="ff-small ff-muted" id="scrubTime">0.0s</span>
+      </div>
+      <p class="ff-warn" id="warn" style="display:none"></p>
+      <p class="ff-small ff-muted" id="editHint" style="margin-top:10px"></p>
+    </section>
+
+    <section class="ff-card">
+      <div class="ff-card-head">
+        <h2>Play</h2>
+        <span id="saveState" class="ff-savestate ff-small"></span>
+      </div>
+      <div id="panel"></div>
+    </section>
+
+  </div>
+
+</main>
+
+<script src="data/team-data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/field.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/routes.js"></script>
+<script src="js/mirror.js"></script>
+<script src="js/ball.js"></script>
+<script src="js/playback.js"></script>
+<script src="js/play-editor.js"></script>
+</body>
+</html>

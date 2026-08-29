@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roster</title>
+<link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+<div id="ff-header"></div>
+
+<main class="ff-main">
+  <section class="ff-card">
+
+    <div class="ff-card-head">
+      <h1>Roster</h1>
+      <span class="ff-pill" id="rosterCount"></span>
+    </div>
+
+    <p class="ff-small ff-muted">
+      Everything saves as you type. Who plays which position is set per week
+      over on <a href="schedule.html">Schedule</a>, not here &mdash; so you can
+      shuffle the lineup by availability without touching your plays.
+    </p>
+
+    <div class="ff-toolbar">
+      <label class="ff-small ff-muted" for="sortBy">Sort</label>
+      <select id="sortBy" class="ff-select ff-small">
+        <option value="">Choose&hellip;</option>
+        <option value="jersey">By jersey number</option>
+        <option value="name">By name</option>
+      </select>
+    </div>
+
+    <div class="ff-roster-labels ff-small ff-muted" aria-hidden="true">
+      <span>#</span><span>Name</span><span></span>
+    </div>
+
+    <ul id="rosterList" class="ff-list ff-roster"></ul>
+
+    <div class="ff-toolbar" style="margin-top:14px">
+      <button id="addPlayer" class="ff-btn" type="button">+ Add Player</button>
+      <span id="saveState" class="ff-savestate ff-small"></span>
+    </div>
+
+  </section>
+</main>
+
+<script src="data/team-data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/field.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/roster.js"></script>
+</body>
+</html>

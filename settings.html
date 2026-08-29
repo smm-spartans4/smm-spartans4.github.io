@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings</title>
+<link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+<div id="ff-header"></div>
+
+<main class="ff-main">
+
+  <div class="ff-card-head">
+    <h1>Settings</h1>
+    <span id="saveState" class="ff-savestate ff-small"></span>
+  </div>
+
+  <section class="ff-card ff-explain">
+    <h2>How publishing works</h2>
+    <p class="ff-small">
+      Everything you build — roster, plays, schedule — saves instantly,
+      but it saves <strong>in this browser only</strong>. Parents opening the
+      site on their phones see the last <em>published</em> version, not your
+      working copy. Publishing is three steps:
+    </p>
+    <ol class="ff-small">
+      <li><strong>Export publish file</strong> below. You get <code>team-data.js</code>.</li>
+      <li>Replace <code>data/team-data.js</code> in the project folder with it.</li>
+      <li>Push. Everyone now sees your changes.</li>
+    </ol>
+    <p class="ff-small ff-muted">
+      Export a backup regularly. Clearing your browser data wipes the working
+      copy, and an exported file is the only way to get it back — or to carry
+      your work to another computer.
+    </p>
+    <p class="ff-small" id="stats"></p>
+  </section>
+
+  <div class="ff-grid cols-2">
+    <section class="ff-card">
+      <h2>Data</h2>
+      <div id="dataSection"></div>
+    </section>
+
+    <section class="ff-card">
+      <h2>Team</h2>
+      <div id="teamSection"></div>
+    </section>
+  </div>
+
+  <section class="ff-card">
+    <h2>Who can get the ball</h2>
+    <p class="ff-small ff-muted">
+      These drive the choices offered in the play editor. The quarterback is
+      never listed &mdash; he may never carry the ball in this league.
+    </p>
+    <div id="ballSection"></div>
+  </section>
+
+  <section class="ff-card">
+    <h2>Field &amp; league rules</h2>
+    <p class="ff-small ff-muted">
+      These drive every diagram in the site. Change them once here if the league
+      changes the rules, or if you move to a different field.
+    </p>
+    <div id="fieldSection"></div>
+  </section>
+
+</main>
+
+<script src="data/team-data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/field.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/settings.js"></script>
+</body>
+</html>

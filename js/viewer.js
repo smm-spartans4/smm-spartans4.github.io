@@ -583,9 +583,6 @@
       if (!legendEl) return;
       legendEl.innerHTML = '';
 
-      legendEl.appendChild(h('p', { 'class': 'ff-small ff-muted',
-        text: FF.ball.describe(play) }));
-
       play.players.forEach(function (pl) {
         var who = nameFor(pl.positionId);
         var row = h('div', { 'class': 'ff-role', 'data-pos': pl.positionId }, [

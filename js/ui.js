@@ -100,8 +100,17 @@
       });
     });
 
+    var bar = h('div', { 'class': 'ff-header-bar' }, [brand]);
+
+    /* Which mode this device is in was invisible before, which made a missing
+       Edit button look like a bug rather than a setting. */
+    if (coachMode) {
+      bar.appendChild(h('a', { 'class': 'ff-coachbadge', href: 'settings.html',
+        text: 'Coach', title: 'Coach mode is on for this device' }));
+    }
+
     return h('header', { 'class': 'ff-header' }, [
-      h('div', { 'class': 'ff-header-bar' }, [brand]),
+      bar,
       h('nav', { 'class': 'ff-nav', 'aria-label': 'Main' }, links)
     ]);
   }

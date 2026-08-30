@@ -73,11 +73,11 @@
 
     return h('li', { 'class': 'ff-roster-row', 'data-id': player.id }, [
       field(player, 'jersey', {
-        cls: 'ff-f-jersey', placeholder: '#', label: 'Jersey number',
+        cls: 'ff-jersey ff-jersey-input', placeholder: '#', label: 'Jersey number',
         inputmode: 'numeric', maxlength: 3
       }),
       field(player, 'name', {
-        cls: 'ff-f-name', placeholder: 'Player name', label: 'Player name'
+        cls: 'ff-f-name ff-rostername', placeholder: 'Player name', label: 'Player name'
       }),
       del
     ]);
@@ -87,8 +87,8 @@
      and nothing to delete. */
   function readOnlyRow(player) {
     return h('li', { 'class': 'ff-roster-row is-readonly' }, [
-      h('span', { 'class': 'ff-f-jersey ff-rosternum', text: player.jersey || '—' }),
-      h('span', { 'class': 'ff-f-name', text: player.name || 'Unnamed' })
+      h('span', { 'class': 'ff-jersey', text: player.jersey || '—' }),
+      h('span', { 'class': 'ff-f-name ff-rostername', text: player.name || 'Unnamed' })
     ]);
   }
 

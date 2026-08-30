@@ -17,123 +17,107 @@
 <div id="ff-header"></div>
 
 <main class="ff-main">
-
-  <div class="ff-grid field-and-panel">
-
-    <section class="ff-card">
-      <div class="ff-field-wrap">
-        <svg id="field" role="img" aria-label="To-scale flag football field"></svg>
-      </div>
-      <div class="ff-legend">
-        <span><i style="border-color:#E53935"></i> First down (midfield)</span>
-        <span><i style="border-color:#000000"></i> Line of scrimmage</span>
-        <span><i style="border-color:#FFC400"></i> Rush line &mdash; rushers start here</span>
-      </div>
-      <p class="ff-small ff-muted" id="fieldCaption" style="margin-top:10px"></p>
-    </section>
-
-    <div>
-      <section class="ff-card">
-        <div class="ff-card-head">
-          <h2>Next Up</h2>
-          <a class="ff-small" href="schedule.html">Schedule</a>
-        </div>
-        <div id="nextEvent"></div>
-      </section>
-
-      <section class="ff-card">
-        <h2>Quick Links</h2>
-        <div class="ff-quicklinks">
-          <a class="ff-btn" href="plays.html">Plays</a>
-          <a class="ff-btn secondary" href="schedule.html">Schedule</a>
-          <a class="ff-btn secondary" href="roster.html">Roster</a>
-        </div>
-      </section>
+  <section class="ff-card">
+    <div class="ff-card-head">
+      <h1>Upcoming</h1>
+      <a class="ff-small" href="schedule.html">Full schedule</a>
     </div>
-
-  </div>
-
+    <div id="upcoming"></div>
+  </section>
 </main>
 
 <script src="data/team-data.js"></script>
 <script src="js/store.js"></script>
-<script src="js/field.js"></script>
 <script src="js/ui.js"></script>
 <script>
 (function () {
   'use strict';
   FF.ui.init();
 
-  var svg = document.getElementById('field');
-  var caption = document.getElementById('fieldCaption');
-
-  /* Until the play editor exists (step 3), the dashboard renders the seeded
-     defensive play so the coordinate system is visible and verifiable. */
-  var play = FF.store.plays()[0] || null;
-  var s = FF.store.settings();
-
-  (function draw() {
-    var los = play ? play.lineOfScrimmageYard : s.defaultStartingYardLine;
-    var ctx = FF.field.render(svg, {
-      settings: s,
-      view: FF.field.viewForPlay(s, play),
-      lineOfScrimmageYard: los,
-      showNoRush: !play || play.side === 'defense'
-    });
-    if (play) FF.field.drawStartPositions(ctx, play);
-
-    caption.textContent = play
-      ? 'Showing "' + play.name + '" at the ' + play.lineOfScrimmageYard + '-yard line.'
-      : 'No plays yet.';
-  })();
-
-  /* ---- next event panel ------------------------------------------------- */
+  function h(tag, attrs, kids) { return FF.ui.h(tag, attrs, kids); }
 
   function fmtDate(iso) {
+    if (!iso) return 'No date';
     var p = iso.split('-');
     var d = new Date(+p[0], +p[1] - 1, +p[2]);
     return d.toLocaleDateString(undefined,
-      { weekday: 'short', month: 'short', day: 'numeric' });
+      { weekday: 'long', month: 'long', day: 'numeric' });
   }
 
   function fmtTime(hhmm) {
     if (!hhmm) return '';
     var p = hhmm.split(':');
-    var h = +p[0], m = p[1];
-    var ampm = h >= 12 ? 'pm' : 'am';
-    h = h % 12 || 12;
-    return h + ':' + m + ampm;
+    var hour = parseInt(p[0], 10) || 0;
+    var ampm = hour >= 12 ? 'pm' : 'am';
+    return (hour % 12 || 12) + ':' + p[1] + ampm;
   }
 
-  var host = document.getElementById('nextEvent');
-  var evt = FF.store.nextEvent();
+  function positionIds(side) {
+    var key = side === 'defense' ? 'defensePositions' : 'offensePositions';
+    return (FF.store.settings()[key] || []).map(function (p) { return p.id; });
+  }
 
-  if (!evt) {
-    host.innerHTML = '<p class="ff-muted">No practices or games scheduled yet.</p>';
-  } else {
-    var lineup = FF.store.activeLineup(evt.id).players;
+  /* Group 1 only. Home is a glance before you leave the house; the full
+     rotation is one tap away on the event itself. */
+  function lineupLine(evt, side) {
+    var players = FF.store.activeLineup(evt.id, 0).players || {};
+    var parts = positionIds(side)
+      .filter(function (pos) { return players[pos]; })
+      .map(function (pos) { return pos + ' ' + players[pos].name; });
+    if (!parts.length) return null;
+
+    return h('div', { 'class': 'ff-small ff-upnext-line' }, [
+      h('strong', { text: (side === 'defense' ? 'Defense: ' : 'Offense: ') }),
+      h('span', { text: parts.join('  ·  ') })
+    ]);
+  }
+
+  function eventBlock(evt) {
+    var block = h('div', { 'class': 'ff-upnext' });
+
+    block.appendChild(h('div', { 'class': 'ff-evt-title' }, [
+      h('span', { 'class': 'ff-pill' + (evt.type === 'game' ? ' is-game' : ''),
+        text: evt.type === 'game' ? 'Game' : 'Practice' }),
+      h('strong', { text: fmtDate(evt.date) }),
+      h('span', { 'class': 'ff-muted', text: fmtTime(evt.startTime) })
+    ]));
+
+    var where = evt.location || 'Location TBD';
+    if (evt.type === 'game' && evt.opponent) where += '  ·  vs ' + evt.opponent;
+    block.appendChild(h('div', { 'class': 'ff-small ff-muted', text: where }));
+
     var caps = (evt.captainRosterPlayerIds || [])
       .map(function (id) { var p = FF.store.playerById(id); return p ? p.name : null; })
       .filter(Boolean);
+    if (caps.length) {
+      block.appendChild(h('div', { 'class': 'ff-small ff-upnext-line' }, [
+        h('strong', { text: 'Captains: ' }),
+        h('span', { text: caps.join('  &  ') })
+      ]));
+    }
 
-    var filled = Object.keys(lineup).filter(function (k) { return lineup[k]; });
+    var offense = lineupLine(evt, 'offense');
+    var defense = lineupLine(evt, 'defense');
+    if (offense) block.appendChild(offense);
+    if (defense) block.appendChild(defense);
 
-    var html = '<p><span class="ff-pill">'
-      + (evt.type === 'game' ? 'Game' : 'Practice') + '</span> '
-      + '<strong>' + fmtDate(evt.date) + '</strong> ' + fmtTime(evt.startTime) + '<br>'
-      + '<span class="ff-muted ff-small">' + (evt.location || 'Location TBD')
-      + (evt.opponent ? ' &middot; vs ' + evt.opponent : '') + '</span></p>';
+    block.appendChild(h('a', { 'class': 'ff-btn secondary ff-small ff-upnext-open',
+      href: 'schedule.html?id=' + evt.id, text: 'Open' }));
 
-    html += '<p class="ff-small"><strong>Captains:</strong> '
-      + (caps.length ? caps.join(' &amp; ') : '<span class="ff-muted">not set</span>') + '</p>';
+    return block;
+  }
 
-    html += '<p class="ff-small"><strong>Lineup:</strong> '
-      + (filled.length
-          ? filled.map(function (k) { return k + ' ' + lineup[k].name; }).join(', ')
-          : '<span class="ff-muted">not set for this week</span>')
-      + '</p>';
+  var host = document.getElementById('upcoming');
+  var today = new Date().toISOString().slice(0, 10);
+  var next = FF.store.eventsSorted()
+    .filter(function (e) { return e.date >= today; })
+    .slice(0, 2);
 
-    host.innerHTML = html;
+  if (!next.length) {
+    host.appendChild(h('p', { 'class': 'ff-muted',
+      text: 'Nothing on the calendar yet.' }));
+  } else {
+    next.forEach(function (evt) { host.appendChild(eventBlock(evt)); });
   }
 })();
 </script>

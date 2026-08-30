@@ -919,3 +919,16 @@ svg.ff-field { cursor: default; }
   border-top: 1px solid var(--line);
 }
 .ff-advanced h3:first-of-type { margin-top: 8px; padding-top: 0; border-top: 0; }
+
+/* ---------- home: what is coming up ---------------------------------------- */
+
+.ff-upnext {
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+.ff-upnext:first-child { padding-top: 4px; border-top: 0; }
+.ff-upnext .ff-evt-title { margin-bottom: 3px; }
+.ff-upnext .ff-evt-title strong { font-family: var(--font-display); font-size: 1.05rem; }
+
+.ff-upnext-line { margin-top: 7px; line-height: 1.45; }
+.ff-upnext-open { margin-top: 12px; min-height: 38px; padding: 7px 14px; }

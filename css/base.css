@@ -1001,3 +1001,15 @@ svg.ff-field { cursor: default; }
 /* The quarterback is always in a drill, so his tick is shown but locked. */
 .ff-check.is-locked { opacity: .75; cursor: default; }
 .ff-check.is-locked input { cursor: default; }
+
+/* Drill notes: what a parent running the station reads first. */
+.ff-drillnotes {
+  background: #FFFCE6;
+  border-left: 3px solid #E0B400;
+  border-radius: 6px;
+  padding: 11px 13px;
+  margin-bottom: 14px;
+  font-size: .9rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}

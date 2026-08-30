@@ -594,6 +594,11 @@
       if (!legendEl) return;
       legendEl.innerHTML = '';
 
+      if (play.drillNotes && String(play.drillNotes).trim()) {
+        legendEl.appendChild(h('div', { 'class': 'ff-drillnotes',
+          text: String(play.drillNotes).trim() }));
+      }
+
       play.players.forEach(function (pl) {
         var who = isDrill() ? null : nameFor(pl.positionId);
         var row = h('div', { 'class': 'ff-role', 'data-pos': pl.positionId }, [

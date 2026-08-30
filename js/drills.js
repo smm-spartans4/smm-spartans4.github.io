@@ -46,6 +46,7 @@
       name: src ? (src.name + ' — drill') : 'New drill',
       playId: playId,
       positions: ['QB'],
+      description: '',
       notes: {}
     };
     FF.store.update(function (d) {
@@ -110,6 +111,7 @@
     copy.id = 'drill-' + drill.id;
     copy.name = drill.name || copy.name;
     copy.isDrill = true;
+    copy.drillNotes = drill.description || '';
     copy.sourcePlayId = src.id;
     copy.sourcePlayName = src.name;
     return copy;

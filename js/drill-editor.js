@@ -109,6 +109,26 @@
       text: 'Routes come from that play. Fix a route there and this drill '
           + 'follows automatically.' }));
 
+    /* The whole-drill notes: how it is set up and what it is for. Shown at the
+       top of the assignments panel, so it is the first thing whoever is
+       running the station reads. */
+    panelEl.appendChild(h('label', { 'class': 'ff-field-label', for: 'drillNotes',
+      text: 'Notes for this drill' }));
+    panelEl.appendChild(h('p', { 'class': 'ff-small ff-muted',
+      text: 'How to set it up, how many reps, what to watch for — anything a '
+          + 'parent running this station needs before the first whistle.' }));
+    var notes = h('textarea', { id: 'drillNotes', rows: '5',
+      placeholder: 'Two cones eight yards apart. Six reps each side, then '
+                 + 'switch the ball carrier. Watch that the fake is sold before '
+                 + 'the handoff, not after.' });
+    notes.value = drill.description || '';
+    notes.addEventListener('input', function () {
+      drill.description = notes.value;
+      saveSoon();
+      if (viewer) viewer.setPlay(FF.drills.buildPlay(drill));
+    });
+    panelEl.appendChild(notes);
+
     /* --- who is on the field --- */
     panelEl.appendChild(h('div', { 'class': 'ff-field-label', text: 'Who is in the drill' }));
     panelEl.appendChild(h('p', { 'class': 'ff-small ff-muted',

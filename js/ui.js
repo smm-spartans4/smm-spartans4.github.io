@@ -10,7 +10,7 @@
     { href: 'roster.html',   label: 'Roster' },
     { href: 'plays.html',    label: 'Plays' },
     { href: 'schedule.html', label: 'Schedule' },
-    { href: 'settings.html', label: 'Settings' }
+    { href: 'settings.html', label: 'Settings' }   // relabelled per audience below
   ];
 
   function h(tag, attrs, children) {
@@ -92,10 +92,16 @@
     ]);
 
     var links = NAV.map(function (item) {
+      /* 'Settings' says nothing about what the page is for. For the coach it
+         is where publishing lives; for a parent it is only the install help
+         and a reset. */
+      var label = item.href === 'settings.html'
+        ? (coachMode ? 'Publish' : 'Help')
+        : item.label;
       return h('a', {
         href: item.href,
         'class': 'ff-nav-link' + (item.href === page ? ' is-current' : ''),
-        text: item.label,
+        text: label,
         'aria-current': item.href === page ? 'page' : 'false'
       });
     });

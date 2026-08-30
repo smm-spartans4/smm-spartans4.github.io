@@ -19,48 +19,37 @@
 <main class="ff-main">
 
   <div class="ff-card-head">
-    <h1>Settings</h1>
+    <h1 id="pageTitle">Settings</h1>
     <span id="saveState" class="ff-savestate ff-small"></span>
   </div>
 
-  <section class="ff-card ff-explain ff-coach-only">
-    <h2>How publishing works</h2>
+  <!-- The one thing this page is really for. Everything else is set once and
+       forgotten, so it lives under Advanced further down. -->
+  <section class="ff-card ff-coach-only">
+    <h2>Publish to parents</h2>
     <p class="ff-small">
-      Everything you build — roster, plays, schedule — saves instantly,
-      but it saves <strong>in this browser only</strong>. Parents opening the
-      site on their phones see the last <em>published</em> version, not your
-      working copy. Publishing is three steps:
+      Your plays, roster and schedule save <strong>in this browser only</strong>.
+      Parents see the last <em>published</em> version until you do this:
     </p>
     <ol class="ff-small">
-      <li><strong>Export publish file</strong> below. You get <code>team-data.js</code>.</li>
+      <li><strong>Export publish file</strong> &mdash; you get <code>team-data.js</code>.</li>
       <li>Replace <code>data/team-data.js</code> in the project folder with it.</li>
       <li>Push. Everyone now sees your changes.</li>
     </ol>
+    <div id="dataSection"></div>
     <p class="ff-small ff-muted">
-      Export a backup regularly. Clearing your browser data wipes the working
-      copy, and an exported file is the only way to get it back — or to carry
-      your work to another computer.
+      Export a backup regularly too. Clearing your browser data wipes the
+      working copy, and an exported file is the only way back &mdash; or the way
+      to carry your work to another computer.
     </p>
     <p class="ff-small" id="stats"></p>
   </section>
-
-  <div class="ff-grid cols-2 ff-coach-only">
-    <section class="ff-card">
-      <h2>Data</h2>
-      <div id="dataSection"></div>
-    </section>
-
-    <section class="ff-card">
-      <h2>Team</h2>
-      <div id="teamSection"></div>
-    </section>
-  </div>
 
   <section class="ff-card ff-explain">
     <h2>Use it at practice with no signal</h2>
     <p class="ff-small">
       Install the site and it opens like an app, with every play and this
-      week's schedule available offline &mdash; scrub, flip and tap included.
+      week&rsquo;s schedule available offline.
     </p>
     <p class="ff-small"><strong>iPad or iPhone:</strong> open
       <code>smm-spartans4.github.io</code> in <strong>Safari</strong>, tap the
@@ -68,29 +57,7 @@
       will not offer this &mdash; it has to be Safari.</p>
     <p class="ff-small"><strong>Android or desktop Chrome:</strong> look for
       <em>Install</em> in the address bar, or Menu &rarr; <em>Install app</em>.</p>
-    <p class="ff-small ff-muted">
-      Load it once on wi-fi before you head to the field. It stays current
-      on its own whenever you open it with a connection.
-    </p>
     <p class="ff-small" id="offlineState"></p>
-  </section>
-
-  <section class="ff-card ff-coach-only">
-    <h2>Who can get the ball</h2>
-    <p class="ff-small ff-muted">
-      These drive the choices offered in the play editor. The quarterback is
-      never listed &mdash; he may never carry the ball in this league.
-    </p>
-    <div id="ballSection"></div>
-  </section>
-
-  <section class="ff-card ff-coach-only">
-    <h2>Field &amp; league rules</h2>
-    <p class="ff-small ff-muted">
-      These drive every diagram in the site. Change them once here if the league
-      changes the rules, or if you move to a different field.
-    </p>
-    <div id="fieldSection"></div>
   </section>
 
   <section class="ff-card">
@@ -102,13 +69,33 @@
     <div id="resetSection"></div>
   </section>
 
-  <section class="ff-card ff-coach-only">
-    <h2>Coach mode</h2>
+  <!-- Set once a season, if ever. Folded away so the page is not mostly
+       things the coach will never touch again. -->
+  <details class="ff-card ff-advanced ff-coach-only">
+    <summary>Setup &mdash; team, field and league rules</summary>
+
+    <h3>Team</h3>
+    <div id="teamSection"></div>
+
+    <h3>Who can get the ball</h3>
+    <p class="ff-small ff-muted">
+      Drives the choices offered in the play editor. The quarterback is never
+      listed &mdash; he may never carry the ball in this league.
+    </p>
+    <div id="ballSection"></div>
+
+    <h3>Field &amp; league rules</h3>
+    <p class="ff-small ff-muted">
+      These drive every diagram in the site. Change them if the league changes
+      the rules, or if you move to a different field.
+    </p>
+    <div id="fieldSection"></div>
+
+    <h3>Coach mode</h3>
     <div id="coachSection"></div>
-  </section>
+  </details>
 
 </main>
-
 <script src="data/team-data.js"></script>
 <script src="js/store.js"></script>
 <script src="js/field.js"></script>

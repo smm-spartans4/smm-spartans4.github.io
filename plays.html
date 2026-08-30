@@ -193,13 +193,9 @@
       var built = (FF.drills ? FF.drills.usingPlay(doomed.id) : []);
       var warn = 'Delete "' + doomed.name + '"? This cannot be undone.';
       if (built.length) {
-        warn += '
-
-This will also delete ' + built.length + ' drill'
-          + (built.length === 1 ? '' : 's') + ' built from it:
-  '
-          + built.map(function (d) { return d.name; }).join('
-  ');
+        warn += '\n\nThis will also delete ' + built.length + ' drill'
+          + (built.length === 1 ? '' : 's') + ' built from it:\n  '
+          + built.map(function (d) { return d.name; }).join('\n  ');
       }
       if (!window.confirm(warn)) return;
       FF.store.deletePlay(doomed.id);

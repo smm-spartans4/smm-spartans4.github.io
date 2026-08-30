@@ -136,6 +136,84 @@
     rootEl.appendChild(listBlock('Upcoming', upcoming,
       'Nothing scheduled yet. Add a practice or a game above.'));
     if (past.length) rootEl.appendChild(listBlock('Past', past, ''));
+    rootEl.appendChild(renderRules());
+  }
+
+  /* ---------- league rules -------------------------------------------------
+     The full rules are a PDF nobody reads on a sideline. These are the ones
+     that actually come up during a game, pulled out where they can be found
+     in a hurry, with the document behind them for everything else. */
+
+  var RULE_GROUPS = [
+    ['The game', [
+      '5 on 5',
+      'Two 20-minute halves',
+      '30-second play clock',
+      'Every player plays at least half',
+      'One 30-second and one 60-second timeout per half',
+      'Play with one fewer if you are short'
+    ]],
+    ['Offense', [
+      'Start at your own 5-yard line',
+      '4 plays to cross midfield, then 4 to score',
+      'The quarterback cannot run the ball',
+      'Everyone is an eligible receiver',
+      'One player in motion, never forward at the snap',
+      'Once the ball crosses the line, everyone else stops',
+      'Laterals and pitches only behind the line',
+      'No fumbles — the ball is spotted where it lands'
+    ]],
+    ['Defense', [
+      'Rushers start at least 7 yards off the ball',
+      'Any number may rush',
+      'Others may hold the line but not cross until the handoff',
+      'No blitzing when ahead by more than 21',
+      'Interceptions can be returned'
+    ]],
+    ['Scoring', [
+      'Touchdown — 6',
+      'Extra point from the 5 — 1, pass only',
+      'Extra point from the 12 — 2, run or pass',
+      'Safety — 2'
+    ]],
+    ['Gear', [
+      'Mouthguards required, no exceptions',
+      'No metal cleats',
+      'Belts tucked in'
+    ]]
+  ];
+
+  function renderRules() {
+    var card = h('section', { 'class': 'ff-card ff-rules' });
+
+    card.appendChild(h('div', { 'class': 'ff-card-head' }, [
+      h('h2', { text: 'League rules' }),
+      h('span', { 'class': 'ff-small ff-muted', text: 'Omaha Suburban (OSAA)' })
+    ]));
+
+    var grid = h('div', { 'class': 'ff-rules-grid' });
+    RULE_GROUPS.forEach(function (group) {
+      var col = h('div', { 'class': 'ff-rules-group' }, [
+        h('div', { 'class': 'ff-rules-head', text: group[0] })
+      ]);
+      var ul = h('ul', { 'class': 'ff-rules-list' });
+      group[1].forEach(function (rule) {
+        ul.appendChild(h('li', { text: rule }));
+      });
+      col.appendChild(ul);
+      grid.appendChild(col);
+    });
+    card.appendChild(grid);
+
+    card.appendChild(h('div', { 'class': 'ff-toolbar', style: 'margin-top:16px' }, [
+      h('a', { 'class': 'ff-btn', href: 'rules/osaa-flag-rules.pdf',
+        target: '_blank', rel: 'noopener',
+        text: '📄 Open the full rules' }),
+      h('span', { 'class': 'ff-small ff-muted',
+        text: 'OSAA flag football, updated July 2018' })
+    ]));
+
+    return card;
   }
 
   function listBlock(title, events, emptyText) {

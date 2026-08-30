@@ -17,7 +17,7 @@
    ========================================================================== */
 'use strict';
 
-var CACHE_VERSION = 'ff-v32';
+var CACHE_VERSION = 'ff-v33';
 
 var PRECACHE = [
   './',
@@ -50,6 +50,7 @@ var PRECACHE = [
   './js/settings.js',
   './data/team-data.js',
   './manifest.webmanifest',
+  './rules/osaa-flag-rules.pdf',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/apple-touch-icon.png',

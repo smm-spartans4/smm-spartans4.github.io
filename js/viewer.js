@@ -330,7 +330,7 @@
         }
 
         viewRow.appendChild(h('span', { 'class': 'ff-small ff-muted',
-          text: 'or point at a player to see just theirs' }));
+          text: 'or point at a player to see their zone' }));
       } else {
         viewRow.appendChild(els.flipBtn);
         viewRow.appendChild(els.routesBtn);

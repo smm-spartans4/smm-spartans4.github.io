@@ -523,8 +523,11 @@
      would be covering ground nobody asked him to cover.
 
      Offsets are in yards from wherever he lines up. */
+  /* dy equals ry on purpose: the near edge of the zone sits exactly where he
+     lines up, so he covers his own spot and everything behind it, rather than
+     a band floating downfield of him. */
   var COBRA_LOBES = [
-    { dx: 0, dy: 7.5, rx: 7.5, ry: 5.5 }
+    { dx: 0, dy: 4.5, rx: 7.5, ry: 4.5 }
   ];
 
   function drawZone(ctx, o) {

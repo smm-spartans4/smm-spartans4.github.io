@@ -436,6 +436,9 @@
     /* ---- MP4 download ----------------------------------------------------- */
 
     function buildDownloadRow() {
+      /* Nothing on a defensive play moves, so a video of one is just a still
+         image held for five seconds. */
+      if (isDefense()) return;
       if (!FF.recorder || !FF.recorder.supported()) return;
 
       var row = h('div', { 'class': 'ff-controls ff-controls-view' });
@@ -443,7 +446,8 @@
 
       var save = h('button', { type: 'button', 'class': 'ff-btn secondary ff-small',
         text: '⬇ Download MP4',
-        title: 'Save this play as a video, to keep on a phone or iPad' });
+        title: 'Save this play as a video, to keep on a phone or iPad. Silent - '
+          + 'the announcer cannot be recorded.' });
 
       save.addEventListener('click', function () {
         clock.pause();
@@ -478,8 +482,6 @@
       });
 
       row.appendChild(save);
-      row.appendChild(h('span', { 'class': 'ff-small ff-muted',
-        text: 'Silent — the announcer cannot be recorded.' }));
       row.appendChild(status);
       controlsEl.appendChild(row);
     }

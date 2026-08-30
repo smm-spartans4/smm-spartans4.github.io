@@ -91,13 +91,14 @@
       ])
     ]);
 
-    var links = NAV.map(function (item) {
-      /* 'Settings' says nothing about what the page is for. For the coach it
-         is where publishing lives; for a parent it is only the install help
-         and a reset. */
-      var label = item.href === 'settings.html'
-        ? (coachMode ? 'Publish' : 'Help')
-        : item.label;
+    /* The settings page is entirely a coach's tool. A parent cannot edit, so
+       nothing is ever written to their browser and there is nothing for them
+       to publish or reset - the tab was offering them work they cannot do. */
+    var links = NAV.filter(function (item) {
+      return coachMode || item.href !== 'settings.html';
+    }).map(function (item) {
+      /* 'Settings' says nothing about what the page is for; publishing is. */
+      var label = item.href === 'settings.html' ? 'Publish' : item.label;
       return h('a', {
         href: item.href,
         'class': 'ff-nav-link' + (item.href === page ? ' is-current' : ''),

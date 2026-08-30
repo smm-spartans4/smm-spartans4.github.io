@@ -312,7 +312,7 @@
 
     /* Everyone gets these two. */
     var title = document.getElementById('pageTitle');
-    if (title) title.textContent = FF.ui.isCoach() ? 'Publish & Setup' : 'Help';
+    if (title) title.textContent = FF.ui.isCoach() ? 'Publish & Setup' : 'Install';
 
     renderOfflineState();
     renderReset();

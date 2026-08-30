@@ -156,11 +156,12 @@
     ['Offense', [
       'Start at your own 5-yard line',
       '4 plays to cross midfield, then 4 to score',
+      'Fail to reach midfield and they take over from that spot',
+      'Or punt on 4th down — they start at their own 5 instead',
       'The quarterback cannot run the ball',
       'Everyone is an eligible receiver',
       'One player in motion, never forward at the snap',
       'Once the ball crosses the line, everyone else stops',
-      'Laterals and pitches only behind the line',
       'No fumbles — the ball is spotted where it lands'
     ]],
     ['Defense', [

@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-08-30T22:06:06.613Z
+   Exported 2026-08-30T23:09:34.175Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -1723,47 +1723,66 @@ window.PUBLISHED_TEAM_DATA = {
       "unavailableRosterPlayerIds": [],
       "lineup": {
         "C": [
-          "p10",
-          "p05"
+          null,
+          null,
+          null,
+          null
         ],
         "QB": [
-          "p07",
-          "p01"
+          null,
+          null,
+          null,
+          null
         ],
         "X": [
-          "p03",
-          "p08"
+          null,
+          null,
+          null,
+          null
         ],
         "Y": [
-          "p04",
-          "p06"
+          null,
+          null,
+          null,
+          null
         ],
         "Z": [
-          "p09",
-          "p02"
+          null,
+          null,
+          null,
+          null
         ],
         "RUSH": [
-          "p02",
-          "p01"
+          null,
+          null
         ],
         "RU": [
-          "p05",
-          "p06"
+          null,
+          null
         ],
         "RD": [
-          "p07",
-          "p08"
+          null,
+          null
         ],
         "LD": [
-          "p03",
-          "p04"
+          null,
+          null
         ],
         "LU": [
-          "p10",
-          "p09"
+          null,
+          null
         ]
       },
-      "itinerary": []
+      "itinerary": [
+        {
+          "id": "83986e28-d496-40c9-9bc7-8ce074ae6fc0",
+          "label": "",
+          "durationMinutes": 1,
+          "linkedPlayId": null,
+          "linkedDrillId": null,
+          "notes": ""
+        }
+      ]
     },
     {
       "id": "a6c66d2d-815b-4949-999b-36c53c294e9e",

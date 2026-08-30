@@ -1,4 +1,21 @@
 /* ============================================================================
+   Cinzel, for jersey numbers and other display type. Drawn from classical
+   Roman inscriptional capitals - the closest widely available face to letters
+   carved in stone.
+
+   The file is served from this project, NOT from Google, so it works at a
+   field with no signal and the site makes no third-party requests. Licensed
+   under the SIL Open Font License; see fonts/OFL.txt.
+   ========================================================================== */
+@font-face {
+  font-family: "Cinzel";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/cinzel-700-latin.woff2") format("woff2");
+}
+
+/* ============================================================================
    Shared styles. Mobile-first: everything is laid out for a ~375px phone,
    then widened at breakpoints. Team colors come from the data file via
    FF.ui.applyTeamColors(), so changing them in Settings restyles the site.
@@ -20,8 +37,8 @@
   --shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 4px 14px rgba(0, 0, 0, .05);
 
   --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-display: "Trajan Pro", Optima, "Palatino Linotype", "Book Antiqua",
-                  Palatino, "URW Palladio L", Georgia, "Times New Roman", serif;
+  --font-display: "Cinzel", "Trajan Pro", Optima, "Palatino Linotype",
+                  "Book Antiqua", Palatino, Georgia, serif;
 }
 
 * { box-sizing: border-box; }
@@ -287,11 +304,16 @@ input:focus, select:focus, textarea:focus {
    number cut out in white, set in a humanist serif that reads closer to a
    carved inscription than to a spreadsheet. The same disc is used whether the
    number is editable or not, so the page looks identical to a parent. */
+/* The list is deliberately narrow. Left to fill a 1240px page, the name field
+   stretched to the far edge and the number and the name read as if they were
+   at opposite ends of the screen. */
+.ff-roster { max-width: 460px; }
+
 .ff-roster-row,
 .ff-roster-labels {
   display: grid;
-  gap: 14px;
-  grid-template-columns: 56px minmax(0, 1fr) 44px;
+  gap: 12px;
+  grid-template-columns: 56px minmax(0, 1fr) 40px;
   align-items: center;
 }
 
@@ -826,9 +848,6 @@ html[data-coach="0"] .ff-coach-only { display: none !important; }
 }
 
 /* Read-only variants: same layout, no form controls. */
-.ff-roster-row.is-readonly { grid-template-columns: 78px minmax(0, 1fr); }
-.ff-rosternum { font-weight: 700; text-align: center; color: var(--ink-soft); }
-
 .ff-depth-row.is-readonly { grid-template-columns: 54px minmax(0, 1fr); }
 .ff-itin.is-readonly { grid-template-columns: 74px minmax(0, 1fr); }
 .ff-itin.is-readonly .ff-itin-body { gap: 4px; align-items: flex-start; }

@@ -17,7 +17,7 @@
    ========================================================================== */
 'use strict';
 
-var CACHE_VERSION = 'ff-v10';
+var CACHE_VERSION = 'ff-v11';
 
 var PRECACHE = [
   './',
@@ -49,7 +49,8 @@ var PRECACHE = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/apple-touch-icon.png',
-  './icons/spartan-white.png'
+  './icons/spartan-white.png',
+  './fonts/cinzel-700-latin.woff2'
 ];
 
 self.addEventListener('install', function (event) {

@@ -1061,3 +1061,54 @@ svg.ff-field { cursor: default; }
   background: var(--team-primary);
   opacity: .55;
 }
+
+/* ---------- rotation coverage ----------------------------------------------- */
+
+/* Ten positions will not fit a phone, so the grid scrolls sideways while the
+   player's name stays put - otherwise you lose track of whose row you are on. */
+.ff-rotation-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.ff-rotation {
+  border-collapse: collapse;
+  font-size: .85rem;
+  min-width: 100%;
+}
+.ff-rotation th, .ff-rotation td {
+  padding: 6px 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ff-rot-name {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--card);
+  text-align: left !important;
+  font-weight: 600;
+  padding-right: 14px !important;
+  box-shadow: 1px 0 0 var(--line);
+}
+
+.ff-rot-pos {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: .8rem;
+  color: var(--team-primary);
+  border-bottom: 2px solid var(--line);
+}
+
+.ff-rot-cell { font-variant-numeric: tabular-nums; }
+.ff-rot-cell.is-on { font-weight: 700; background: #EAF4EB; color: #1F5622; }
+.ff-rot-cell.is-off { color: #C3CDC5; }
+
+/* A visible seam between the offensive and defensive halves. */
+.is-sidebreak { border-left: 2px solid var(--line); }
+
+.ff-rot-gap {
+  text-align: left !important;
+  font-size: .78rem;
+  padding-left: 14px !important;
+}
+.ff-rot-gap.is-warn { color: #8A6A12; }
+.ff-rot-gap.is-ok { color: #2E7D32; font-weight: 600; }

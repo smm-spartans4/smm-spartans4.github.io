@@ -136,7 +136,98 @@
     rootEl.appendChild(listBlock('Upcoming', upcoming,
       'Nothing scheduled yet. Add a practice or a game above.'));
     if (past.length) rootEl.appendChild(listBlock('Past', past, ''));
+    if (FF.ui.isCoach()) rootEl.appendChild(renderRotation());
     rootEl.appendChild(renderRules());
+  }
+
+  /* ---------- rotation coverage --------------------------------------------
+     Whether every kid is getting around every position is a question about ALL
+     the events at once, and answering it by opening ten past practices one at
+     a time is the wrong tool. This is the same data as a grid: who has been
+     where, and - the part that matters - where they have never been.
+
+     Coach-only. A parent reading a zero next to their own child's name starts
+     a conversation the coach should be the one to open. */
+
+  function renderRotation() {
+    var card = h('section', { 'class': 'ff-card' });
+    var roster = FF.store.roster();
+    var events = FF.store.eventsSorted().filter(function (evt) {
+      return allPositionIds().some(function (pos) {
+        return FF.store.lineupList(evt, pos).filter(Boolean).length > 0;
+      });
+    });
+
+    card.appendChild(h('div', { 'class': 'ff-card-head' }, [
+      h('h2', { text: 'Rotation so far' }),
+      h('span', { 'class': 'ff-small ff-muted',
+        text: events.length + (events.length === 1 ? ' event' : ' events') + ' with a lineup' })
+    ]));
+
+    if (!roster.length || !events.length) {
+      card.appendChild(h('p', { 'class': 'ff-small ff-muted',
+        text: 'Nothing to count yet. Set a lineup on an event and it appears here.' }));
+      return card;
+    }
+
+    /* player id -> position id -> how many events they were listed there */
+    var counts = {};
+    events.forEach(function (evt) {
+      allPositionIds().forEach(function (pos) {
+        FF.store.lineupList(evt, pos).forEach(function (id) {
+          if (!id) return;
+          counts[id] = counts[id] || {};
+          counts[id][pos] = (counts[id][pos] || 0) + 1;
+        });
+      });
+    });
+
+    var offense = positionIds('offense');
+    var defense = positionIds('defense');
+    var columns = offense.concat(defense);
+
+    var scroll = h('div', { 'class': 'ff-rotation-scroll' });
+    var table = h('table', { 'class': 'ff-rotation' });
+
+    var head = h('tr', {}, [h('th', { 'class': 'ff-rot-name', text: '' })]);
+    columns.forEach(function (pos, i) {
+      head.appendChild(h('th', {
+        'class': 'ff-rot-pos' + (i === offense.length ? ' is-sidebreak' : ''),
+        text: pos
+      }));
+    });
+    head.appendChild(h('th', { 'class': 'ff-rot-gap', text: 'Never played' }));
+    table.appendChild(head);
+
+    roster.forEach(function (player) {
+      var mine = counts[player.id] || {};
+      var row = h('tr', {}, [h('td', { 'class': 'ff-rot-name', text: player.name || 'Unnamed' })]);
+
+      columns.forEach(function (pos, i) {
+        var n = mine[pos] || 0;
+        row.appendChild(h('td', {
+          'class': 'ff-rot-cell' + (n ? ' is-on' : ' is-off')
+            + (i === offense.length ? ' is-sidebreak' : ''),
+          text: n ? String(n) : '·'
+        }));
+      });
+
+      var missing = columns.filter(function (pos) { return !mine[pos]; });
+      row.appendChild(h('td', {
+        'class': 'ff-rot-gap' + (missing.length ? ' is-warn' : ' is-ok'),
+        text: missing.length ? missing.join(' ') : 'all covered'
+      }));
+      table.appendChild(row);
+    });
+
+    scroll.appendChild(table);
+    card.appendChild(scroll);
+
+    card.appendChild(h('p', { 'class': 'ff-small ff-muted', style: 'margin-top:10px',
+      text: 'Counts every event with a lineup set, planned or played. Offense '
+          + 'on the left, defense on the right.' }));
+
+    return card;
   }
 
   /* ---------- league rules -------------------------------------------------

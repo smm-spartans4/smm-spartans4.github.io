@@ -356,8 +356,10 @@ input:focus, select:focus, textarea:focus {
 
 .ff-rostername {
   grid-column: 2;
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .015em;
 }
 input.ff-rostername { border-color: transparent; background: transparent; padding-left: 4px; }
 input.ff-rostername:hover { border-color: var(--line); background: #fff; }

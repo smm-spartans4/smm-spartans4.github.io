@@ -277,6 +277,11 @@
             href: 'play-viewer.html?id=' + b.linkedPlayId,
             text: 'View ' + FF.store.playById(b.linkedPlayId).name }));
         }
+        if (b.linkedDrillId && FF.drills && FF.drills.byId(b.linkedDrillId)) {
+          body.appendChild(h('a', { 'class': 'ff-btn secondary ff-small',
+            href: 'play-viewer.html?drill=' + b.linkedDrillId,
+            text: 'Drill: ' + FF.drills.byId(b.linkedDrillId).name }));
+        }
         row.appendChild(body);
         plan.appendChild(row);
         running += mins;
@@ -613,7 +618,7 @@
       evt.itinerary = evt.itinerary || [];
       evt.itinerary.push({
         id: FF.store.uuid(), label: '', durationMinutes: 10,
-        linkedPlayId: null, notes: ''
+        linkedPlayId: null, linkedDrillId: null, notes: ''
       });
       saveNow();
       renderEvent(evt);
@@ -672,6 +677,26 @@
         href: 'play-viewer.html?id=' + block.linkedPlayId, text: 'View play' }));
     }
     body.appendChild(linkRow);
+
+    var drillRow = h('div', { 'class': 'ff-itin-link' });
+    var dsel = h('select', { 'aria-label': 'Linked drill' });
+    dsel.appendChild(h('option', { value: '', text: '— no drill linked —' }));
+    (FF.drills ? FF.drills.all() : []).forEach(function (d) {
+      var o = h('option', { value: d.id, text: d.name });
+      if (block.linkedDrillId === d.id) o.selected = true;
+      dsel.appendChild(o);
+    });
+    dsel.addEventListener('change', function () {
+      block.linkedDrillId = dsel.value || null;
+      saveNow();
+      renderEvent(evt);
+    });
+    drillRow.appendChild(dsel);
+    if (block.linkedDrillId && FF.drills && FF.drills.byId(block.linkedDrillId)) {
+      drillRow.appendChild(h('a', { 'class': 'ff-btn secondary ff-small',
+        href: 'play-viewer.html?drill=' + block.linkedDrillId, text: 'View drill' }));
+    }
+    body.appendChild(drillRow);
 
     var notes = h('input', { type: 'text', value: block.notes || '',
       placeholder: 'Notes for whoever runs this', 'aria-label': 'Notes' });

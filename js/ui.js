@@ -9,6 +9,7 @@
     { href: 'index.html',    label: 'Home' },
     { href: 'roster.html',   label: 'Roster' },
     { href: 'plays.html',    label: 'Plays' },
+    { href: 'drills.html',   label: 'Drills' },
     { href: 'schedule.html', label: 'Schedule' },
     { href: 'settings.html', label: 'Settings' }   // relabelled per audience below
   ];

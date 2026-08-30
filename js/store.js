@@ -322,6 +322,9 @@
   function deletePlay(id) {
     update(function (d) {
       d.plays = d.plays.filter(function (p) { return p.id !== id; });
+      /* A drill is only a pointer at a play, so a deleted play would leave
+         its drills with nothing to draw. Take them with it. */
+      d.drills = (d.drills || []).filter(function (dr) { return dr.playId !== id; });
       (d.practices || []).forEach(function (evt) {
         (evt.itinerary || []).forEach(function (block) {
           if (block.linkedPlayId === id) block.linkedPlayId = null;

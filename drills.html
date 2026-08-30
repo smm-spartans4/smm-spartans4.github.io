@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drills</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#17401A">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Spartans">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+<div id="ff-header"></div>
+
+<main class="ff-main">
+  <section class="ff-card">
+
+    <div class="ff-card-head">
+      <h1>Drills</h1>
+      <span class="ff-pill" id="drillCount"></span>
+    </div>
+
+    <div class="ff-toolbar ff-coach-only">
+      <label class="ff-small ff-muted" for="newFrom">New drill from</label>
+      <select id="newFrom" class="ff-select ff-small"></select>
+    </div>
+
+    <ul id="drillList" class="ff-playgrid"></ul>
+
+  </section>
+</main>
+
+<script src="data/team-data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/field.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/routes.js"></script>
+<script src="js/drills.js"></script>
+<script>
+(function () {
+  'use strict';
+  FF.ui.init();
+
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  var list = document.getElementById('drillList');
+  function h(tag, attrs, kids) { return FF.ui.h(tag, attrs, kids); }
+
+  /* The same still used on the Plays page, showing only the players this
+     drill puts on the field. */
+  function thumbnail(built) {
+    var svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('class', 'ff-thumb-svg');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', built.name);
+
+    var s = FF.store.settings();
+    var ctx = FF.field.render(svg, {
+      settings: s,
+      view: FF.field.viewForThumb(s, built),
+      lineOfScrimmageYard: built.lineOfScrimmageYard,
+      showNoRush: built.side === 'defense',
+      yardNumbers: false,
+      labels: false
+    });
+
+    (built.players || []).forEach(function (pl) {
+      if (FF.routes.isStatic(pl.route)) return;
+      FF.field.drawRoute(ctx, pl.route, {
+        lineOfScrimmageYard: built.lineOfScrimmageYard,
+        color: '#FFFFFF', width: 0.3, opacity: 0.9
+      });
+    });
+    FF.field.drawStartPositions(ctx, built);
+    return svg;
+  }
+
+  function card(drill) {
+    var built = FF.drills.buildPlay(drill);
+
+    if (!built) {
+      return h('li', { 'class': 'ff-playcard' }, [
+        h('div', { 'class': 'ff-playcard-name', text: drill.name || 'Drill' }),
+        h('div', { 'class': 'ff-playcard-meta' }, [
+          h('span', { 'class': 'ff-note is-warn',
+            text: 'The play this drill was built from has been deleted.' })
+        ]),
+        h('div', { 'class': 'ff-playcard-tools ff-coach-only' }, [
+          h('button', { type: 'button', 'class': 'ff-row-del',
+            'data-del': drill.id, text: '×', title: 'Delete this drill' })
+        ])
+      ]);
+    }
+
+    var link = h('a', { 'class': 'ff-playcard-link',
+      href: 'play-viewer.html?drill=' + drill.id });
+    var thumb = h('div', { 'class': 'ff-playcard-thumb' });
+    thumb.appendChild(thumbnail(built));
+    link.appendChild(thumb);
+    link.appendChild(h('div', { 'class': 'ff-playcard-name', text: drill.name }));
+    link.appendChild(h('div', { 'class': 'ff-playcard-meta' }, [
+      h('span', { 'class': 'ff-pill',
+        text: FF.drills.sortPositions(drill).join(' · ') }),
+      h('span', { 'class': 'ff-small ff-muted', text: 'from ' + built.sourcePlayName })
+    ]));
+
+    var order = h('div', { 'class': 'ff-playcard-order ff-coach-only' }, [
+      h('button', { type: 'button', 'class': 'ff-row-del', 'data-up': drill.id,
+        text: '◀', title: 'Move earlier' }),
+      h('button', { type: 'button', 'class': 'ff-row-del', 'data-down': drill.id,
+        text: '▶', title: 'Move later' })
+    ]);
+
+    var tools = h('div', { 'class': 'ff-playcard-tools ff-coach-only' }, [
+      h('a', { 'class': 'ff-btn secondary ff-small',
+        href: 'drill-editor.html?id=' + drill.id, text: 'Edit' }),
+      h('button', { type: 'button', 'class': 'ff-row-del',
+        'data-del': drill.id, text: '×', title: 'Delete ' + drill.name })
+    ]);
+
+    if (!FF.ui.isCoach()) return h('li', { 'class': 'ff-playcard' }, [link]);
+    return h('li', { 'class': 'ff-playcard' }, [link, order, tools]);
+  }
+
+  function render() {
+    var drills = FF.drills.all();
+    list.innerHTML = '';
+    document.getElementById('drillCount').textContent =
+      drills.length + (drills.length === 1 ? ' drill' : ' drills');
+
+    if (!drills.length) {
+      list.appendChild(h('li', { 'class': 'ff-empty' }, [
+        h('p', { text: 'No drills yet.' }),
+        h('p', { 'class': 'ff-small ff-coach-only',
+          text: 'Pick a play above to build one from.' })
+      ]));
+      return;
+    }
+    drills.forEach(function (d) { list.appendChild(card(d)); });
+  }
+
+  /* Coach-only: the picker that starts a new drill. */
+  var picker = document.getElementById('newFrom');
+  picker.appendChild(h('option', { value: '', text: 'Choose a play…' }));
+  FF.store.plays().forEach(function (p) {
+    picker.appendChild(h('option', { value: p.id,
+      text: (p.side === 'offense' ? 'O' : 'D') + ' · ' + p.name }));
+  });
+  picker.addEventListener('change', function () {
+    if (!picker.value) return;
+    location.href = 'drill-editor.html?new=' + picker.value;
+  });
+
+  list.addEventListener('click', function (e) {
+    var up = e.target.closest('[data-up]');
+    if (up) { FF.drills.move(up.getAttribute('data-up'), -1); FF.ui.refreshBanner(); render(); return; }
+
+    var down = e.target.closest('[data-down]');
+    if (down) { FF.drills.move(down.getAttribute('data-down'), 1); FF.ui.refreshBanner(); render(); return; }
+
+    var del = e.target.closest('[data-del]');
+    if (del) {
+      var d = FF.drills.byId(del.getAttribute('data-del'));
+      if (!d) return;
+      if (!window.confirm('Delete "' + (d.name || 'this drill') + '"?')) return;
+      FF.drills.remove(d.id);
+      FF.ui.refreshBanner();
+      render();
+    }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

@@ -17,13 +17,15 @@
    ========================================================================== */
 'use strict';
 
-var CACHE_VERSION = 'ff-v28';
+var CACHE_VERSION = 'ff-v29';
 
 var PRECACHE = [
   './',
   './index.html',
   './roster.html',
   './plays.html',
+  './drills.html',
+  './drill-editor.html',
   './play-editor.html',
   './play-viewer.html',
   './schedule.html',
@@ -40,6 +42,8 @@ var PRECACHE = [
   './js/mp4.js',
   './js/recorder.js',
   './js/viewer.js',
+  './js/drills.js',
+  './js/drill-editor.js',
   './js/roster.js',
   './js/play-editor.js',
   './js/schedule.js',

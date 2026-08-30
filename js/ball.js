@@ -116,8 +116,13 @@
     settings = settings || FF.store.settings();
 
     var qb = posAt(play, 'QB', t);
+    if (!qb) return null;
+
+    /* The Center may be absent - a three-player drill often has no one to
+       snap it. Then there is no snap to draw and the ball simply starts in
+       the quarterback's hands. */
     var c = posAt(play, 'C', t);
-    if (!qb || !c) return null;
+    var snaps = !!c && events(play).some(function (e) { return e.type === 'snap'; });
 
     /* Manual override for trick plays. */
     if (play.ball && play.ball.mode === 'manual'
@@ -128,7 +133,7 @@
 
     var snapDur = settings.snapDurationSeconds || 0.3;
 
-    if (t < snapDur) {
+    if (snaps && t < snapDur) {
       var f = snapDur ? (t / snapDur) : 1;
       var p = lerp(c, qb, f);
       return { xYards: p.xYards, yYards: p.yYards, carrier: null, phase: 'snap' };

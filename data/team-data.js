@@ -1736,6 +1736,7 @@ window.PUBLISHED_TEAM_DATA = {
       }
     }
   ],
+  "drills": [],
   "practices": [
     {
       "id": "evt-sample",

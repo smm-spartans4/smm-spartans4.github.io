@@ -40,6 +40,7 @@
 <script src="js/ui.js"></script>
 <script src="js/routes.js"></script>
 <script src="js/mirror.js"></script>
+<script src="js/drills.js"></script>
 <script>
 (function () {
   'use strict';
@@ -189,7 +190,18 @@
     if (del) {
       var doomed = FF.store.playById(del.getAttribute('data-del'));
       if (!doomed) return;
-      if (!window.confirm('Delete "' + doomed.name + '"? This cannot be undone.')) return;
+      var built = (FF.drills ? FF.drills.usingPlay(doomed.id) : []);
+      var warn = 'Delete "' + doomed.name + '"? This cannot be undone.';
+      if (built.length) {
+        warn += '
+
+This will also delete ' + built.length + ' drill'
+          + (built.length === 1 ? '' : 's') + ' built from it:
+  '
+          + built.map(function (d) { return d.name; }).join('
+  ');
+      }
+      if (!window.confirm(warn)) return;
       FF.store.deletePlay(doomed.id);
       FF.ui.refreshBanner();
       render();

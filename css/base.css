@@ -997,3 +997,7 @@ svg.ff-field { cursor: default; }
   background: #E8E4DA;
   display: block;
 }
+
+/* The quarterback is always in a drill, so his tick is shown but locked. */
+.ff-check.is-locked { opacity: .75; cursor: default; }
+.ff-check.is-locked input { cursor: default; }

@@ -54,6 +54,7 @@
 <script src="js/ui.js"></script>
 <script src="js/routes.js"></script>
 <script src="js/mirror.js"></script>
+<script src="js/drills.js"></script>
 <script src="js/ball.js"></script>
 <script src="js/playback.js"></script>
 <script src="js/announcer.js"></script>
@@ -65,8 +66,15 @@
   'use strict';
   FF.ui.init();
 
-  var id = new URLSearchParams(location.search).get('id');
-  var play = id ? FF.store.playById(id) : FF.store.plays()[0];
+  var params = new URLSearchParams(location.search);
+  var drillId = params.get('drill');
+  var id = params.get('id');
+
+  /* A drill is an ordinary play once built, so everything below - playback,
+     zones, the announcer, the MP4 export - works on it unchanged. */
+  var drill = drillId && FF.drills ? FF.drills.byId(drillId) : null;
+  var play = drill ? FF.drills.buildPlay(drill)
+    : (id ? FF.store.playById(id) : FF.store.plays()[0]);
 
   if (!play) {
     document.querySelector('.ff-viewer').innerHTML =
@@ -84,7 +92,9 @@
     el.remove();
   });
 
-  document.getElementById('editLink').href = 'play-editor.html?id=' + play.id;
+  var edit = document.getElementById('editLink');
+  edit.href = drill ? 'drill-editor.html?id=' + drill.id
+                    : 'play-editor.html?id=' + play.id;
 
   FF.viewer.create({
     svg: document.getElementById('field'),

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drill</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#17401A">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Spartans">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+<div id="ff-header"></div>
+
+<main class="ff-main ff-editor">
+  <div class="ff-grid field-and-panel">
+
+    <section class="ff-card">
+      <div class="ff-card-head">
+        <a class="ff-small" href="drills.html">&larr; All drills</a>
+        <span class="ff-pill" id="drillTitle">Drill</span>
+      </div>
+      <div class="ff-field-wrap">
+        <svg id="field" role="img" aria-label="Drill diagram"></svg>
+      </div>
+      <div id="controls"></div>
+    </section>
+
+    <section class="ff-card">
+      <div class="ff-card-head">
+        <h2>Set up</h2>
+        <span id="saveState" class="ff-savestate ff-small"></span>
+      </div>
+      <div id="panel"></div>
+      <h3 class="ff-panel-head">Assignments</h3>
+      <div id="legend"></div>
+    </section>
+
+  </div>
+</main>
+
+<script src="data/team-data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/field.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/routes.js"></script>
+<script src="js/mirror.js"></script>
+<script src="js/ball.js"></script>
+<script src="js/playback.js"></script>
+<script src="js/viewer.js"></script>
+<script src="js/drills.js"></script>
+<script src="js/drill-editor.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-08-30T21:11:22.804Z
+   Exported 2026-08-30T22:06:06.613Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -388,29 +388,19 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 1.555,
-              "xYards": 11.47,
-              "yYards": 4.49
+              "t": 3.351,
+              "xYards": 13.39,
+              "yYards": 2.69
             },
             {
-              "t": 2.341,
-              "xYards": 13.34,
-              "yYards": 5.98
-            },
-            {
-              "t": 3.643,
-              "xYards": 17.18,
-              "yYards": 6.93
-            },
-            {
-              "t": 4.734,
-              "xYards": 20.4,
-              "yYards": 7.72
+              "t": 4.365,
+              "xYards": 14.52,
+              "yYards": 3.35
             },
             {
               "t": 5,
-              "xYards": 21.19,
-              "yYards": 7.55
+              "xYards": 15.31,
+              "yYards": 3.57
             }
           ],
           "assignmentNote": "Run your route to clear space for the Z. "
@@ -625,32 +615,22 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 1.555,
-              "xYards": 11.47,
-              "yYards": 4.49
+              "t": 3.303,
+              "xYards": 13.17,
+              "yYards": 3.09
             },
             {
-              "t": 2.341,
-              "xYards": 13.34,
-              "yYards": 5.98
-            },
-            {
-              "t": 3.643,
-              "xYards": 17.18,
-              "yYards": 6.93
-            },
-            {
-              "t": 4.734,
-              "xYards": 20.4,
-              "yYards": 7.72
+              "t": 4.349,
+              "xYards": 14.3,
+              "yYards": 3.92
             },
             {
               "t": 5,
-              "xYards": 21.19,
-              "yYards": 7.55
+              "xYards": 15,
+              "yYards": 4.44
             }
           ],
-          "assignmentNote": "Run fast and find open space in the area of your route. "
+          "assignmentNote": "Slant. Run fast and find open space in the area of your route. "
         },
         {
           "positionId": "Y",
@@ -837,34 +817,29 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 1.628,
+              "t": 1.937,
               "xYards": 15.04,
               "yYards": -0.56
             },
             {
-              "t": 1.928,
+              "t": 2.294,
               "xYards": 15.61,
               "yYards": -0.56
             },
             {
-              "t": 2.584,
+              "t": 3.073,
               "xYards": 16.74,
               "yYards": -0.04
             },
             {
-              "t": 3.154,
+              "t": 3.751,
               "xYards": 17.66,
               "yYards": 0.53
             },
             {
-              "t": 4.204,
+              "t": 5,
               "xYards": 18.7,
               "yYards": 2.23
-            },
-            {
-              "t": 5,
-              "xYards": 19.01,
-              "yYards": 3.71
             }
           ],
           "assignmentNote": "Run to the right, take the handoff in front of the QB. Run full speed into daylight. "
@@ -883,14 +858,14 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 2.91,
-              "xYards": 18.44,
-              "yYards": 4.19
+              "t": 4.238,
+              "xYards": 15.87,
+              "yYards": 3.74
             },
             {
               "t": 5,
-              "xYards": 15.57,
-              "yYards": 5.1
+              "xYards": 15.09,
+              "yYards": 4
             }
           ],
           "assignmentNote": "Run your route as shown to clear space for the ball carrier. "
@@ -1059,17 +1034,17 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 2.91,
-              "xYards": 18.44,
-              "yYards": 4.19
+              "t": 4.195,
+              "xYards": 15.61,
+              "yYards": 3.92
             },
             {
               "t": 5,
-              "xYards": 15.57,
-              "yYards": 5.1
+              "xYards": 14.78,
+              "yYards": 4.35
             }
           ],
-          "assignmentNote": "Run fast and find open space in the area of your route. "
+          "assignmentNote": "Slant. Run fast and find open space in the area of your route. "
         },
         {
           "positionId": "Z",

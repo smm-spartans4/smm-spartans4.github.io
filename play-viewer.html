@@ -29,11 +29,13 @@
         <svg id="field" role="img" aria-label="Animated play diagram"></svg>
       </div>
       <div id="controls"></div>
-      <div class="ff-legend">
+      <div class="ff-legend" id="legendKeys">
         <span><i style="border-color:#E53935"></i> First down</span>
         <span><i style="border-color:#000000"></i> Line of scrimmage</span>
-        <span class="ff-key"><b style="background:#FFEB3B"></b> Selling a fake</span>
-        <span class="ff-key"><b style="background:#D32F2F"></b> Has the ball</span>
+        <span class="ff-key js-offense-key"><b style="background:#FFEB3B"></b> Selling a fake</span>
+        <span class="ff-key js-offense-key"><b style="background:#D32F2F"></b> Has the ball</span>
+        <span class="ff-key js-defense-key"><i style="border-color:#FFC400"></i> Rush line</span>
+        <span class="ff-key js-defense-key"><b style="background:#FFEB3B"></b> Zone</span>
       </div>
     </section>
 
@@ -74,6 +76,14 @@
   }
 
   document.getElementById('playName').textContent = play.name;
+
+  /* Selling a fake and carrying the ball are offensive states; the rush line
+     and zone bubbles are defensive ones. Show only the half that applies. */
+  var drop = play.side === 'defense' ? '.js-offense-key' : '.js-defense-key';
+  Array.prototype.forEach.call(document.querySelectorAll(drop), function (el) {
+    el.remove();
+  });
+
   document.getElementById('editLink').href = 'play-editor.html?id=' + play.id;
 
   FF.viewer.create({

@@ -137,7 +137,7 @@
   var today = new Date().toISOString().slice(0, 10);
   var next = FF.store.eventsSorted()
     .filter(function (e) { return e.date >= today; })
-    .slice(0, 2);
+    .slice(0, 3);
 
   if (!next.length) {
     host.appendChild(h('p', { 'class': 'ff-muted',

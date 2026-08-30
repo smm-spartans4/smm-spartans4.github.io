@@ -1074,6 +1074,13 @@
       }
     });
 
+    /* Nothing moves on a static defensive play, so the transport row is
+       hidden rather than left sitting there doing nothing. */
+    if (play.side === 'defense') {
+      var scrubRow = document.querySelector('.ff-scrub');
+      if (scrubRow) scrubRow.style.display = 'none';
+    }
+
     scrubEl.max = String(play.durationSeconds || 5);
     scrubEl.addEventListener('input', function () {
       clock.pause();

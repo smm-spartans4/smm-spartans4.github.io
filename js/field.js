@@ -517,13 +517,14 @@
     return byPosition === undefined ? 6 : byPosition;
   }
 
-  /* COBRA: the rusher drops out instead of rushing and plays rover - the deep
-     middle, plus a piece of each deep sideline. Not a circle, so it is built
-     from lobes: offsets in yards from wherever he lines up. */
+  /* COBRA: the rusher drops out instead of rushing and plays the deep middle.
+     Wide enough to overlap the two deep halves on either side, but nowhere
+     near the sidelines - those belong to LD and RD, and a rover chasing them
+     would be covering ground nobody asked him to cover.
+
+     Offsets are in yards from wherever he lines up. */
   var COBRA_LOBES = [
-    { dx: 0,    dy: 6,  rx: 7,   ry: 5 },     // deep middle
-    { dx: -8.5, dy: 9,  rx: 5,   ry: 3.5 },   // deep left wing
-    { dx: 8.5,  dy: 9,  rx: 5,   ry: 3.5 }    // deep right wing
+    { dx: 0, dy: 7.5, rx: 7.5, ry: 5.5 }
   ];
 
   function drawZone(ctx, o) {

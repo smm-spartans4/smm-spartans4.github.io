@@ -169,9 +169,8 @@
             positionId: pl.positionId,
             xYards: at.xYards,
             absY: ctx.absY(at.yYards, play.lineOfScrimmageYard),
-            /* On a Cobra call the rusher drops out and plays rover, so his
-               area is the deep middle plus a piece of each sideline - not a
-               circle, and not the nothing he normally has. */
+            /* On a Cobra call the rusher drops out and takes the deep middle,
+               overlapping both deep halves - not the nothing he normally has. */
             lobes: isRover ? FF.field.COBRA_LOBES : null,
             radiusYards: FF.field.zoneRadiusFor(pl),
             fillOpacity: hoveredId === pl.positionId ? 0.32 : 0.24
@@ -205,6 +204,15 @@
     function buildControls() {
       if (!controlsEl) return;
       controlsEl.innerHTML = '';
+
+      /* Defensive plays are an alignment and a set of areas, not something
+         that runs. Play, scrub, step and speed had nothing to move, so the
+         whole transport row is left out rather than sitting there inert. */
+      if (isDefense()) {
+        buildViewRow();
+        buildDownloadRow();
+        return;
+      }
 
       els.playBtn = h('button', { type: 'button', 'class': 'ff-btn ff-play',
         text: '▶ Play', 'aria-label': 'Play' });
@@ -246,6 +254,13 @@
         els.playBtn, els.restart, back, fwd, els.scrub, els.time, els.speed
       ]));
 
+      buildViewRow();
+      buildAnnouncerRow();
+    }
+
+    /* How the play is SHOWN, as opposed to how it plays. Split out so a
+       defensive play can have it without the transport controls above. */
+    function buildViewRow() {
       /* --- second row: how it is shown, not how it plays --- */
 
       els.flipBtn = h('button', { type: 'button', 'class': 'ff-btn secondary ff-small',
@@ -305,7 +320,7 @@
         if (play.players.some(function (p) { return p.positionId === 'RUSH'; })) {
           els.cobraBtn = h('button', { type: 'button',
             'class': 'ff-btn secondary ff-small', text: 'Cobra',
-            title: 'Rusher drops out and plays rover: deep middle plus both sidelines' });
+            title: 'Rusher drops out and covers the deep middle' });
           els.cobraBtn.addEventListener('click', function () {
             cobraOn = !cobraOn;
             els.cobraBtn.classList.toggle('is-on', cobraOn);
@@ -344,7 +359,6 @@
       }
 
       controlsEl.appendChild(viewRow);
-      buildAnnouncerRow();
     }
 
     /* ---- announcer ------------------------------------------------------- */

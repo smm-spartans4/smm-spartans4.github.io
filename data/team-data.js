@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-08-30T05:30:54.184Z
+   Exported 2026-08-30T21:11:22.804Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -1736,7 +1736,6 @@ window.PUBLISHED_TEAM_DATA = {
       }
     }
   ],
-  "drills": [],
   "practices": [
     {
       "id": "evt-sample",
@@ -1836,6 +1835,184 @@ window.PUBLISHED_TEAM_DATA = {
         "RD": []
       },
       "itinerary": []
+    }
+  ],
+  "drills": [
+    {
+      "id": "3b4d44c4-65de-4e73-bdda-137001ccac59",
+      "name": "Power Z Run — drill",
+      "playId": "4e0bd0cc-54f1-4ba2-8fba-4f75f98e00dd",
+      "positions": [
+        "QB",
+        "Y",
+        "Z"
+      ],
+      "notes": {
+        "QB": "Check that the formation is correct. Hands out ready to receive. Catch snap, turn L. Immediately put the ball into the belly of the Y, and pull it out. Hand off to Z. ",
+        "Y": "Hands on knees. Eyes on center. At the snap, move towards QB, accept the fake handoff. Continue running to R flat as if you have the ball. ",
+        "Z": "Hands on knees. Eyes on center. At the snap, accept the handoff from QB. Run hard and fast into daylight on the L side. "
+      },
+      "description": "Speed is essential here. Fake to freeze the defense, then ball in Z's hands. Snap. Fake. Handoff. Bang-bang-bang no delays. Push for fast execution. "
+    },
+    {
+      "id": "d398e782-a0d7-40d5-ae60-a4b19ed71620",
+      "name": "Power Z Pass — drill",
+      "playId": "a24afcd0-2029-4b93-a718-1b2cd8a5bcde",
+      "positions": [
+        "QB",
+        "Y",
+        "Z"
+      ],
+      "description": "",
+      "notes": {
+        "QB": "Check that the formation is correct. Hands out ready to receive. Catch snap, turn L. Immediately put the ball into the belly of the Y, and pull it out. Look for an open receiver and throw. ",
+        "Y": "Hands on knees. Eyes on center. At the snap, move towards QB, accept the fake handoff. Run hard to the R flat to receive a pass.",
+        "Z": "Hands on knees. Eyes on center. At the snap, bolt hard to the L flat ready to receive a pass. "
+      }
+    },
+    {
+      "id": "e9e8cafe-d34f-424c-bfe7-177a4339b487",
+      "name": "Power Z Pass — drill",
+      "playId": "a24afcd0-2029-4b93-a718-1b2cd8a5bcde",
+      "positions": [
+        "C",
+        "QB",
+        "X"
+      ],
+      "description": "",
+      "notes": {
+        "C": "Snap the ball to QB, run the route as shown, find open space. ",
+        "QB": "Check that the formation is correct. Hands out ready to receive. Catch snap, fake handoff to Y. Look for open recievers and throw. ",
+        "X": "Run fast and find open space in the area of your route. "
+      }
+    },
+    {
+      "id": "e04ac548-124d-4095-beb3-99625a1e4da7",
+      "name": "Spread X Run — drill",
+      "playId": "3164952d-69f6-45ec-b1b4-cca5f36a166f",
+      "positions": [
+        "QB",
+        "X",
+        "Y"
+      ],
+      "description": "Speed kills. Get the ball into the hands of the X immediately after the snap. Bang-bang. ",
+      "notes": {
+        "QB": "Check that the formation is correct. Hands out ready to receive. Catch snap, immediately handoff to X coming from the L. ",
+        "X": "Face straight ahead, one foot forward at the line. At the snap, break hard R and take the handoff in front of the QB. Run hard and fast into daylight. ",
+        "Y": "Face straight ahead, one foot forward at the line. Run your route as shown to clear space for the ball carrier. "
+      }
+    },
+    {
+      "id": "62f7997f-4067-4dac-aaa5-7b0385cb2807",
+      "name": "Spread X Pass — drill",
+      "playId": "4fede1f8-d11c-4cec-bf63-dd041e945bfb",
+      "positions": [
+        "QB",
+        "X",
+        "Y"
+      ],
+      "description": "Fake handoff to X, throw to open receiver. ",
+      "notes": {
+        "QB": "Make sure formation is correct. Hands out ready to receive. Take snap, fake handoff to X. Step back, look for open receivers and throw. ",
+        "X": "Face straight ahead, one foot forward at the line. At the snap, break hard R in front of QB, accept the fake, and find open space on the R side, ready to receive. ",
+        "Y": "Face straight ahead, one foot forward at the line. At the snap, run the route as shown, find open space, ready to receive. "
+      }
+    },
+    {
+      "id": "65f86598-f286-4f6c-8d85-dd37114efe85",
+      "name": "Spread X Pass — drill",
+      "playId": "4fede1f8-d11c-4cec-bf63-dd041e945bfb",
+      "positions": [
+        "C",
+        "QB",
+        "Z"
+      ],
+      "description": "",
+      "notes": {
+        "C": "Snap the ball to the QB, then break into open space, ready to receive. ",
+        "QB": "Make sure formation is correct. Hands ready to receive. Take the snap, fake to X coming from L. Find an open receiver and throw. ",
+        "Z": "Face straight ahead, one foot forward at the line. Run the route as shown, ready to receive. "
+      }
+    },
+    {
+      "id": "90e7daf7-8fb9-4180-a357-8e6c75852cd6",
+      "name": "Spread Y Run — drill",
+      "playId": "0cdb7b33-3d6f-4744-a2d8-87bc40f55954",
+      "positions": [
+        "QB",
+        "X",
+        "Y"
+      ],
+      "description": "Speed kills. Get the ball into the hands of the Y immediately after the snap. Bang-bang.",
+      "notes": {
+        "QB": "Check that the formation is correct. Hands out ready to receive. Catch snap, immediately handoff to Y coming from the R.",
+        "X": "Face straight ahead, one foot forward at the line. Run your route as shown to clear space for the ball carrier.",
+        "Y": "Face straight ahead, one foot forward at the line. At the snap, break hard L and take the handoff in front of the QB. Run hard and fast into daylight."
+      }
+    },
+    {
+      "id": "c6da6089-3a24-4733-a3e2-c24102cc3c33",
+      "name": "Spread Y Pass — drill",
+      "playId": "9ed8fd04-2def-415b-a720-4a2c22799395",
+      "positions": [
+        "QB",
+        "X",
+        "Y"
+      ],
+      "description": "Fake handoff to Y, throw to open receiver. ",
+      "notes": {
+        "QB": "Make sure formation is correct. Hands out ready to receive. Take snap, fake handoff to Y. Step back, look for open receivers and throw.",
+        "X": "Face straight ahead, one foot forward at the line. At the snap, run the route as shown, find open space, ready to receive.",
+        "Y": "Face straight ahead, one foot forward at the line. At the snap, break hard R in front of QB, accept the fake, and find open space on the R side, ready to receive."
+      }
+    },
+    {
+      "id": "f004b4a6-6984-4194-a281-0907bbe6d306",
+      "name": "Spread Y Pass — drill",
+      "playId": "9ed8fd04-2def-415b-a720-4a2c22799395",
+      "positions": [
+        "C",
+        "QB",
+        "Z"
+      ],
+      "description": "",
+      "notes": {
+        "C": "Snap the ball to the QB, then break into open space, ready to receive.",
+        "QB": "Make sure formation is correct. Hands ready to receive. Take the snap, fake to Y coming from R. Find an open receiver and throw.",
+        "Z": "Face straight ahead, one foot forward at the line. Run the route as shown, ready to receive."
+      }
+    },
+    {
+      "id": "3be2410d-f800-4e66-b05a-c2b3d83bc8c2",
+      "name": "Spread Free — drill",
+      "playId": "d244855a-6713-43a3-8c11-ebb61ce20014",
+      "positions": [
+        "C",
+        "QB",
+        "X"
+      ],
+      "description": "This play tries to pull a defender out of position, leaving a receiver open. No fakes. QB gets the ball and looks for an open receiver. ",
+      "notes": {
+        "C": "Snap the ball to the QB, then break into open space on the L, ready to receive. ",
+        "QB": "Make sure formation is correct. Hands ready to receive. Take the snap, drop back, find an open receiver, throw. ",
+        "X": "Face straight ahead, one foot forward at the line. Run the route as shown towards the L deep side, ready to receive."
+      }
+    },
+    {
+      "id": "f01771a1-88d8-4a19-8972-203ca660544b",
+      "name": "Spread Free — drill",
+      "playId": "d244855a-6713-43a3-8c11-ebb61ce20014",
+      "positions": [
+        "QB",
+        "Y",
+        "Z"
+      ],
+      "description": "This play tries to pull a defender out of position, leaving a receiver open. No fakes. QB gets the ball and looks for an open receiver.",
+      "notes": {
+        "QB": "Make sure formation is correct. Hands ready to receive. Take the snap, drop back, find an open receiver, throw.",
+        "Y": "Face straight ahead, one foot forward at the line. Run the route as shown towards the middle, and break to the R into open space. ",
+        "Z": "Face straight ahead, one foot forward at the line. Run the route as shown from deep R to deep middle. "
+      }
     }
   ]
 };

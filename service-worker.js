@@ -17,7 +17,7 @@
    ========================================================================== */
 'use strict';
 
-var CACHE_VERSION = 'ff-v23';
+var CACHE_VERSION = 'ff-v24';
 
 var PRECACHE = [
   './',
@@ -50,6 +50,17 @@ var PRECACHE = [
   './icons/icon-512.png',
   './icons/apple-touch-icon.png',
   './icons/spartan-white.png',
+  './icons/players/warrior-01.jpg',
+  './icons/players/warrior-02.jpg',
+  './icons/players/warrior-03.jpg',
+  './icons/players/warrior-04.jpg',
+  './icons/players/warrior-05.jpg',
+  './icons/players/warrior-06.jpg',
+  './icons/players/warrior-07.jpg',
+  './icons/players/warrior-08.jpg',
+  './icons/players/warrior-09.jpg',
+  './icons/players/warrior-10.jpg',
+  './icons/players/warrior-11.jpg',
   './fonts/cinzel-700-latin.woff2'
 ];
 

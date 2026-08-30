@@ -314,13 +314,13 @@ input:focus, select:focus, textarea:focus {
 /* The list is deliberately narrow. Left to fill a 1240px page, the name field
    stretched to the far edge and the number and the name read as if they were
    at opposite ends of the screen. */
-.ff-roster { max-width: 460px; }
+.ff-roster { max-width: 430px; }
 
 .ff-roster-row,
 .ff-roster-labels {
   display: grid;
-  gap: 12px;
-  grid-template-columns: 56px minmax(0, 1fr) 40px;
+  gap: 9px;
+  grid-template-columns: 48px minmax(0, 1fr) 44px 38px;
   align-items: center;
 }
 
@@ -341,9 +341,9 @@ input:focus, select:focus, textarea:focus {
 .ff-jersey,
 input.ff-jersey {
   grid-column: 1;
-  width: 56px;
-  height: 56px;
-  min-height: 56px;
+  width: 48px;
+  height: 48px;
+  min-height: 48px;
   padding: 0;
   border-radius: 50%;
   background: var(--team-primary);
@@ -351,7 +351,7 @@ input.ff-jersey {
   color: #fff;
   text-align: center;
   font-family: var(--font-display);
-  font-size: 1.45rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: .02em;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 1px 3px rgba(0,0,0,.18);
@@ -373,7 +373,7 @@ input.ff-rostername {
   font-weight: 700;
   letter-spacing: .015em;
 }
-input.ff-rostername { border-color: transparent; background: transparent; padding-left: 4px; }
+input.ff-rostername { border-color: transparent; background: transparent; padding-left: 2px; }
 input.ff-rostername:hover { border-color: var(--line); background: #fff; }
 input.ff-rostername:focus { border-color: var(--team-primary); background: #fff; }
 
@@ -405,7 +405,7 @@ input.ff-rostername:focus { border-color: var(--team-primary); background: #fff;
 }
 .ff-empty p { margin: 0 0 4px; }
 
-.ff-roster-row.is-readonly { grid-template-columns: 56px minmax(0, 1fr); }
+.ff-roster-row.is-readonly { grid-template-columns: 48px minmax(0, 1fr) 44px; }
 
 /* ---------- play editor ---------------------------------------------------- */
 
@@ -936,8 +936,14 @@ svg.ff-field { cursor: default; }
 /* ---------- home lineups ---------------------------------------------------- */
 
 .ff-lineup-sides { display: grid; gap: 18px; margin-top: 12px; }
-@media (min-width: 700px) {
-  .ff-lineup-sides { grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (min-width: 620px) {
+  /* max-content, not 1fr: two equal fractions of a wide card pushed Defense
+     out to the halfway mark with a lake of nothing in between. */
+  .ff-lineup-sides {
+    grid-template-columns: repeat(2, minmax(150px, max-content));
+    gap: 44px;
+    justify-content: start;
+  }
 }
 
 .ff-lineup-sidehead {
@@ -980,3 +986,14 @@ svg.ff-field { cursor: default; }
   color: var(--ink);
 }
 .ff-lineup-name { font-size: .88rem; color: var(--ink-soft); }
+
+/* Player portrait: one of the warriors from the team sheet, cropped round. */
+.ff-portrait {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--team-primary);
+  background: #E8E4DA;
+  display: block;
+}

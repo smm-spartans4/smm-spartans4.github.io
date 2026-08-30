@@ -61,7 +61,27 @@
     return input;
   }
 
-  function row(player) {
+  /* One of the eleven warriors from the team sheet, by position in the roster.
+     Eleven pictures for a roster of ten means nobody has to share. */
+  var WARRIOR_COUNT = 11;
+
+  function warriorFor(index) {
+    var n = (index % WARRIOR_COUNT) + 1;
+    return 'icons/players/warrior-' + (n < 10 ? '0' : '') + n + '.jpg';
+  }
+
+  function portrait(player, index) {
+    return h('img', {
+      'class': 'ff-portrait',
+      src: warriorFor(index),
+      alt: '',
+      width: '44',
+      height: '44',
+      loading: 'lazy'
+    });
+  }
+
+  function row(player, index) {
     var del = h('button', {
       type: 'button',
       'class': 'ff-row-del',
@@ -79,16 +99,18 @@
       field(player, 'name', {
         cls: 'ff-f-name ff-rostername', placeholder: 'Player name', label: 'Player name'
       }),
+      portrait(player, index),
       del
     ]);
   }
 
   /* A parent sees the team, not a form: number and name, nothing to type in
      and nothing to delete. */
-  function readOnlyRow(player) {
+  function readOnlyRow(player, index) {
     return h('li', { 'class': 'ff-roster-row is-readonly' }, [
       h('span', { 'class': 'ff-jersey', text: player.jersey || '—' }),
-      h('span', { 'class': 'ff-f-name ff-rostername', text: player.name || 'Unnamed' })
+      h('span', { 'class': 'ff-f-name ff-rostername', text: player.name || 'Unnamed' }),
+      portrait(player, index)
     ]);
   }
 
@@ -98,7 +120,7 @@
     listEl.innerHTML = '';
 
     if (!coach) {
-      roster.forEach(function (p) { listEl.appendChild(readOnlyRow(p)); });
+      roster.forEach(function (p, i) { listEl.appendChild(readOnlyRow(p, i)); });
       if (!roster.length) {
         listEl.appendChild(h('li', { 'class': 'ff-empty' }, [
           h('p', { text: 'No players on the roster yet.' })
@@ -114,7 +136,7 @@
         h('p', { 'class': 'ff-small', text: 'Add your first player below.' })
       ]));
     } else {
-      roster.forEach(function (p) { listEl.appendChild(row(p)); });
+      roster.forEach(function (p, i) { listEl.appendChild(row(p, i)); });
     }
 
     countEl.textContent = roster.length + (roster.length === 1 ? ' player' : ' players');

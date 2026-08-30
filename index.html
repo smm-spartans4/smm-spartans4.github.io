@@ -19,7 +19,7 @@
 <main class="ff-main">
   <section class="ff-card">
     <div class="ff-card-head">
-      <h1>Upcoming</h1>
+      <h1>Next Up</h1>
       <a class="ff-small" href="schedule.html">Full schedule</a>
     </div>
     <div id="upcoming"></div>
@@ -57,19 +57,41 @@
     return (FF.store.settings()[key] || []).map(function (p) { return p.id; });
   }
 
-  /* Group 1 only. Home is a glance before you leave the house; the full
-     rotation is one tap away on the event itself. */
-  function lineupLine(evt, side) {
-    var players = FF.store.activeLineup(evt.id, 0).players || {};
-    var parts = positionIds(side)
-      .filter(function (pos) { return players[pos]; })
-      .map(function (pos) { return pos + ' ' + players[pos].name; });
-    if (!parts.length) return null;
+  /* Every group that actually has somebody in it, listed down the page rather
+     than run together on one line - a parent is looking for one name, and a
+     comma-separated string of ten is the hardest possible way to find it. */
+  function sideBlock(evt, side) {
+    var groups = FF.store.LINEUP_GROUPS(side);
+    var ids = positionIds(side);
+    var rendered = [];
 
-    return h('div', { 'class': 'ff-small ff-upnext-line' }, [
-      h('strong', { text: (side === 'defense' ? 'Defense: ' : 'Offense: ') }),
-      h('span', { text: parts.join('  ·  ') })
+    for (var g = 0; g < groups; g++) {
+      var players = FF.store.activeLineup(evt.id, g).players || {};
+      var filled = ids.filter(function (pos) { return players[pos]; });
+      if (!filled.length) continue;
+
+      var rows = h('div', { 'class': 'ff-lineup-rows' });
+      filled.forEach(function (pos) {
+        rows.appendChild(h('div', { 'class': 'ff-lineup-row' }, [
+          h('span', { 'class': 'ff-lineup-pos', text: pos }),
+          h('span', { 'class': 'ff-lineup-name', text: players[pos].name })
+        ]));
+      });
+
+      rendered.push(h('div', { 'class': 'ff-lineup-group' }, [
+        h('div', { 'class': 'ff-lineup-grouphead', text: 'Group ' + (g + 1) }),
+        rows
+      ]));
+    }
+
+    if (!rendered.length) return null;
+
+    var block = h('div', { 'class': 'ff-lineup-side' }, [
+      h('div', { 'class': 'ff-lineup-sidehead',
+        text: side === 'defense' ? 'Defense' : 'Offense' })
     ]);
+    rendered.forEach(function (g) { block.appendChild(g); });
+    return block;
   }
 
   function eventBlock(evt) {
@@ -96,10 +118,14 @@
       ]));
     }
 
-    var offense = lineupLine(evt, 'offense');
-    var defense = lineupLine(evt, 'defense');
-    if (offense) block.appendChild(offense);
-    if (defense) block.appendChild(defense);
+    var offense = sideBlock(evt, 'offense');
+    var defense = sideBlock(evt, 'defense');
+    if (offense || defense) {
+      var sides = h('div', { 'class': 'ff-lineup-sides' });
+      if (offense) sides.appendChild(offense);
+      if (defense) sides.appendChild(defense);
+      block.appendChild(sides);
+    }
 
     block.appendChild(h('a', { 'class': 'ff-btn secondary ff-small ff-upnext-open',
       href: 'schedule.html?id=' + evt.id, text: 'Open' }));

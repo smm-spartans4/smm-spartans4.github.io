@@ -8,9 +8,9 @@
    rewrites it for you on export.
    ========================================================================== */
 window.PUBLISHED_TEAM_DATA = {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "team": {
-    "name": "SMM Spartans",
+    "name": "SMM Spartans Football",
     "primaryColor": "#17401A",
     "secondaryColor": "#FFFFFF",
     "season": "Fall 2026"

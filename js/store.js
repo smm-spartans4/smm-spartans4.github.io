@@ -96,7 +96,15 @@
       });
     }
 
-    d.schemaVersion = 5;
+    /* v6: the team name gained "Football". Only touched when it is still
+       exactly the old name, so a coach who renamed it keeps their own. */
+    if (from < 6) {
+      if (d.team && d.team.name === 'SMM Spartans') {
+        d.team.name = 'SMM Spartans Football';
+      }
+    }
+
+    d.schemaVersion = 6;
     return from !== d.schemaVersion;
   }
 

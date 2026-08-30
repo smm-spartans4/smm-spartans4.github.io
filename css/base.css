@@ -932,3 +932,51 @@ svg.ff-field { cursor: default; }
 
 .ff-upnext-line { margin-top: 7px; line-height: 1.45; }
 .ff-upnext-open { margin-top: 12px; min-height: 38px; padding: 7px 14px; }
+
+/* ---------- home lineups ---------------------------------------------------- */
+
+.ff-lineup-sides { display: grid; gap: 18px; margin-top: 12px; }
+@media (min-width: 700px) {
+  .ff-lineup-sides { grid-template-columns: 1fr 1fr; gap: 24px; }
+}
+
+.ff-lineup-sidehead {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: .95rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--team-primary);
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--line);
+  margin-bottom: 10px;
+}
+
+.ff-lineup-group { margin-bottom: 14px; }
+.ff-lineup-group:last-child { margin-bottom: 0; }
+
+.ff-lineup-grouphead {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+
+/* The position is what the eye scans for, so it is the larger, heavier half of
+   the pair; the name sits quieter beside it. */
+.ff-lineup-row {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 8px;
+  padding: 3px 0;
+}
+.ff-lineup-pos {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.ff-lineup-name { font-size: .88rem; color: var(--ink-soft); }

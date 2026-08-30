@@ -400,13 +400,13 @@
       autoLabel.appendChild(h('span', { text: 'Announce on play' }));
 
       var speed = h('select', { 'class': 'ff-select ff-small', 'aria-label': 'Speaking speed' });
-      [[0.75, 'Slow'], [0.95, 'Normal'], [1.15, 'Quick']].forEach(function (r) {
+      [[0.9, 'Slow'], [1.1, 'Normal'], [1.35, 'Quick']].forEach(function (r) {
         var o = h('option', { value: String(r[0]), text: r[1] });
         if (Math.abs(FF.announcer.getRate() - r[0]) < 0.01) o.selected = true;
         speed.appendChild(o);
       });
       speed.addEventListener('change', function () {
-        FF.announcer.setRate(parseFloat(speed.value) || 0.95);
+        FF.announcer.setRate(parseFloat(speed.value) || 1.1);
       });
 
       var voiceSel = h('select', { 'class': 'ff-select ff-small', 'aria-label': 'Voice' });
@@ -509,7 +509,7 @@
       }
     }
 
-    function syncButtons(playing) {
+    function syncButtons(playing, reason) {
       if (els.playBtn) {
         els.playBtn.textContent = playing ? '❚❚ Pause' : '▶ Play';
         els.playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
@@ -519,8 +519,13 @@
          it refuses any utterance not started inside a real gesture. */
       if (!FF.announcer || !FF.announcer.supported()) return;
       if (isDefense()) { FF.announcer.cancel(); return; }
-      if (playing && FF.announcer.getAuto()) speakScript();
-      else if (!playing) FF.announcer.cancel();
+
+      if (playing && FF.announcer.getAuto()) { speakScript(); return; }
+
+      /* Only silence him when someone deliberately stopped the play. A play
+         that simply reached its end should let him finish the sentence -
+         five seconds of football often takes longer than that to describe. */
+      if (!playing && reason === 'paused') FF.announcer.cancel();
     }
 
     /* ---- pointing at a defender ------------------------------------------

@@ -41,7 +41,7 @@
     try { localStorage.setItem(key, value); } catch (e) { /* private mode */ }
   }
 
-  function getRate() { return parseFloat(get(RATE_KEY, '0.95')) || 0.95; }
+  function getRate() { return parseFloat(get(RATE_KEY, '1.1')) || 1.1; }
   function setRate(v) { set(RATE_KEY, String(v)); }
   function getAuto() { return get(AUTO_KEY, '0') === '1'; }
   function setAuto(on) { set(AUTO_KEY, on ? '1' : '0'); }
@@ -224,10 +224,15 @@
     window.speechSynthesis.speak(utter);
   }
 
-  /* MUST be called straight from a tap handler, or iOS silently ignores it. */
+  /* MUST be called straight from a tap handler, or iOS silently ignores it.
+
+     Note the guard on cancel(): calling speechSynthesis.cancel() immediately
+     before speak() makes Chrome swallow the first utterance or delay it by
+     several hundred milliseconds. Only clear the pipe when there is actually
+     something in it. */
   function speak(lines, onDone) {
     if (!supported()) return false;
-    cancel();
+    if (speaking || queue.length) cancel();
     queue = (Array.isArray(lines) ? lines : [lines])
       .map(function (l) { return String(l || '').trim(); })
       .filter(Boolean);

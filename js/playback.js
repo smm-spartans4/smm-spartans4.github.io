@@ -19,7 +19,11 @@
     var last = 0;
 
     function tick() { if (opts.onTick) opts.onTick(t); }
-    function state() { if (opts.onState) opts.onState(playing, t); }
+
+    /* Listeners are told WHY the clock stopped. "The play finished" and "the
+       user pressed pause" look identical from the outside but mean opposite
+       things - stopping the announcer is right for one and rude for the other. */
+    function state(reason) { if (opts.onState) opts.onState(playing, reason, t); }
 
     function frame(now) {
       if (!playing) return;
@@ -30,7 +34,7 @@
         t = duration;
         playing = false;
         tick();
-        state();
+        state('ended');
         return;
       }
       tick();
@@ -42,7 +46,7 @@
       if (t >= duration - 0.001) t = 0;   // replay from the snap
       playing = true;
       last = performance.now();
-      state();
+      state('started');
       raf = requestAnimationFrame(frame);
     }
 
@@ -51,7 +55,7 @@
       playing = false;
       if (raf) cancelAnimationFrame(raf);
       raf = null;
-      state();
+      state('paused');
     }
 
     function setTime(v) {

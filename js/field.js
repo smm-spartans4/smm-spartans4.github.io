@@ -525,9 +525,13 @@
      Offsets are in yards from wherever he lines up. */
   /* dy equals ry on purpose: the near edge of the zone sits exactly where he
      lines up, so he covers his own spot and everything behind it, rather than
-     a band floating downfield of him. */
+     a band floating downfield of him.
+
+     dx nudges him back toward the middle of the field. The rusher shades left
+     of centre so he does not run through the Center, but his COVERAGE should
+     still be centred - otherwise the zone leans left and crowds LD. */
   var COBRA_LOBES = [
-    { dx: 0, dy: 4.5, rx: 7.5, ry: 4.5 }
+    { dx: 1.5, dy: 4.5, rx: 6, ry: 4.5 }
   ];
 
   function drawZone(ctx, o) {

@@ -147,6 +147,8 @@
   var RULE_GROUPS = [
     ['The game', [
       '5 on 5',
+      '50-yard playing field, 30 yards wide',
+      'First down at midfield — the 25',
       'Two 20-minute halves',
       '30-second play clock',
       'Every player plays at least half',

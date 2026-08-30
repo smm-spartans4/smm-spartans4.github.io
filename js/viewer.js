@@ -83,6 +83,7 @@
        jersey than by remembering they are the Y this week. Falls back to the
        position whenever this week's lineup has no one in that slot. */
     function labelFor(pl) {
+      if (isDrill()) return pl.positionId;
       var who = lineup[pl.positionId];
       if (labelMode === 'number' && who && who.jersey) return String(who.jersey);
       if (labelMode === 'name' && who && who.name) return shortName(who.name);
@@ -100,6 +101,11 @@
     /* ---- static layers --------------------------------------------------- */
 
     function isDefense() { return play.side === 'defense'; }
+
+    /* A drill is deliberately anonymous: it teaches a position, and the kid
+       standing in that spot changes every rep. Names, numbers, the group
+       picker, the announcer and the video all belong to a real play. */
+    function isDrill() { return !!play.isDrill; }
 
     function renderStatic() {
       ctx = FF.field.render(svg, {
@@ -336,12 +342,15 @@
         viewRow.appendChild(els.routesBtn);
       }
 
-      viewRow.appendChild(h('span', { 'class': 'ff-small ff-muted', text: 'Label players by' }));
-      viewRow.appendChild(labels);
+      if (!isDrill()) {
+        viewRow.appendChild(h('span', { 'class': 'ff-small ff-muted',
+          text: 'Label players by' }));
+        viewRow.appendChild(labels);
+      }
 
       /* Every spot runs two deep, so both groups need to be able to find
          themselves. Only worth showing when a second group actually exists. */
-      if (groupCount() > 1) {
+      if (!isDrill() && groupCount() > 1) {
         els.groupSel = h('select', { 'class': 'ff-select ff-small',
           'aria-label': 'Which group' });
         for (var gi = 0; gi < groupCount(); gi++) {
@@ -369,6 +378,7 @@
     }
 
     function buildAnnouncerRow() {
+      if (isDrill()) return;
       /* No announcer on defense at all - there is no ball to call, and reading
          five zone assignments aloud is not how anybody coaches a defense. */
       if (isDefense()) { buildDownloadRow(); return; }
@@ -436,6 +446,7 @@
     /* ---- MP4 download ----------------------------------------------------- */
 
     function buildDownloadRow() {
+      if (isDrill()) return;
       /* Nothing on a defensive play moves, so a video of one is just a still
          image held for five seconds. */
       if (isDefense()) return;
@@ -518,7 +529,7 @@
       /* Called synchronously from the Play tap, which is what lets iOS speak -
          it refuses any utterance not started inside a real gesture. */
       if (!FF.announcer || !FF.announcer.supported()) return;
-      if (isDefense()) { FF.announcer.cancel(); return; }
+      if (isDefense() || isDrill()) { FF.announcer.cancel(); return; }
 
       if (playing && FF.announcer.getAuto()) { speakScript(); return; }
 
@@ -584,7 +595,7 @@
       legendEl.innerHTML = '';
 
       play.players.forEach(function (pl) {
-        var who = nameFor(pl.positionId);
+        var who = isDrill() ? null : nameFor(pl.positionId);
         var row = h('div', { 'class': 'ff-role', 'data-pos': pl.positionId }, [
           h('div', { 'class': 'ff-role-head' }, [
             h('span', { 'class': 'ff-pill', text: pl.positionId }),

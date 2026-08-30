@@ -1,12 +1,8 @@
-/* ============================================================================
-   PUBLISHED TEAM DATA  —  the version every visitor sees by default.
-   ----------------------------------------------------------------------------
-   To publish your changes: Settings -> Export Publish File, then replace THIS
-   file with the downloaded one and push to GitHub. See README.md.
-
-   Do not hand-edit this file unless you know what you're doing — the site
-   rewrites it for you on export.
-   ========================================================================== */
+/* ==========================================================================
+   PUBLISHED TEAM DATA - the version every visitor sees by default.
+   Exported 2026-08-30T05:30:54.184Z
+   Replace data/team-data.js with this file and push. See README.md.
+   ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
   "schemaVersion": 6,
   "team": {
@@ -25,23 +21,60 @@ window.PUBLISHED_TEAM_DATA = {
     "passSpeedYardsPerSecond": 14,
     "snapDurationSeconds": 0.3,
     "offensePositions": [
-      { "id": "C",  "label": "Center" },
-      { "id": "QB", "label": "Quarterback" },
-      { "id": "X",  "label": "X — always the left-most skill player" },
-      { "id": "Y",  "label": "Y — always the middle skill player" },
-      { "id": "Z",  "label": "Z — always the right-most skill player" }
+      {
+        "id": "C",
+        "label": "Center"
+      },
+      {
+        "id": "QB",
+        "label": "Quarterback"
+      },
+      {
+        "id": "X",
+        "label": "X — always the left-most skill player"
+      },
+      {
+        "id": "Y",
+        "label": "Y — always the middle skill player"
+      },
+      {
+        "id": "Z",
+        "label": "Z — always the right-most skill player"
+      }
     ],
     "defensePositions": [
-      { "id": "RUSH", "label": "Rusher" },
-      { "id": "LU",   "label": "Left Under" },
-      { "id": "RU",   "label": "Right Under" },
-      { "id": "LD",   "label": "Left Deep" },
-      { "id": "RD",   "label": "Right Deep" }
+      {
+        "id": "RUSH",
+        "label": "Rusher"
+      },
+      {
+        "id": "LU",
+        "label": "Left Under"
+      },
+      {
+        "id": "RU",
+        "label": "Right Under"
+      },
+      {
+        "id": "LD",
+        "label": "Left Deep"
+      },
+      {
+        "id": "RD",
+        "label": "Right Deep"
+      }
     ],
-    "lineupGroups": { "offense": 4, "defense": 2 },
-    "defaultVoiceName": "Microsoft Guy Online (Natural)",
-    "passEligiblePositions": ["C", "X", "Y", "Z"],
-    "handoffEligiblePositions": ["X", "Y", "Z"],
+    "passEligiblePositions": [
+      "C",
+      "X",
+      "Y",
+      "Z"
+    ],
+    "handoffEligiblePositions": [
+      "X",
+      "Y",
+      "Z"
+    ],
     "formations": [
       {
         "id": "power",
@@ -49,11 +82,26 @@ window.PUBLISHED_TEAM_DATA = {
         "side": "offense",
         "description": "X wide left on the line. Y and Z offset in the backfield — Y left, Z right and deeper.",
         "positions": {
-          "C":  { "xYards": 15, "yYards": 0 },
-          "QB": { "xYards": 15, "yYards": -3 },
-          "X":  { "xYards": 3,  "yYards": 0 },
-          "Y":  { "xYards": 11, "yYards": -3 },
-          "Z":  { "xYards": 19, "yYards": -5 }
+          "C": {
+            "xYards": 15,
+            "yYards": 0
+          },
+          "QB": {
+            "xYards": 15,
+            "yYards": -2
+          },
+          "X": {
+            "xYards": 10,
+            "yYards": 0
+          },
+          "Y": {
+            "xYards": 13,
+            "yYards": -3.5
+          },
+          "Z": {
+            "xYards": 18,
+            "yYards": -4.5
+          }
         }
       },
       {
@@ -62,103 +110,1730 @@ window.PUBLISHED_TEAM_DATA = {
         "side": "offense",
         "description": "X wide left on the line. Y and Z both line up right — Y just off the ball inside, Z on the line outside.",
         "positions": {
-          "C":  { "xYards": 15, "yYards": 0 },
-          "QB": { "xYards": 15, "yYards": -3 },
-          "X":  { "xYards": 3,  "yYards": 0 },
-          "Y":  { "xYards": 22, "yYards": -1 },
-          "Z":  { "xYards": 27, "yYards": 0 }
+          "C": {
+            "xYards": 15,
+            "yYards": 0
+          },
+          "QB": {
+            "xYards": 15,
+            "yYards": -1.5
+          },
+          "X": {
+            "xYards": 11.5,
+            "yYards": 0
+          },
+          "Y": {
+            "xYards": 18.5,
+            "yYards": 0
+          },
+          "Z": {
+            "xYards": 24.5,
+            "yYards": 0
+          }
         }
       }
-    ]
+    ],
+    "lineupGroups": {
+      "offense": 4,
+      "defense": 2
+    },
+    "defaultVoiceName": "Microsoft Guy Online (Natural)"
   },
   "roster": [
-    { "id": "p01", "name": "Player 1",  "jersey": "1" },
-    { "id": "p02", "name": "Player 2",  "jersey": "2" },
-    { "id": "p03", "name": "Player 3",  "jersey": "3" },
-    { "id": "p04", "name": "Player 4",  "jersey": "4" },
-    { "id": "p05", "name": "Player 5",  "jersey": "5" },
-    { "id": "p06", "name": "Player 6",  "jersey": "6" },
-    { "id": "p07", "name": "Player 7",  "jersey": "7" },
-    { "id": "p08", "name": "Player 8",  "jersey": "8" },
-    { "id": "p09", "name": "Player 9",  "jersey": "9" },
-    { "id": "p10", "name": "Player 10", "jersey": "10" }
+    {
+      "id": "p01",
+      "name": "Andrew Z",
+      "jersey": "1"
+    },
+    {
+      "id": "p02",
+      "name": "Connor T",
+      "jersey": "2"
+    },
+    {
+      "id": "p03",
+      "name": "Harry N",
+      "jersey": "3"
+    },
+    {
+      "id": "p04",
+      "name": "Isaac O",
+      "jersey": "4"
+    },
+    {
+      "id": "p05",
+      "name": "Jack K",
+      "jersey": "5"
+    },
+    {
+      "id": "p06",
+      "name": "Joe D",
+      "jersey": "6"
+    },
+    {
+      "id": "p07",
+      "name": "Jude B",
+      "jersey": "7"
+    },
+    {
+      "id": "p08",
+      "name": "Jude D",
+      "jersey": "8"
+    },
+    {
+      "id": "p09",
+      "name": "Teddy B",
+      "jersey": "9"
+    },
+    {
+      "id": "p10",
+      "name": "Teddy P",
+      "jersey": "10"
+    }
   ],
   "plays": [
     {
       "id": "seed-cover-2-shell",
       "name": "2-Deep Shell (Cover 2)",
       "side": "defense",
-      "tags": ["zone", "cover-2"],
+      "tags": [
+        "zone",
+        "cover-2"
+      ],
       "durationSeconds": 1,
       "lineOfScrimmageYard": 5,
       "players": [
         {
           "positionId": "RUSH",
           "rosterPlayerId": null,
-          "start": { "xYards": 13.5, "yYards": 7.9 },
+          "start": {
+            "xYards": 13.5,
+            "yYards": 7.9
+          },
           "route": [
-            { "t": 0, "xYards": 13.5, "yYards": 7.9 },
-            { "t": 1, "xYards": 13.5, "yYards": 7.9 }
+            {
+              "t": 0,
+              "xYards": 13.5,
+              "yYards": 7.9
+            },
+            {
+              "t": 1,
+              "xYards": 13.5,
+              "yYards": 7.9
+            }
           ],
-          "assignmentNote": "Line up just BEHIND the rush line - 7 yards off the ball is the closest you may start - shaded just left of center. Rush straight upfield at the snap — get skinny, get home, no looping wide."
+          "assignmentNote": "Line up just BEHIND the rush line. Rush straight upfield at the snap and go after the QB or ball carrier.  *If we yell COBRA, do not rush. Settle back in the deep middle."
         },
         {
           "positionId": "LU",
           "rosterPlayerId": null,
-          "start": { "xYards": 9, "yYards": 4.5 },
+          "start": {
+            "xYards": 9,
+            "yYards": 4.5
+          },
           "route": [
-            { "t": 0, "xYards": 9, "yYards": 4.5 },
-            { "t": 1, "xYards": 9, "yYards": 4.5 }
+            {
+              "t": 0,
+              "xYards": 9,
+              "yYards": 4.5
+            },
+            {
+              "t": 1,
+              "xYards": 9,
+              "yYards": 4.5
+            }
           ],
-          "assignmentNote": "Line up 4-5 yards off the ball, left of center. Cover the flat and short middle on your side — nobody catches it in front of you for free. Key: the running back first, then any receiver settling short."
+          "assignmentNote": "Left Under. Line up 4-5 yards off the ball, left of center. Cover the flat and short middle on your side. Key: the running back first, then any receiver settling short."
         },
         {
           "positionId": "RU",
           "rosterPlayerId": null,
-          "start": { "xYards": 21, "yYards": 4.5 },
+          "start": {
+            "xYards": 21,
+            "yYards": 4.5
+          },
           "route": [
-            { "t": 0, "xYards": 21, "yYards": 4.5 },
-            { "t": 1, "xYards": 21, "yYards": 4.5 }
+            {
+              "t": 0,
+              "xYards": 21,
+              "yYards": 4.5
+            },
+            {
+              "t": 1,
+              "xYards": 21,
+              "yYards": 4.5
+            }
           ],
-          "assignmentNote": "Line up 4-5 yards off the ball, right of center. Cover the flat and short middle on your side — nobody catches it in front of you for free. Key: the running back first, then any receiver settling short."
+          "assignmentNote": "Right Under. Line up 4-5 yards off the ball, right of center. Cover the flat and short middle on your side. Key: the running back first, then any receiver settling short."
         },
         {
           "positionId": "LD",
           "rosterPlayerId": null,
-          "start": { "xYards": 8, "yYards": 12 },
+          "start": {
+            "xYards": 8,
+            "yYards": 12
+          },
           "route": [
-            { "t": 0, "xYards": 8, "yYards": 12 },
-            { "t": 1, "xYards": 8, "yYards": 12 }
+            {
+              "t": 0,
+              "xYards": 8,
+              "yYards": 12
+            },
+            {
+              "t": 1,
+              "xYards": 8,
+              "yYards": 12
+            }
           ],
-          "assignmentNote": "Line up 10-12 yards off the ball, left half of the field. Nothing behind you — you're the last line on this side. Key: the quarterback's eyes and shoulders."
+          "assignmentNote": "Left Deep. Line up 10-12 yards off the ball, left half of the field. Nothing behind you — you're the last line on this side. Key: the quarterback's eyes and shoulders."
         },
         {
           "positionId": "RD",
           "rosterPlayerId": null,
-          "start": { "xYards": 22, "yYards": 12 },
+          "start": {
+            "xYards": 22,
+            "yYards": 12
+          },
           "route": [
-            { "t": 0, "xYards": 22, "yYards": 12 },
-            { "t": 1, "xYards": 22, "yYards": 12 }
+            {
+              "t": 0,
+              "xYards": 22,
+              "yYards": 12
+            },
+            {
+              "t": 1,
+              "xYards": 22,
+              "yYards": 12
+            }
           ],
-          "assignmentNote": "Line up 10-12 yards off the ball, right half of the field. Nothing behind you — you're the last line on this side. Key: the quarterback's eyes and shoulders."
+          "assignmentNote": "Right Deep. Line up 10-12 yards off the ball, right half of the field. Nothing behind you — you're the last line on this side. Key: the quarterback's eyes and shoulders."
         }
       ],
-      "ball": { "mode": "auto", "carrierEvents": [] }
+      "ball": {
+        "mode": "auto",
+        "carrierEvents": []
+      }
+    },
+    {
+      "id": "4e0bd0cc-54f1-4ba2-8fba-4f75f98e00dd",
+      "name": "Power Z Run",
+      "side": "offense",
+      "tags": [],
+      "durationSeconds": 5,
+      "lineOfScrimmageYard": 5,
+      "players": [
+        {
+          "positionId": "C",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": 0
+            },
+            {
+              "t": 3.498,
+              "xYards": 15.61,
+              "yYards": 3.7
+            },
+            {
+              "t": 4.828,
+              "xYards": 16.74,
+              "yYards": 4.57
+            },
+            {
+              "t": 5,
+              "xYards": 16.92,
+              "yYards": 4.53
+            }
+          ],
+          "assignmentNote": "Snap the ball to the quarterback, then release and find open space."
+        },
+        {
+          "positionId": "QB",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": -2
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": -2
+            },
+            {
+              "t": 5,
+              "xYards": 15,
+              "yYards": -2
+            }
+          ],
+          "assignmentNote": "Take the snap, turn and fake a handoff to the Y. Handoff to the Z.  Roll right.   "
+        },
+        {
+          "positionId": "X",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 10,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 10,
+              "yYards": 0
+            },
+            {
+              "t": 1.555,
+              "xYards": 11.47,
+              "yYards": 4.49
+            },
+            {
+              "t": 2.341,
+              "xYards": 13.34,
+              "yYards": 5.98
+            },
+            {
+              "t": 3.643,
+              "xYards": 17.18,
+              "yYards": 6.93
+            },
+            {
+              "t": 4.734,
+              "xYards": 20.4,
+              "yYards": 7.72
+            },
+            {
+              "t": 5,
+              "xYards": 21.19,
+              "yYards": 7.55
+            }
+          ],
+          "assignmentNote": "Run your route to clear space for the Z. "
+        },
+        {
+          "positionId": "Y",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 13,
+            "yYards": -3.5
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 13,
+              "yYards": -3.5
+            },
+            {
+              "t": 1.208,
+              "xYards": 14.56,
+              "yYards": -1.48
+            },
+            {
+              "t": 1.868,
+              "xYards": 15.48,
+              "yYards": -0.43
+            },
+            {
+              "t": 2.671,
+              "xYards": 16.7,
+              "yYards": 0.75
+            },
+            {
+              "t": 3.2,
+              "xYards": 17.4,
+              "yYards": 1.62
+            },
+            {
+              "t": 3.849,
+              "xYards": 18.53,
+              "yYards": 2.4
+            },
+            {
+              "t": 4.374,
+              "xYards": 19.53,
+              "yYards": 2.88
+            },
+            {
+              "t": 5,
+              "xYards": 20.84,
+              "yYards": 3.06
+            }
+          ],
+          "assignmentNote": "Fake as if you have the ball. Continue running into the right flat. "
+        },
+        {
+          "positionId": "Z",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 18,
+            "yYards": -4.5
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 18,
+              "yYards": -4.5
+            },
+            {
+              "t": 1.374,
+              "xYards": 14.3,
+              "yYards": -2.04
+            },
+            {
+              "t": 2.496,
+              "xYards": 10.9,
+              "yYards": -0.78
+            },
+            {
+              "t": 3.32,
+              "xYards": 8.55,
+              "yYards": 0.48
+            },
+            {
+              "t": 3.984,
+              "xYards": 7.24,
+              "yYards": 2.18
+            },
+            {
+              "t": 4.625,
+              "xYards": 6.46,
+              "yYards": 4.1
+            },
+            {
+              "t": 5,
+              "xYards": 5.72,
+              "yYards": 5.06
+            }
+          ],
+          "assignmentNote": "Take the handoff and run hard and fast to the left side of the field. "
+        }
+      ],
+      "ball": {
+        "mode": "auto",
+        "carrierEvents": [
+          {
+            "t": 0,
+            "type": "snap",
+            "fromPositionId": "C",
+            "toPositionId": "QB"
+          },
+          {
+            "t": 0.8,
+            "type": "fake-handoff",
+            "toPositionId": "Y",
+            "durationSeconds": 0.6
+          },
+          {
+            "t": 1.2,
+            "type": "handoff",
+            "toPositionId": "Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a24afcd0-2029-4b93-a718-1b2cd8a5bcde",
+      "name": "Power Z Pass",
+      "side": "offense",
+      "tags": [],
+      "durationSeconds": 5,
+      "lineOfScrimmageYard": 5,
+      "players": [
+        {
+          "positionId": "C",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": 0
+            },
+            {
+              "t": 3.553,
+              "xYards": 15.35,
+              "yYards": 4.13
+            },
+            {
+              "t": 4.156,
+              "xYards": 15.96,
+              "yYards": 4.48
+            },
+            {
+              "t": 5,
+              "xYards": 16.92,
+              "yYards": 4.7
+            }
+          ],
+          "assignmentNote": "Snap the ball to the quarterback, then release and find open space."
+        },
+        {
+          "positionId": "QB",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": -2
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": -2
+            },
+            {
+              "t": 2.172,
+              "xYards": 14.26,
+              "yYards": -2.22
+            },
+            {
+              "t": 2.172,
+              "xYards": 14.26,
+              "yYards": -2.22
+            },
+            {
+              "t": 3.143,
+              "xYards": 14.43,
+              "yYards": -2.52
+            },
+            {
+              "t": 5,
+              "xYards": 14.43,
+              "yYards": -3.18
+            }
+          ],
+          "assignmentNote": "Take the snap, fake the handoff to Y. Roll right, find an open receiver and throw. "
+        },
+        {
+          "positionId": "X",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 10,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 10,
+              "yYards": 0
+            },
+            {
+              "t": 1.555,
+              "xYards": 11.47,
+              "yYards": 4.49
+            },
+            {
+              "t": 2.341,
+              "xYards": 13.34,
+              "yYards": 5.98
+            },
+            {
+              "t": 3.643,
+              "xYards": 17.18,
+              "yYards": 6.93
+            },
+            {
+              "t": 4.734,
+              "xYards": 20.4,
+              "yYards": 7.72
+            },
+            {
+              "t": 5,
+              "xYards": 21.19,
+              "yYards": 7.55
+            }
+          ],
+          "assignmentNote": "Run fast and find open space in the area of your route. "
+        },
+        {
+          "positionId": "Y",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 13,
+            "yYards": -3.5
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 13,
+              "yYards": -3.5
+            },
+            {
+              "t": 1.208,
+              "xYards": 14.56,
+              "yYards": -1.48
+            },
+            {
+              "t": 1.868,
+              "xYards": 15.48,
+              "yYards": -0.43
+            },
+            {
+              "t": 2.671,
+              "xYards": 16.7,
+              "yYards": 0.75
+            },
+            {
+              "t": 3.2,
+              "xYards": 17.4,
+              "yYards": 1.62
+            },
+            {
+              "t": 3.849,
+              "xYards": 18.53,
+              "yYards": 2.4
+            },
+            {
+              "t": 4.374,
+              "xYards": 19.53,
+              "yYards": 2.88
+            },
+            {
+              "t": 5,
+              "xYards": 20.84,
+              "yYards": 3.06
+            }
+          ],
+          "assignmentNote": "Fake as if you have the ball, then get open in the right flat. "
+        },
+        {
+          "positionId": "Z",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 18,
+            "yYards": -4.5
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 18,
+              "yYards": -4.5
+            },
+            {
+              "t": 2.496,
+              "xYards": 12.73,
+              "yYards": -1.83
+            },
+            {
+              "t": 3.506,
+              "xYards": 10.47,
+              "yYards": -1.05
+            },
+            {
+              "t": 4.317,
+              "xYards": 8.59,
+              "yYards": -0.66
+            },
+            {
+              "t": 5,
+              "xYards": 7.11,
+              "yYards": -0.01
+            }
+          ],
+          "assignmentNote": "Run your route to the left flat. "
+        }
+      ],
+      "ball": {
+        "mode": "auto",
+        "carrierEvents": [
+          {
+            "t": 0,
+            "type": "snap",
+            "fromPositionId": "C",
+            "toPositionId": "QB"
+          },
+          {
+            "t": 1,
+            "type": "fake-handoff",
+            "toPositionId": "Y",
+            "durationSeconds": 0.6
+          },
+          {
+            "t": 2.3,
+            "type": "pass",
+            "toPositionId": "C"
+          }
+        ]
+      }
+    },
+    {
+      "id": "3164952d-69f6-45ec-b1b4-cca5f36a166f",
+      "name": "Spread X Run",
+      "side": "offense",
+      "tags": [],
+      "durationSeconds": 5,
+      "lineOfScrimmageYard": 5,
+      "players": [
+        {
+          "positionId": "C",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": 0
+            },
+            {
+              "t": 2.736,
+              "xYards": 14.91,
+              "yYards": 3.58
+            },
+            {
+              "t": 5,
+              "xYards": 12.04,
+              "yYards": 4.32
+            }
+          ],
+          "assignmentNote": "Snap the ball to the quarterback, then release and find open space."
+        },
+        {
+          "positionId": "QB",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": -1.5
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": -1.5
+            },
+            {
+              "t": 1.798,
+              "xYards": 15,
+              "yYards": -0.04
+            },
+            {
+              "t": 5,
+              "xYards": 16,
+              "yYards": -2.44
+            }
+          ],
+          "assignmentNote": "Take the snap, immediately hand off to the X coming from the left. "
+        },
+        {
+          "positionId": "X",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 12,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 12,
+              "yYards": 0
+            },
+            {
+              "t": 1.628,
+              "xYards": 15.04,
+              "yYards": -0.56
+            },
+            {
+              "t": 1.928,
+              "xYards": 15.61,
+              "yYards": -0.56
+            },
+            {
+              "t": 2.584,
+              "xYards": 16.74,
+              "yYards": -0.04
+            },
+            {
+              "t": 3.154,
+              "xYards": 17.66,
+              "yYards": 0.53
+            },
+            {
+              "t": 4.204,
+              "xYards": 18.7,
+              "yYards": 2.23
+            },
+            {
+              "t": 5,
+              "xYards": 19.01,
+              "yYards": 3.71
+            }
+          ],
+          "assignmentNote": "Run to the right, take the handoff in front of the QB. Run full speed into daylight. "
+        },
+        {
+          "positionId": "Y",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 18.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 18.5,
+              "yYards": 0
+            },
+            {
+              "t": 2.91,
+              "xYards": 18.44,
+              "yYards": 4.19
+            },
+            {
+              "t": 5,
+              "xYards": 15.57,
+              "yYards": 5.1
+            }
+          ],
+          "assignmentNote": "Run your route as shown to clear space for the ball carrier. "
+        },
+        {
+          "positionId": "Z",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 24.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 24.5,
+              "yYards": 0
+            },
+            {
+              "t": 5,
+              "xYards": 24.55,
+              "yYards": 8.37
+            }
+          ],
+          "assignmentNote": "Run a deep fly. "
+        }
+      ],
+      "ball": {
+        "mode": "auto",
+        "carrierEvents": [
+          {
+            "t": 0,
+            "type": "snap",
+            "fromPositionId": "C",
+            "toPositionId": "QB"
+          },
+          {
+            "t": 1.4,
+            "type": "handoff",
+            "toPositionId": "X"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4fede1f8-d11c-4cec-bf63-dd041e945bfb",
+      "name": "Spread X Pass",
+      "side": "offense",
+      "tags": [],
+      "durationSeconds": 5,
+      "lineOfScrimmageYard": 5,
+      "players": [
+        {
+          "positionId": "C",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": 0
+            },
+            {
+              "t": 2.736,
+              "xYards": 14.91,
+              "yYards": 3.58
+            },
+            {
+              "t": 5,
+              "xYards": 12.04,
+              "yYards": 4.32
+            }
+          ],
+          "assignmentNote": "Snap the ball to the quarterback, then release and find open space."
+        },
+        {
+          "positionId": "QB",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": -1.5
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": -1.5
+            },
+            {
+              "t": 1.798,
+              "xYards": 15,
+              "yYards": -0.04
+            },
+            {
+              "t": 5,
+              "xYards": 16,
+              "yYards": -2.44
+            }
+          ],
+          "assignmentNote": "Take the snap, fake the handoff to X. Find an open receiver and throw. "
+        },
+        {
+          "positionId": "X",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 12,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 12,
+              "yYards": 0
+            },
+            {
+              "t": 1.268,
+              "xYards": 15.04,
+              "yYards": -0.56
+            },
+            {
+              "t": 1.502,
+              "xYards": 15.61,
+              "yYards": -0.56
+            },
+            {
+              "t": 2.012,
+              "xYards": 16.74,
+              "yYards": -0.04
+            },
+            {
+              "t": 2.456,
+              "xYards": 17.66,
+              "yYards": 0.53
+            },
+            {
+              "t": 3.879,
+              "xYards": 18.4,
+              "yYards": 3.92
+            },
+            {
+              "t": 4.678,
+              "xYards": 20.32,
+              "yYards": 4.26
+            },
+            {
+              "t": 5,
+              "xYards": 21.1,
+              "yYards": 4.18
+            }
+          ],
+          "assignmentNote": "Fake as if you have the ball, then get open on the right side. "
+        },
+        {
+          "positionId": "Y",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 18.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 18.5,
+              "yYards": 0
+            },
+            {
+              "t": 2.91,
+              "xYards": 18.44,
+              "yYards": 4.19
+            },
+            {
+              "t": 5,
+              "xYards": 15.57,
+              "yYards": 5.1
+            }
+          ],
+          "assignmentNote": "Run fast and find open space in the area of your route. "
+        },
+        {
+          "positionId": "Z",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 24.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 24.5,
+              "yYards": 0
+            },
+            {
+              "t": 5,
+              "xYards": 24.55,
+              "yYards": 8.37
+            }
+          ],
+          "assignmentNote": "Run fast and deep. "
+        }
+      ],
+      "ball": {
+        "mode": "auto",
+        "carrierEvents": [
+          {
+            "t": 0,
+            "type": "snap",
+            "fromPositionId": "C",
+            "toPositionId": "QB"
+          },
+          {
+            "t": 1,
+            "type": "fake-handoff",
+            "toPositionId": "X",
+            "durationSeconds": 0.6
+          },
+          {
+            "t": 3.4,
+            "type": "pass",
+            "toPositionId": "Y"
+          }
+        ]
+      }
+    },
+    {
+      "id": "0cdb7b33-3d6f-4744-a2d8-87bc40f55954",
+      "name": "Spread Y Run",
+      "side": "offense",
+      "tags": [],
+      "durationSeconds": 5,
+      "lineOfScrimmageYard": 5,
+      "players": [
+        {
+          "positionId": "C",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": 0
+            },
+            {
+              "t": 2.377,
+              "xYards": 15.17,
+              "yYards": 4.01
+            },
+            {
+              "t": 4.479,
+              "xYards": 18.7,
+              "yYards": 4.36
+            },
+            {
+              "t": 5,
+              "xYards": 19.58,
+              "yYards": 4.36
+            }
+          ],
+          "assignmentNote": "Snap the ball to the quarterback, then release and find open space."
+        },
+        {
+          "positionId": "QB",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": -1.5
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": -1.5
+            },
+            {
+              "t": 2.109,
+              "xYards": 15.04,
+              "yYards": -0.34
+            },
+            {
+              "t": 3.931,
+              "xYards": 14.56,
+              "yYards": -1.22
+            },
+            {
+              "t": 5,
+              "xYards": 14.22,
+              "yYards": -1.7
+            }
+          ],
+          "assignmentNote": "Take the snap, hand off immediately to the Y coming from the right. "
+        },
+        {
+          "positionId": "X",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 11.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 11.5,
+              "yYards": 0
+            },
+            {
+              "t": 4.046,
+              "xYards": 11.64,
+              "yYards": 6.46
+            },
+            {
+              "t": 5,
+              "xYards": 11.73,
+              "yYards": 7.98
+            }
+          ],
+          "assignmentNote": "Run a deep fly. "
+        },
+        {
+          "positionId": "Y",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 18.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 18.5,
+              "yYards": 0
+            },
+            {
+              "t": 1.112,
+              "xYards": 15.83,
+              "yYards": -0.61
+            },
+            {
+              "t": 2.14,
+              "xYards": 13.3,
+              "yYards": -0.52
+            },
+            {
+              "t": 2.915,
+              "xYards": 11.77,
+              "yYards": 0.62
+            },
+            {
+              "t": 3.768,
+              "xYards": 10.16,
+              "yYards": 1.97
+            },
+            {
+              "t": 4.536,
+              "xYards": 9.33,
+              "yYards": 3.67
+            },
+            {
+              "t": 5,
+              "xYards": 8.99,
+              "yYards": 4.76
+            }
+          ],
+          "assignmentNote": "Run to the left, take the handoff in front of the QB. Run full speed into daylight. "
+        },
+        {
+          "positionId": "Z",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 24.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 24.5,
+              "yYards": 0
+            },
+            {
+              "t": 1.545,
+              "xYards": 24.5,
+              "yYards": 3.93
+            },
+            {
+              "t": 2.829,
+              "xYards": 21.45,
+              "yYards": 5.1
+            },
+            {
+              "t": 4.076,
+              "xYards": 18.44,
+              "yYards": 6.11
+            },
+            {
+              "t": 5,
+              "xYards": 16.13,
+              "yYards": 6.54
+            }
+          ],
+          "assignmentNote": "Run your route as shown."
+        }
+      ],
+      "ball": {
+        "mode": "auto",
+        "carrierEvents": [
+          {
+            "t": 0,
+            "type": "snap",
+            "fromPositionId": "C",
+            "toPositionId": "QB"
+          },
+          {
+            "t": 1.3,
+            "type": "handoff",
+            "toPositionId": "Y"
+          }
+        ]
+      }
+    },
+    {
+      "id": "9ed8fd04-2def-415b-a720-4a2c22799395",
+      "name": "Spread Y Pass",
+      "side": "offense",
+      "tags": [],
+      "durationSeconds": 5,
+      "lineOfScrimmageYard": 5,
+      "players": [
+        {
+          "positionId": "C",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": 0
+            },
+            {
+              "t": 1.471,
+              "xYards": 15.17,
+              "yYards": 4.01
+            },
+            {
+              "t": 2.77,
+              "xYards": 18.7,
+              "yYards": 4.36
+            },
+            {
+              "t": 3.093,
+              "xYards": 19.58,
+              "yYards": 4.36
+            },
+            {
+              "t": 3.874,
+              "xYards": 21.71,
+              "yYards": 4.31
+            },
+            {
+              "t": 4.698,
+              "xYards": 23.94,
+              "yYards": 4.61
+            },
+            {
+              "t": 5,
+              "xYards": 24.76,
+              "yYards": 4.53
+            }
+          ],
+          "assignmentNote": "Snap the ball to the quarterback, run straight and then drag right into open space. "
+        },
+        {
+          "positionId": "QB",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": -1.5
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": -1.5
+            },
+            {
+              "t": 2.109,
+              "xYards": 15.04,
+              "yYards": -0.34
+            },
+            {
+              "t": 3.931,
+              "xYards": 14.56,
+              "yYards": -1.22
+            },
+            {
+              "t": 5,
+              "xYards": 14.22,
+              "yYards": -1.7
+            }
+          ],
+          "assignmentNote": "Take the snap, fake the handoff to Y. Find an open receiver and throw. "
+        },
+        {
+          "positionId": "X",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 11.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 11.5,
+              "yYards": 0
+            },
+            {
+              "t": 4.046,
+              "xYards": 11.64,
+              "yYards": 6.46
+            },
+            {
+              "t": 5,
+              "xYards": 11.73,
+              "yYards": 7.98
+            }
+          ],
+          "assignmentNote": "Run a deep fly. "
+        },
+        {
+          "positionId": "Y",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 18.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 18.5,
+              "yYards": 0
+            },
+            {
+              "t": 1.112,
+              "xYards": 15.83,
+              "yYards": -0.61
+            },
+            {
+              "t": 2.14,
+              "xYards": 13.3,
+              "yYards": -0.52
+            },
+            {
+              "t": 2.915,
+              "xYards": 11.77,
+              "yYards": 0.62
+            },
+            {
+              "t": 3.768,
+              "xYards": 10.16,
+              "yYards": 1.97
+            },
+            {
+              "t": 4.536,
+              "xYards": 9.33,
+              "yYards": 3.67
+            },
+            {
+              "t": 5,
+              "xYards": 8.99,
+              "yYards": 4.76
+            }
+          ],
+          "assignmentNote": "Fake as if you have the ball, get open on the left side. "
+        },
+        {
+          "positionId": "Z",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 24.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 24.5,
+              "yYards": 0
+            },
+            {
+              "t": 1.545,
+              "xYards": 24.5,
+              "yYards": 3.93
+            },
+            {
+              "t": 2.829,
+              "xYards": 21.45,
+              "yYards": 5.1
+            },
+            {
+              "t": 4.076,
+              "xYards": 18.44,
+              "yYards": 6.11
+            },
+            {
+              "t": 5,
+              "xYards": 16.13,
+              "yYards": 6.54
+            }
+          ],
+          "assignmentNote": "Run straight and break hard left, find open space."
+        }
+      ],
+      "ball": {
+        "mode": "auto",
+        "carrierEvents": [
+          {
+            "t": 0,
+            "type": "snap",
+            "fromPositionId": "C",
+            "toPositionId": "QB"
+          },
+          {
+            "t": 1,
+            "type": "fake-handoff",
+            "toPositionId": "Y",
+            "durationSeconds": 0.8
+          },
+          {
+            "t": 3,
+            "type": "pass",
+            "toPositionId": "Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "d244855a-6713-43a3-8c11-ebb61ce20014",
+      "name": "Spread Free",
+      "side": "offense",
+      "tags": [],
+      "durationSeconds": 5,
+      "lineOfScrimmageYard": 5,
+      "players": [
+        {
+          "positionId": "C",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": 0
+            },
+            {
+              "t": 1.96,
+              "xYards": 14.35,
+              "yYards": 3.49
+            },
+            {
+              "t": 3.083,
+              "xYards": 12.34,
+              "yYards": 3.8
+            },
+            {
+              "t": 5,
+              "xYards": 8.9,
+              "yYards": 4.28
+            }
+          ],
+          "assignmentNote": "Snap the ball to the quarterback, run your route as shown and find open space. "
+        },
+        {
+          "positionId": "QB",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": -1.5
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": -1.5
+            },
+            {
+              "t": 2.357,
+              "xYards": 16.26,
+              "yYards": -2.96
+            },
+            {
+              "t": 4.391,
+              "xYards": 17.92,
+              "yYards": -2.83
+            },
+            {
+              "t": 5,
+              "xYards": 18.31,
+              "yYards": -2.52
+            }
+          ],
+          "assignmentNote": "Take the snap, read the field. Find an open receiver and throw.  "
+        },
+        {
+          "positionId": "X",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 11.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 11.5,
+              "yYards": 0
+            },
+            {
+              "t": 1.96,
+              "xYards": 15.65,
+              "yYards": 3.45
+            },
+            {
+              "t": 2.366,
+              "xYards": 16.66,
+              "yYards": 3.93
+            },
+            {
+              "t": 2.914,
+              "xYards": 15.83,
+              "yYards": 5.19
+            },
+            {
+              "t": 3.681,
+              "xYards": 13.78,
+              "yYards": 5.71
+            },
+            {
+              "t": 4.441,
+              "xYards": 11.86,
+              "yYards": 6.54
+            },
+            {
+              "t": 5,
+              "xYards": 10.51,
+              "yYards": 7.28
+            }
+          ],
+          "assignmentNote": "Run your route as shown and find open space. "
+        },
+        {
+          "positionId": "Y",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 18.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 18.5,
+              "yYards": 0
+            },
+            {
+              "t": 1.957,
+              "xYards": 15.22,
+              "yYards": 4.93
+            },
+            {
+              "t": 3.066,
+              "xYards": 18.09,
+              "yYards": 6.67
+            },
+            {
+              "t": 4.004,
+              "xYards": 20.84,
+              "yYards": 7.37
+            },
+            {
+              "t": 5,
+              "xYards": 23.85,
+              "yYards": 7.5
+            }
+          ],
+          "assignmentNote": "Run your route as shown and find open space. "
+        },
+        {
+          "positionId": "Z",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 24.5,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 24.5,
+              "yYards": 0
+            },
+            {
+              "t": 2.532,
+              "xYards": 24.41,
+              "yYards": 8.02
+            },
+            {
+              "t": 3.37,
+              "xYards": 22.06,
+              "yYards": 9.25
+            },
+            {
+              "t": 4.409,
+              "xYards": 18.79,
+              "yYards": 9.64
+            },
+            {
+              "t": 5,
+              "xYards": 16.92,
+              "yYards": 9.68
+            }
+          ],
+          "assignmentNote": "Run your route as shown and find open space. "
+        }
+      ],
+      "ball": {
+        "mode": "auto",
+        "carrierEvents": [
+          {
+            "t": 0,
+            "type": "snap",
+            "fromPositionId": "C",
+            "toPositionId": "QB"
+          },
+          {
+            "t": 3,
+            "type": "pass",
+            "toPositionId": "X"
+          }
+        ]
+      }
     }
   ],
-
   "practices": [
     {
       "id": "evt-sample",
       "type": "practice",
-      "date": "2026-09-08",
-      "startTime": "17:30",
-      "location": "TBD",
+      "date": "2026-09-04",
+      "startTime": "15:30",
+      "location": "Memorial Park",
       "opponent": "",
       "captainRosterPlayerIds": [],
       "unavailableRosterPlayerIds": [],
-      "lineup": { "C": [], "QB": [], "X": [], "Y": [], "Z": [],
-                  "RUSH": [], "LU": [], "RU": [], "LD": [], "RD": [] },
+      "lineup": {
+        "C": [
+          "p10",
+          "p05"
+        ],
+        "QB": [
+          "p07",
+          "p01"
+        ],
+        "X": [
+          "p03",
+          "p08"
+        ],
+        "Y": [
+          "p04",
+          "p06"
+        ],
+        "Z": [
+          "p09",
+          "p02"
+        ],
+        "RUSH": [
+          "p02",
+          "p01"
+        ],
+        "RU": [
+          "p05",
+          "p06"
+        ],
+        "RD": [
+          "p07",
+          "p08"
+        ],
+        "LD": [
+          "p03",
+          "p04"
+        ],
+        "LU": [
+          "p10",
+          "p09"
+        ]
+      },
+      "itinerary": []
+    },
+    {
+      "id": "a6c66d2d-815b-4949-999b-36c53c294e9e",
+      "type": "practice",
+      "date": "2026-09-11",
+      "startTime": "15:30",
+      "location": "Memorial Park",
+      "opponent": "",
+      "captainRosterPlayerIds": [],
+      "unavailableRosterPlayerIds": [],
+      "lineup": {
+        "C": [],
+        "QB": [],
+        "X": [],
+        "Y": [],
+        "Z": [],
+        "RUSH": [],
+        "LU": [],
+        "RU": [],
+        "LD": [],
+        "RD": []
+      },
+      "itinerary": []
+    },
+    {
+      "id": "c1fff654-8535-4821-8c49-5d6f7cfc14ec",
+      "type": "game",
+      "date": "2026-09-12",
+      "startTime": "09:00",
+      "location": "Lamp Park #3",
+      "opponent": "Ravens",
+      "captainRosterPlayerIds": [],
+      "unavailableRosterPlayerIds": [],
+      "lineup": {
+        "C": [],
+        "QB": [],
+        "X": [],
+        "Y": [],
+        "Z": [],
+        "RUSH": [],
+        "LU": [],
+        "RU": [],
+        "LD": [],
+        "RD": []
+      },
       "itinerary": []
     }
   ]

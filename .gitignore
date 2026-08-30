@@ -8,3 +8,7 @@ desktop.ini
 
 # Exported files land in Downloads, not here
 team-data*.download.js
+
+# Local backup exports - keep these somewhere OUTSIDE the project too,
+# since a folder that is lost takes its own backup with it.
+team-data.json

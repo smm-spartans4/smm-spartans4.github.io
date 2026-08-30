@@ -881,3 +881,12 @@ html[data-coach="0"] .ff-coach-only { display: none !important; }
 
 /* The roster reads as a team sheet rather than a table. */
 .ff-roster { margin-top: 4px; }
+
+/* ---------- zone bubbles ---------------------------------------------------- */
+
+.ff-zone { pointer-events: none; }
+.ff-zone-input { width: 84px; }
+
+/* Defensive plays: pointing at a player is the interaction, so the field takes
+   pointer events even though nothing on it is draggable. */
+svg.ff-field { cursor: default; }

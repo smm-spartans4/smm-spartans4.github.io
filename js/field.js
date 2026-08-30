@@ -31,6 +31,8 @@
     fake:        '#FFEB3B',   // decoy selling a fake - bright yellow
     carrier:     '#D32F2F',   // whoever has the ball right now
     ball:        '#8B4513',   // leather
+    zone:        '#FFEB3B',   // zone bubble fill
+    zoneEdge:    '#F9A825',   // zone bubble edge
     offenseFill: '#FFFFFF',
     offenseText: '#12331A',
     defenseFill: '#263238',
@@ -497,6 +499,68 @@
     return g;
   }
 
+  /* ------------------------------------------------------------------------
+     Zone bubbles. A defender in zone coverage owns an area, not a path, so a
+     route line is the wrong picture entirely - a soft blob around them says
+     "this is your space" in a way a 9-year-old reads instantly.
+
+     Drawn slightly wider than tall, and deliberately soft-edged: a zone is a
+     rough area of responsibility, not a line anyone is standing on.
+     ---------------------------------------------------------------------- */
+  var ZONE_DEFAULTS = { RUSH: 0, LU: 6, RU: 6, LD: 9, RD: 9 };
+
+  function zoneRadiusFor(player) {
+    if (player && typeof player.zoneRadiusYards === 'number') {
+      return player.zoneRadiusYards;
+    }
+    var byPosition = ZONE_DEFAULTS[player && player.positionId];
+    return byPosition === undefined ? 6 : byPosition;
+  }
+
+  /* COBRA: the rusher drops out instead of rushing and plays rover - the deep
+     middle, plus a piece of each deep sideline. Not a circle, so it is built
+     from lobes: offsets in yards from wherever he lines up. */
+  var COBRA_LOBES = [
+    { dx: 0,    dy: 6,  rx: 7,   ry: 5 },     // deep middle
+    { dx: -8.5, dy: 9,  rx: 5,   ry: 3.5 },   // deep left wing
+    { dx: 8.5,  dy: 9,  rx: 5,   ry: 3.5 }    // deep right wing
+  ];
+
+  function drawZone(ctx, o) {
+    var lobes = o.lobes;
+
+    if (!lobes) {
+      var r = o.radiusYards;
+      if (!r || r <= 0) return null;
+      lobes = [{ dx: 0, dy: 0, rx: r, ry: r * 0.82 }];
+    }
+
+    /* Opacity is applied to the GROUP, not to each shape. Otherwise the lobes
+       would compound where they overlap and the rover zone would come out
+       blotchy instead of reading as one area. */
+    var g = el('g', {
+      'class': 'ff-zone' + (lobes.length > 1 ? ' is-rover' : ''),
+      'data-position': o.positionId || '',
+      opacity: o.fillOpacity === undefined ? 0.24 : o.fillOpacity
+    }, o.layer || ctx.layers.routes);
+
+    var single = lobes.length === 1;
+    lobes.forEach(function (lobe) {
+      el('ellipse', {
+        cx: ctx.ux(o.xYards + lobe.dx),
+        cy: ctx.uy(o.absY + lobe.dy),
+        rx: lobe.rx,
+        ry: lobe.ry,
+        fill: COLOR.zone,
+        stroke: single ? COLOR.zoneEdge : 'none',
+        'stroke-width': single ? 0.2 : 0,
+        'stroke-dasharray': single ? '1.1 0.7' : 'none'
+      }, g);
+    });
+
+    return g;
+  }
+
   /* The ball: a small brown oval, near life size. Detail like laces would be
      sub-pixel at this scale, so it is left off deliberately. */
   function drawBall(ctx, o) {
@@ -536,6 +600,10 @@
     drawToken: drawToken,
     drawRoute: drawRoute,
     drawBall: drawBall,
+    drawZone: drawZone,
+    zoneRadiusFor: zoneRadiusFor,
+    ZONE_DEFAULTS: ZONE_DEFAULTS,
+    COBRA_LOBES: COBRA_LOBES,
     drawStartPositions: drawStartPositions,
     viewForPlay: viewForPlay,
     fullView: fullView,

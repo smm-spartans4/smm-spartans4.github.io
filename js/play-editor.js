@@ -275,6 +275,17 @@
       var isSel = pl.positionId === selectedId;
       var faded = dimOthers && !isSel;
 
+      /* Show the zone while sizing it, so the number means something. */
+      if (play.side === 'defense') {
+        FF.field.drawZone(ctx, {
+          positionId: pl.positionId,
+          xYards: pl.start.xYards,
+          absY: ctx.absY(pl.start.yYards, play.lineOfScrimmageYard),
+          radiusYards: FF.field.zoneRadiusFor(pl),
+          fillOpacity: faded ? 0.1 : 0.24
+        });
+      }
+
       if (!FF.routes.isStatic(pl.route)) {
         FF.field.drawRoute(ctx, pl.route, {
           lineOfScrimmageYard: play.lineOfScrimmageYard,
@@ -969,6 +980,29 @@
         tools.appendChild(clr);
       }
       wrap.appendChild(tools);
+
+      /* Defenders own an area, so their zone bubble is sized here. The rusher
+         defaults to none - he is rushing, not covering. */
+      if (play.side === 'defense') {
+        var zoneRow = h('div', { 'class': 'ff-toolbar ff-tight' }, [
+          h('span', { 'class': 'ff-small ff-muted', text: 'Zone size' })
+        ]);
+        var zone = h('input', { type: 'number', min: '0', max: '20', step: '0.5',
+          'class': 'ff-zone-input',
+          'aria-label': 'Zone radius for ' + pl.positionId,
+          value: String(FF.field.zoneRadiusFor(pl)) });
+        zone.addEventListener('change', function () {
+          var v = parseFloat(zone.value);
+          pl.zoneRadiusYards = isNaN(v) ? 0 : clamp(v, 0, 20);
+          zone.value = String(pl.zoneRadiusYards);
+          saveNow();
+          redraw();
+        });
+        zoneRow.appendChild(zone);
+        zoneRow.appendChild(h('span', { 'class': 'ff-small ff-muted',
+          text: pl.positionId === 'RUSH' ? 'yards (0 = rushing, no zone)' : 'yards' }));
+        wrap.appendChild(zoneRow);
+      }
 
       var ta = h('textarea', { rows: '3', 'aria-label': 'Assignment for ' + pl.positionId });
       ta.value = pl.assignmentNote || '';

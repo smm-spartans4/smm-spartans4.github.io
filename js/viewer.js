@@ -51,6 +51,10 @@
     var ctx = null;
     var clock = null;
     var els = {};
+    var zoneLayer = null;
+    var showAllZones = false;
+    var cobraOn = false;
+    var hoveredId = null;
     var lineupGroup = 0;
     var lineup = FF.store.activeLineup(null, lineupGroup).players || {};
 
@@ -95,13 +99,35 @@
 
     /* ---- static layers --------------------------------------------------- */
 
+    function isDefense() { return play.side === 'defense'; }
+
     function renderStatic() {
       ctx = FF.field.render(svg, {
         settings: settings,
         view: FF.field.viewForPlay(settings, play),
         lineOfScrimmageYard: play.lineOfScrimmageYard,
-        showNoRush: play.side === 'defense'
+        showNoRush: isDefense()
       });
+
+      /* Zones live under the players, and are rebuilt every frame, so they get
+         their own group inside the routes layer rather than sharing one. */
+      zoneLayer = FF.field.el('g', { 'class': 'ff-zones' }, ctx.layers.routes);
+
+      /* A defensive play always shows whatever movement was drawn - there is
+         no toggle for it, since most defensive plays have none at all. */
+      if (isDefense()) {
+        play.players.forEach(function (pl) {
+          if (FF.routes.isStatic(pl.route)) return;
+          FF.field.drawRoute(ctx, pl.route, {
+            lineOfScrimmageYard: play.lineOfScrimmageYard,
+            positionId: pl.positionId,
+            color: '#FFFFFF',
+            width: 0.24,
+            opacity: 0.75
+          });
+        });
+        return;
+      }
 
       if (!routesAllowed || !showRouteLines) return;
       play.players.forEach(function (pl) {
@@ -122,6 +148,7 @@
       if (!ctx) return;
       ctx.layers.tokens.innerHTML = '';
       ctx.layers.overlay.innerHTML = '';
+      if (zoneLayer) zoneLayer.innerHTML = '';
 
       var faking = FF.ball.fakingAt(play, t);
       var bs = FF.ball.stateAt(play, t, settings);
@@ -130,6 +157,26 @@
       play.players.forEach(function (pl) {
         var at = FF.routes.pointAt(pl.route, t)
           || { xYards: pl.start.xYards, yYards: pl.start.yYards };
+
+        /* A zone defender owns an area, not a path. Show it when everything
+           is switched on, or just for whoever is being pointed at. */
+        var isRover = cobraOn && pl.positionId === 'RUSH';
+        var wantZone = showAllZones || hoveredId === pl.positionId || isRover;
+
+        if (isDefense() && zoneLayer && wantZone) {
+          FF.field.drawZone(ctx, {
+            layer: zoneLayer,
+            positionId: pl.positionId,
+            xYards: at.xYards,
+            absY: ctx.absY(at.yYards, play.lineOfScrimmageYard),
+            /* On a Cobra call the rusher drops out and plays rover, so his
+               area is the deep middle plus a piece of each sideline - not a
+               circle, and not the nothing he normally has. */
+            lobes: isRover ? FF.field.COBRA_LOBES : null,
+            radiusYards: FF.field.zoneRadiusFor(pl),
+            fillOpacity: hoveredId === pl.positionId ? 0.32 : 0.24
+          });
+        }
 
         FF.field.drawToken(ctx, {
           side: play.side,
@@ -237,12 +284,45 @@
         renderFrame(clock.getTime());
       });
 
-      var viewRow = h('div', { 'class': 'ff-controls ff-controls-view' }, [
-        els.flipBtn,
-        els.routesBtn,
-        h('span', { 'class': 'ff-small ff-muted', text: 'Label players by' }),
-        labels
-      ]);
+      var viewRow = h('div', { 'class': 'ff-controls ff-controls-view' });
+
+      if (isDefense()) {
+        /* Flipping a symmetric coverage shell shows nothing, and hiding routes
+           that mostly do not exist is a dead control. Zones replace both. */
+        els.zoneBtn = h('button', { type: 'button',
+          'class': 'ff-btn secondary ff-small', text: 'Show all zones',
+          title: 'Show every defender’s area at once' });
+        els.zoneBtn.addEventListener('click', function () {
+          showAllZones = !showAllZones;
+          els.zoneBtn.classList.toggle('is-on', showAllZones);
+          els.zoneBtn.textContent = showAllZones ? 'Hide zones' : 'Show all zones';
+          renderFrame(clock.getTime());
+        });
+        viewRow.appendChild(els.zoneBtn);
+
+        /* The rusher normally has no zone at all. On a Cobra call he drops out
+           and covers instead, so this is the one button that ADDS an area. */
+        if (play.players.some(function (p) { return p.positionId === 'RUSH'; })) {
+          els.cobraBtn = h('button', { type: 'button',
+            'class': 'ff-btn secondary ff-small', text: 'Cobra',
+            title: 'Rusher drops out and plays rover: deep middle plus both sidelines' });
+          els.cobraBtn.addEventListener('click', function () {
+            cobraOn = !cobraOn;
+            els.cobraBtn.classList.toggle('is-on', cobraOn);
+            renderFrame(clock.getTime());
+          });
+          viewRow.appendChild(els.cobraBtn);
+        }
+
+        viewRow.appendChild(h('span', { 'class': 'ff-small ff-muted',
+          text: 'or point at a player to see just theirs' }));
+      } else {
+        viewRow.appendChild(els.flipBtn);
+        viewRow.appendChild(els.routesBtn);
+      }
+
+      viewRow.appendChild(h('span', { 'class': 'ff-small ff-muted', text: 'Label players by' }));
+      viewRow.appendChild(labels);
 
       /* Every spot runs two deep, so both groups need to be able to find
          themselves. Only worth showing when a second group actually exists. */
@@ -275,7 +355,10 @@
     }
 
     function buildAnnouncerRow() {
-      if (!FF.announcer || !FF.announcer.supported()) return;
+      /* No announcer on defense at all - there is no ball to call, and reading
+         five zone assignments aloud is not how anybody coaches a defense. */
+      if (isDefense()) { buildDownloadRow(); return; }
+      if (!FF.announcer || !FF.announcer.supported()) { buildDownloadRow(); return; }
 
       var row = h('div', { 'class': 'ff-controls ff-controls-view' });
 
@@ -419,8 +502,58 @@
       /* Called synchronously from the Play tap, which is what lets iOS speak -
          it refuses any utterance not started inside a real gesture. */
       if (!FF.announcer || !FF.announcer.supported()) return;
+      if (isDefense()) { FF.announcer.cancel(); return; }
       if (playing && FF.announcer.getAuto()) speakScript();
       else if (!playing) FF.announcer.cancel();
+    }
+
+    /* ---- pointing at a defender ------------------------------------------
+       Hit-tested against player positions rather than wired to each token,
+       because the tokens are rebuilt every frame and re-attaching listeners
+       sixty times a second would be silly. Works for a mouse and a finger. */
+
+    function nearestPlayer(evt) {
+      var p = ctx.pointToYards(evt);
+      var losAbs = FF.field.absY(settings, play.lineOfScrimmageYard, 0);
+      var t = clock.getTime();
+      var best = null;
+
+      play.players.forEach(function (pl) {
+        var at = FF.routes.pointAt(pl.route, t)
+          || { xYards: pl.start.xYards, yYards: pl.start.yYards };
+        var dx = p.xYards - at.xYards;
+        var dy = (p.absY - losAbs) - at.yYards;
+        var d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 2.2 && (!best || d < best.d)) best = { id: pl.positionId, d: d };
+      });
+      return best ? best.id : null;
+    }
+
+    function bindZonePointer() {
+      if (!isDefense()) return;
+
+      svg.addEventListener('pointermove', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        var id = nearestPlayer(e);
+        if (id === hoveredId) return;
+        hoveredId = id;
+        renderFrame(clock.getTime());
+      });
+
+      svg.addEventListener('pointerleave', function () {
+        if (hoveredId === null) return;
+        hoveredId = null;
+        renderFrame(clock.getTime());
+      });
+
+      /* On a touch screen a tap holds the zone open, and tapping the same
+         player again - or empty grass - puts it away. */
+      svg.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'mouse') return;
+        var id = nearestPlayer(e);
+        hoveredId = (id && id === hoveredId) ? null : id;
+        renderFrame(clock.getTime());
+      });
     }
 
     /* ---- role legend ----------------------------------------------------- */
@@ -476,6 +609,7 @@
     buildControls();
     renderStatic();
     buildLegend();
+    bindZonePointer();
     renderFrame(0);
 
     return {

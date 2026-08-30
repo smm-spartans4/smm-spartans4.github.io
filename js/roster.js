@@ -161,26 +161,6 @@
     render();
   }
 
-  function sortBy(mode) {
-    if (!mode) return;
-    FF.store.update(function (d) {
-      d.roster.sort(function (a, b) {
-        if (mode === 'name') {
-          return (a.name || '').localeCompare(b.name || '', undefined, { numeric: true });
-        }
-        var na = parseInt(a.jersey, 10);
-        var nb = parseInt(b.jersey, 10);
-        if (isNaN(na) && isNaN(nb)) return 0;
-        if (isNaN(na)) return 1;          // unnumbered players fall to the end
-        if (isNaN(nb)) return -1;
-        return na - nb;
-      });
-    });
-    FF.ui.refreshBanner();
-    flagSaved();
-    render();
-  }
-
   /* ---------- wiring ------------------------------------------------------ */
 
   function init() {
@@ -219,11 +199,6 @@
     });
 
     document.getElementById('addPlayer').addEventListener('click', addPlayer);
-
-    document.getElementById('sortBy').addEventListener('change', function (e) {
-      sortBy(e.target.value);
-      e.target.value = '';
-    });
 
     /* Never lose a half-typed name to a debounce timer. */
     window.addEventListener('beforeunload', function () {

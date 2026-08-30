@@ -335,7 +335,11 @@ input:focus, select:focus, textarea:focus {
 .ff-roster-row:last-child { border-bottom: 0; }
 .ff-roster-row:hover { background: #F3F7F3; }
 
-.ff-jersey {
+/* Both selectors on purpose. input[type="text"] in the forms block has higher
+   specificity than a bare class, so styling only .ff-jersey left the coach
+   looking at a plain white box while parents saw the crest. */
+.ff-jersey,
+input.ff-jersey {
   grid-column: 1;
   width: 56px;
   height: 56px;
@@ -350,10 +354,10 @@ input:focus, select:focus, textarea:focus {
   font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: .02em;
-  display: grid;
-  place-items: center;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 1px 3px rgba(0,0,0,.18);
 }
+span.ff-jersey { display: grid; place-items: center; }
+
 .ff-jersey-input::placeholder { color: rgba(255,255,255,.5); font-size: 1.1rem; }
 .ff-jersey-input:focus {
   outline: 3px solid #FFC400;
@@ -361,7 +365,8 @@ input:focus, select:focus, textarea:focus {
   border-color: #FFC400;
 }
 
-.ff-rostername {
+.ff-rostername,
+input.ff-rostername {
   grid-column: 2;
   font-family: var(--font-display);
   font-size: 1.1rem;

@@ -108,26 +108,35 @@ broken. Nobody but the coach can change what is published, with or without it.
 
 ## Build progress
 
+All built and deployed.
+
 - [x] **1.** Scaffold, data store, to-scale field renderer
-- [x] **2.** Roster
+- [x] **2.** Roster, with warrior portraits
 - [x] **3.** Play editor: formations + drag to position
 - [x] **4.** Hand-drawn routes
 - [x] **5.** Ball logic (snap → handoff/pass, fakes, QB rollout)
 - [x] **6.** Play viewer: playback, scrub, role legend
 - [x] **7.** Flip/mirror + label toggle
-- [x] **9.** Play library with thumbnails
-- [x] **10.** Schedule: practices, games, weekly lineups, print
-- [x] **11.** Settings + export/import (pulled forward - backups matter)
-- [ ] **12.** Polish, accessibility, deploy to GitHub Pages
+- [x] **9.** Play library with thumbnails and manual ordering
+- [x] **10.** Schedule: practices, games, two-deep lineups, print
+- [x] **11.** Publish page: export, import, reset, field and league rules
+- [x] **12.** Deployed to GitHub Pages
+- [x] **13.** Download any play as an MP4
+- [x] **14.** Installable offline app (PWA)
 - [x] **15.** Announcer — speaks the play, fills in this week’s names
-- [x] **13.** Download any play as an MP4 (coach and parents) — for saving to an iPad
-- [x] **14.** Installable offline app (PWA) — Add to Home Screen, works with no signal
+- [x] **16.** Coach mode — the site is read-only unless editing is switched on
+- [x] **17.** Zone bubbles and the Cobra call, for defensive plays
 
-Notes on 13 and 14:
-- MP4 is encoded in the browser (WebCodecs + a vendored muxer). No server, no build step.
-  H.264/MP4 specifically, because iPads will not play WebM.
-- The offline app needs HTTPS, so it only works once deployed (step 12) — not from `file://`.
-- A downloaded video is a snapshot: change a route later and it must be re-exported.
+Dropped along the way: a separate drills library (step 8 in the original
+plan) and the pseudo-3D field-level view — neither earned its place.
+
+Notes on the video and the offline app:
+- MP4 is encoded in the browser (WebCodecs + the muxer in js/mp4.js). No
+  server, no build step. H.264/MP4 specifically, because iPads will not play
+  WebM. The video is silent - browsers cannot capture synthesized speech.
+- The offline app needs HTTPS, so it works from the published site, not from
+  a local file.
+- A downloaded video is a snapshot: change a route later and re-export it.
   The offline app is always current with whatever was last published.
 
 ## League rules baked in

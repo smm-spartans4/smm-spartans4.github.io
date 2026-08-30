@@ -75,8 +75,8 @@
       'class': 'ff-portrait',
       src: warriorFor(index),
       alt: '',
-      width: '44',
-      height: '44',
+      width: '72',
+      height: '72',
       loading: 'lazy'
     });
   }

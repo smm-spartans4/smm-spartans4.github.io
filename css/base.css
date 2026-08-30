@@ -314,20 +314,20 @@ input:focus, select:focus, textarea:focus {
 /* The list is deliberately narrow. Left to fill a 1240px page, the name field
    stretched to the far edge and the number and the name read as if they were
    at opposite ends of the screen. */
-.ff-roster { max-width: 430px; }
+.ff-roster { max-width: 500px; }
 
 .ff-roster-row,
 .ff-roster-labels {
   display: grid;
   gap: 9px;
-  grid-template-columns: 48px minmax(0, 1fr) 44px 38px;
+  grid-template-columns: 60px minmax(0, 1fr) 72px 38px;
   align-items: center;
 }
 
 .ff-roster-labels { display: none; }
 
 .ff-roster-row {
-  padding: 10px 8px;
+  padding: 8px;
   border-radius: 12px;
   border-bottom: 1px solid var(--line);
   transition: background .15s;
@@ -341,9 +341,9 @@ input:focus, select:focus, textarea:focus {
 .ff-jersey,
 input.ff-jersey {
   grid-column: 1;
-  width: 48px;
-  height: 48px;
-  min-height: 48px;
+  width: 60px;
+  height: 60px;
+  min-height: 60px;
   padding: 0;
   border-radius: 50%;
   background: var(--team-primary);
@@ -351,7 +351,7 @@ input.ff-jersey {
   color: #fff;
   text-align: center;
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: .02em;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 1px 3px rgba(0,0,0,.18);
@@ -369,7 +369,7 @@ span.ff-jersey { display: grid; place-items: center; }
 input.ff-rostername {
   grid-column: 2;
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: .015em;
 }
@@ -405,7 +405,7 @@ input.ff-rostername:focus { border-color: var(--team-primary); background: #fff;
 }
 .ff-empty p { margin: 0 0 4px; }
 
-.ff-roster-row.is-readonly { grid-template-columns: 48px minmax(0, 1fr) 44px; }
+.ff-roster-row.is-readonly { grid-template-columns: 60px minmax(0, 1fr) 72px; }
 
 /* ---------- play editor ---------------------------------------------------- */
 
@@ -989,8 +989,8 @@ svg.ff-field { cursor: default; }
 
 /* Player portrait: one of the warriors from the team sheet, cropped round. */
 .ff-portrait {
-  width: 44px;
-  height: 44px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--team-primary);

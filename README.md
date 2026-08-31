@@ -127,8 +127,14 @@ All built and deployed.
 - [x] **16.** Coach mode — the site is read-only unless editing is switched on
 - [x] **17.** Zone bubbles and the Cobra call, for defensive plays
 
-Dropped along the way: a separate drills library (step 8 in the original
-plan) and the pseudo-3D field-level view — neither earned its place.
+- [x] **18.** Three-player drills - a lens on a play, never a copy of one
+- [x] **19.** League rules on the Schedule page, with the OSAA PDF behind them
+- [x] **20.** Rotation coverage grid - who has played where, and where nobody has
+
+Dropped along the way: the pseudo-3D field-level view (step 8), which would
+have been a lot of geometry for a picture the top-down view already gives.
+A reusable drills catalogue was dropped and then rebuilt as something
+better - drills now point at plays rather than duplicating them.
 
 Notes on the video and the offline app:
 - MP4 is encoded in the browser (WebCodecs + the muxer in js/mp4.js). No

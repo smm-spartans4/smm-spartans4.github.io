@@ -35,25 +35,28 @@ and reloads whatever is in `data/team-data.js`.
 > when you open it locally. The `.js` wrapper is the same data, and it works
 > both ways. Import still accepts either format.
 
-## Deploying
+## Publishing to parents
 
-The site is live at **https://smm-spartans4.github.io/**, hosted free by
-GitHub Pages out of the repo `smm-spartans4/smm-spartans4.github.io`.
-Pages is already configured, so publishing is just:
+Your work saves in your browser only. Parents see the last *published*
+version. To publish:
 
-```bash
-git add .
-git commit -m "what changed"
-git push
-```
+1. On the site: **Publish -> Export publish file**
+2. Double-click **publish.bat** in this folder
 
-GitHub rebuilds within a minute or so. Remember that pushing code is not the
-same as publishing your plays — for those, export from Settings first and
-replace `data/team-data.js` (see above).
+That is the whole job. It finds the newest export in Downloads, checks it,
+installs it and pushes. GitHub rebuilds within a minute.
 
-The repo is named after the org on purpose: a repo called
-`<org>.github.io` is served at the apex URL instead of under a
-`/repo-name/` path. All asset paths are relative, so the site works either way.
+It takes the newest file by timestamp rather than a fixed name, because
+Chrome never overwrites a download - the second is , the
+third . And it refuses to publish anything it cannot parse, so a
+half-written export can never reach the live site.
+
+The site itself is at **https://smm-spartans4.github.io/**, hosted free by
+GitHub Pages from .
+
+### If you change the code rather than the data
+
+
 
 ---
 

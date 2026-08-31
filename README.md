@@ -40,23 +40,27 @@ and reloads whatever is in `data/team-data.js`.
 Your work saves in your browser only. Parents see the last *published*
 version. To publish:
 
-1. On the site: **Publish -> Export publish file**
+1. On the site: **Publish → Export publish file**
 2. Double-click **publish.bat** in this folder
 
 That is the whole job. It finds the newest export in Downloads, checks it,
 installs it and pushes. GitHub rebuilds within a minute.
 
 It takes the newest file by timestamp rather than a fixed name, because
-Chrome never overwrites a download - the second is , the
-third . And it refuses to publish anything it cannot parse, so a
-half-written export can never reach the live site.
+Chrome never overwrites a download — the second is `team-data (1).js`, the
+third `team-data (2).js`. And it refuses to publish anything it cannot
+parse, so a half-written export can never reach the live site.
 
-The site itself is at **https://smm-spartans4.github.io/**, hosted free by
-GitHub Pages from .
+The site is at **https://smm-spartans4.github.io/**, hosted free by GitHub
+Pages from the repo `smm-spartans4/smm-spartans4.github.io`.
 
 ### If you change the code rather than the data
 
-
+```bash
+git add .
+git commit -m "what changed"
+git push
+```
 
 ---
 

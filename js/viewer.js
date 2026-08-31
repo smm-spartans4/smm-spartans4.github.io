@@ -485,8 +485,9 @@
           save.disabled = false;
           renderFrame(clock.getTime());
         })['catch'](function (err) {
-          console.error(err);
+          console.error('[download]', err);
           status.textContent = err.message || 'Could not make the video.';
+          status.className = 'ff-small ff-note is-warn';
           save.disabled = false;
           renderFrame(clock.getTime());
         });

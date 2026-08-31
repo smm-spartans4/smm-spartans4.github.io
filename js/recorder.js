@@ -139,6 +139,20 @@
 
       encoder.configure(config);
 
+      /* A cheap fingerprint of what is actually on the canvas. Two frames from
+         different moments of the play must not produce the same number; if
+         they do, the drawing never changed and no amount of container work
+         will unfreeze the video. */
+      function fingerprint() {
+        var px = ctx.getImageData(0, 0, width, height).data;
+        var sum = 0;
+        for (var i = 0; i < px.length; i += 997 * 4) {
+          sum = (sum * 31 + px[i] + px[i + 1] * 3 + px[i + 2] * 7) >>> 0;
+        }
+        return sum;
+      }
+      var prints = {};
+
       var index = 0;
       function step() {
         if (index >= total) return Promise.resolve();
@@ -147,6 +161,9 @@
         opts.drawAt(t);
 
         return drawSvg(opts.svg, canvas, ctx).then(function () {
+          /* Sample near the start and around the middle of the play. */
+          var mid = Math.round((opts.duration * FPS) / 2);
+          if (index === 1 || index === mid) prints[index] = fingerprint();
           var frame = new window.VideoFrame(canvas, {
             timestamp: Math.round((index / FPS) * 1000000),   // microseconds
             duration: Math.round(1000000 / FPS)
@@ -167,6 +184,12 @@
         .then(function () { return encoder.flush(); })
         .then(function () {
           encoder.close();
+          var keys = Object.keys(prints);
+          if (keys.length === 2 && prints[keys[0]] === prints[keys[1]]) {
+            throw new Error('The field looked identical at the start and the '
+              + 'middle of the play, so the video would be a still. The '
+              + 'drawing is at fault, not the video file.');
+          }
           if (!frames.length) throw new Error('The encoder produced no frames.');
           if (!avcC) throw new Error('The encoder gave no decoder configuration.');
 
@@ -197,6 +220,8 @@
             var gap = next ? Math.round((next.timestamp - f.timestamp) * TICKS) : fallback;
             f.duration = gap > 0 ? gap : fallback;
           });
+          console.log('[recorder] ' + frames.length + ' frames, codec '
+            + config.codec + ', ' + width + 'x' + height);
           return FF.mp4.build({
             width: width,
             height: height,

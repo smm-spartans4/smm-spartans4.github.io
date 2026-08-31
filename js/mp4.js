@@ -188,9 +188,16 @@
     return fullBox('stsz', 0, 0, w.toUint8());
   }
 
-  function stsc() {
+  /* Sample-to-chunk. Every sample lives in one chunk here, so this must say
+     how many samples that chunk holds - saying "1" told players the chunk
+     contained a single frame, and since stco declares no second chunk they
+     could locate frame one and nothing after it. Right duration, one picture. */
+  function stsc(sampleCount) {
     var w = new Writer();
-    w.u32(1).u32(1).u32(1).u32(1);     // one chunk holding every sample
+    w.u32(1);                    // one entry
+    w.u32(1);                    // ...starting at chunk 1
+    w.u32(sampleCount);          // ...which holds every sample
+    w.u32(1);                    // ...described by sample description 1
     return fullBox('stsc', 0, 0, w.toUint8());
   }
 
@@ -220,7 +227,7 @@
       stsd(width, height, opts.avcC),
       stts(deltas),
       stss(keyframes),
-      stsc(),
+      stsc(frames.length),
       stsz(sizes),
       stco(0)                          // patched below, once moov size is known
     ]));
@@ -239,7 +246,7 @@
       stsd(width, height, opts.avcC),
       stts(deltas),
       stss(keyframes),
-      stsc(),
+      stsc(frames.length),
       stsz(sizes),
       stco(dataStart)
     ]));

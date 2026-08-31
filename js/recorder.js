@@ -31,14 +31,20 @@
       && !!FF.mp4;
   }
 
-  /* Ask the browser what it will actually encode. Codec strings are fussy and
-     support varies, so try a few from best to most compatible. */
+  /* Ask the browser what it will actually encode.
+
+     BASELINE FIRST, deliberately. High and Main profiles allow B-frames, and a
+     B-frame arrives out of presentation order - which an MP4 has to describe
+     with a composition-offset table this muxer does not write. The result was a
+     file with the right duration that sat on one frame. Baseline has no frame
+     reordering at all, so decode order is presentation order and the simple
+     timing tables are correct. */
   function pickConfig(width, height) {
     var candidates = [
-      'avc1.640028',   // High profile, level 4.0
-      'avc1.4D402A',   // Main
-      'avc1.42E02A',   // Baseline, level 4.2
-      'avc1.42001F'    // Baseline, level 3.1
+      'avc1.42E01F',   // Constrained baseline, level 3.1
+      'avc1.42E028',   // Constrained baseline, level 4.0
+      'avc1.4D401F',   // Main, if baseline is somehow unavailable
+      'avc1.640028'    // High, last resort
     ];
     var chain = Promise.resolve(null);
     candidates.forEach(function (codec) {
@@ -50,6 +56,7 @@
           height: height,
           bitrate: 3500000,
           framerate: FPS,
+          latencyMode: 'realtime',     // also asks for no frame reordering
           avc: { format: 'avc' }       // length-prefixed, which is what MP4 wants
         };
         return window.VideoEncoder.isConfigSupported(config)
@@ -122,6 +129,7 @@
           chunk.copyTo(data);
           frames.push({
             data: data,
+            timestamp: chunk.timestamp,   // microseconds, from the encoder
             duration: Math.round(90000 / FPS),
             key: chunk.type === 'key'
           });
@@ -161,6 +169,34 @@
           encoder.close();
           if (!frames.length) throw new Error('The encoder produced no frames.');
           if (!avcC) throw new Error('The encoder gave no decoder configuration.');
+
+          /* Trust the encoder's own timestamps rather than assuming a
+             perfectly even cadence, and put them in order before measuring
+             the gaps - a frame arriving late would otherwise produce a
+             negative duration and a file that will not play. */
+          /* Tell the two failure modes apart. A frozen video is either frames
+             that were all identical, or good frames the container described
+             badly - and they look the same from the outside. Inter-frames of a
+             genuinely still picture compress to almost nothing, so their size
+             says which happened. */
+          var inter = frames.filter(function (f) { return !f.key; });
+          var biggest = inter.reduce(function (m, f) {
+            return Math.max(m, f.data.length);
+          }, 0);
+          if (inter.length > 4 && biggest < 200) {
+            console.warn('[recorder] every frame encoded to under ' + biggest
+              + ' bytes, so the canvas was not changing between frames - the'
+              + ' problem is the drawing, not the container.');
+          }
+
+          frames.sort(function (a, b) { return a.timestamp - b.timestamp; });
+          var TICKS = 90000 / 1000000;          // microseconds -> timescale
+          var fallback = Math.round(90000 / FPS);
+          frames.forEach(function (f, i) {
+            var next = frames[i + 1];
+            var gap = next ? Math.round((next.timestamp - f.timestamp) * TICKS) : fallback;
+            f.duration = gap > 0 ? gap : fallback;
+          });
           return FF.mp4.build({
             width: width,
             height: height,

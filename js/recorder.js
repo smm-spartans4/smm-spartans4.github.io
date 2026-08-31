@@ -78,14 +78,30 @@
       var markup = new XMLSerializer().serializeToString(clone);
       var url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(markup);
 
+      var settled = false;
+      var watchdog = setTimeout(function () {
+        if (settled) return;
+        settled = true;
+        reject(new Error('A frame took too long to draw. The field could not '
+          + 'be turned into an image.'));
+      }, 8000);
+
       var img = new Image();
       img.onload = function () {
+        if (settled) return;
+        settled = true;
+        clearTimeout(watchdog);
         ctx.fillStyle = '#17401A';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         resolve();
       };
-      img.onerror = function () { reject(new Error('Could not rasterise the field')); };
+      img.onerror = function () {
+        if (settled) return;
+        settled = true;
+        clearTimeout(watchdog);
+        reject(new Error('The field could not be turned into an image.'));
+      };
       img.src = url;
     });
   }
@@ -112,10 +128,12 @@
     var canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
-    var ctx = canvas.getContext('2d', { alpha: false });
+    var ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
 
+    console.log('[recorder] starting: ' + total + ' frames at ' + width + 'x' + height);
     return pickConfig(width, height).then(function (config) {
       if (!config) throw new Error('No supported H.264 encoder on this device.');
+      console.log('[recorder] codec ' + config.codec);
 
       var frames = [];
       var avcC = null;
@@ -172,6 +190,11 @@
           encoder.encode(frame, { keyFrame: index % FPS === 0 });
           frame.close();
           index++;
+          if (index === 1 || index % 30 === 0 || index === total) {
+            console.log('[recorder] drew frame ' + index + '/' + total
+              + ', encoder queue ' + encoder.encodeQueueSize
+              + ', chunks out ' + frames.length);
+          }
           if (opts.onProgress) opts.onProgress(index / total);
 
           /* Yield between frames so the tab stays responsive and the encoder
@@ -181,7 +204,10 @@
       }
 
       return step()
-        .then(function () { return encoder.flush(); })
+        .then(function () {
+          console.log('[recorder] all frames drawn, flushing the encoder');
+          return encoder.flush();
+        })
         .then(function () {
           encoder.close();
           var keys = Object.keys(prints);

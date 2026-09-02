@@ -67,13 +67,69 @@
     return chain;
   }
 
-  /* Serialise the live SVG and paint it into the canvas. */
-  function drawSvg(svg, canvas, ctx) {
+  /* ------------------------------------------------------------------------
+     The caption bar.
+
+     A video saved to an iPad loses its filename the moment it lands in Photos,
+     which leaves nine near-identical green rectangles and no way to tell which
+     one is the jet sweep. So the play says its own name on screen.
+
+     Painted with the 2D context rather than added to the SVG, because the SVG
+     is serialised to a data URL and rasterised standalone - a webfont
+     referenced from inside it would not load. Drawn straight onto the canvas,
+     the fonts the page has already loaded are simply available.
+     ---------------------------------------------------------------------- */
+
+  var TITLE_BG = '#17401A';      // the team green, same as the site header
+  /* --font-display from the stylesheet, spelled out: a canvas cannot read a
+     CSS custom property, and this has to fall back the same way the page does. */
+  var TITLE_FONT = 'Cinzel, "Trajan Pro", Optima, "Palatino Linotype", '
+    + 'Georgia, "Times New Roman", serif';
+
+  function drawTitle(ctx, canvas, band, text) {
+    if (!band) return;
+
+    ctx.save();
+    ctx.fillStyle = TITLE_BG;
+    ctx.fillRect(0, 0, canvas.width, band);
+
+    /* A hairline under the bar, so the caption reads as a caption rather than
+       as empty sky above the back of the end zone. */
+    var rule = Math.max(2, Math.round(band * 0.035));
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.30)';
+    ctx.fillRect(0, band - rule, canvas.width, rule);
+
+    var max = canvas.width - Math.round(canvas.width * 0.05) * 2;
+    var size = Math.round(band * 0.5);
+    var floor = Math.round(band * 0.3);
+
+    /* Shrink to fit before cutting anything: a long play name is far better
+       small than truncated, and most of them are only two or three words. */
+    for (;;) {
+      ctx.font = '700 ' + size + 'px ' + TITLE_FONT;
+      if (ctx.measureText(text).width <= max || size <= floor) break;
+      size -= 1;
+    }
+    while (text.length > 4 && ctx.measureText(text).width > max) {
+      text = text.replace(/…$/, '').slice(0, -1) + '…';
+    }
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    /* Nudged up by the rule so the text sits centred in the green, not in the
+       band-plus-hairline, which reads as very slightly low. */
+    ctx.fillText(text, canvas.width / 2, (band - rule) / 2);
+    ctx.restore();
+  }
+
+  /* Serialise the live SVG and paint it into the canvas, below the caption. */
+  function drawSvg(svg, canvas, ctx, layout) {
     return new Promise(function (resolve, reject) {
       var clone = svg.cloneNode(true);
       clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-      clone.setAttribute('width', canvas.width);
-      clone.setAttribute('height', canvas.height);
+      clone.setAttribute('width', layout.width);
+      clone.setAttribute('height', layout.height);
 
       var markup = new XMLSerializer().serializeToString(clone);
       var url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(markup);
@@ -91,9 +147,9 @@
         if (settled) return;
         settled = true;
         clearTimeout(watchdog);
-        ctx.fillStyle = '#17401A';
+        ctx.fillStyle = TITLE_BG;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, layout.top, layout.width, layout.height);
         resolve();
       };
       img.onerror = function () {
@@ -111,7 +167,9 @@
        svg          the field element to capture
        drawAt(t)    called before each frame; must render the play at time t
        duration     seconds of play
-       width/height output size in pixels (rounded to even, which H.264 needs)
+       width/height size of the FIELD in pixels; the caption bar is added on
+                    top of this, so the finished video is a little taller
+       title        captioned above the field; omit for no caption bar
        onProgress   0..1
      Resolves with a Blob.
      ---------------------------------------------------------------------- */
@@ -121,7 +179,15 @@
     }
 
     var width = Math.round((opts.width || 960) / 2) * 2;
-    var height = Math.round((opts.height || 720) / 2) * 2;
+    var fieldH = Math.round((opts.height || 720) / 2) * 2;
+
+    /* Every dimension stays even, which H.264 requires, so the bar is rounded
+       to two pixels rather than one. */
+    var title = String(opts.title || '').trim();
+    var band = title ? Math.round(Math.max(46, width * 0.085) / 2) * 2 : 0;
+    var height = fieldH + band;
+    var layout = { top: band, width: width, height: fieldH };
+
     var duration = (opts.duration || 5) + TAIL_SECONDS;
     var total = Math.max(1, Math.round(duration * FPS));
 
@@ -131,7 +197,18 @@
     var ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
 
     console.log('[recorder] starting: ' + total + ' frames at ' + width + 'x' + height);
-    return pickConfig(width, height).then(function (config) {
+
+    /* Have Cinzel in hand before anything measures text in it. Asking after
+       the first frame would caption that frame in a fallback serif at one size
+       and every later frame in Cinzel at another - a caption that visibly
+       resets a thirtieth of a second in. */
+    var fontReady = (document.fonts && document.fonts.load && band)
+      ? document.fonts.load('700 32px Cinzel')['catch'](function () { return null; })
+      : Promise.resolve(null);
+
+    return fontReady.then(function () {
+      return pickConfig(width, height);
+    }).then(function (config) {
       if (!config) throw new Error('No supported H.264 encoder on this device.');
       console.log('[recorder] codec ' + config.codec);
 
@@ -178,7 +255,8 @@
         var t = Math.min(opts.duration, index / FPS);
         opts.drawAt(t);
 
-        return drawSvg(opts.svg, canvas, ctx).then(function () {
+        return drawSvg(opts.svg, canvas, ctx, layout).then(function () {
+          drawTitle(ctx, canvas, band, title);
           /* Sample near the start and around the middle of the play. */
           var mid = Math.round((opts.duration * FPS) / 2);
           if (index === 1 || index === mid) prints[index] = fingerprint();

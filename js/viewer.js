@@ -477,6 +477,9 @@
           duration: play.durationSeconds || 5,
           width: wide,
           height: tall,
+          /* Captioned in the video itself. Once these are on an iPad they are
+             nine green rectangles in Photos with no filenames left. */
+          title: play.name,
           drawAt: function (t) { renderFrame(t); },
           onProgress: function (p) {
             status.textContent = 'Rendering… ' + Math.round(p * 100) + '%';

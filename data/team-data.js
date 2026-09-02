@@ -1,10 +1,10 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-08-30T23:09:34.175Z
+   Exported 2026-09-02T03:23:25.841Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "team": {
     "name": "SMM Spartans Football",
     "primaryColor": "#17401A",
@@ -528,7 +528,7 @@ window.PUBLISHED_TEAM_DATA = {
     },
     {
       "id": "a24afcd0-2029-4b93-a718-1b2cd8a5bcde",
-      "name": "Power Z Pass",
+      "name": "Power Pass",
       "side": "offense",
       "tags": [],
       "durationSeconds": 5,
@@ -1060,12 +1060,22 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
+              "t": 2.047,
+              "xYards": 24.27,
+              "yYards": 5.1
+            },
+            {
+              "t": 3.553,
+              "xYards": 20.97,
+              "yYards": 6.89
+            },
+            {
               "t": 5,
-              "xYards": 24.55,
-              "yYards": 8.37
+              "xYards": 17.52,
+              "yYards": 7.95
             }
           ],
-          "assignmentNote": "Run fast and deep. "
+          "assignmentNote": "Run route as shown into open space. "
         }
       ],
       "ball": {
@@ -1175,17 +1185,12 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 4.046,
-              "xYards": 11.64,
-              "yYards": 6.46
-            },
-            {
               "t": 5,
-              "xYards": 11.73,
-              "yYards": 7.98
+              "xYards": 6.37,
+              "yYards": 7.58
             }
           ],
-          "assignmentNote": "Run a deep fly. "
+          "assignmentNote": "Run your route to the left-side corner. "
         },
         {
           "positionId": "Y",
@@ -1201,34 +1206,29 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 1.112,
+              "t": 1.259,
               "xYards": 15.83,
               "yYards": -0.61
             },
             {
-              "t": 2.14,
+              "t": 2.423,
               "xYards": 13.3,
               "yYards": -0.52
             },
             {
-              "t": 2.915,
-              "xYards": 11.77,
-              "yYards": 0.62
+              "t": 3.459,
+              "xYards": 11.79,
+              "yYards": 1.15
             },
             {
-              "t": 3.768,
-              "xYards": 10.16,
-              "yYards": 1.97
-            },
-            {
-              "t": 4.536,
-              "xYards": 9.33,
-              "yYards": 3.67
+              "t": 4.263,
+              "xYards": 11.79,
+              "yYards": 2.9
             },
             {
               "t": 5,
-              "xYards": 8.99,
-              "yYards": 4.76
+              "xYards": 11.88,
+              "yYards": 4.5
             }
           ],
           "assignmentNote": "Run to the left, take the handoff in front of the QB. Run full speed into daylight. "
@@ -1247,27 +1247,12 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 1.545,
-              "xYards": 24.5,
-              "yYards": 3.93
-            },
-            {
-              "t": 2.829,
-              "xYards": 21.45,
-              "yYards": 5.1
-            },
-            {
-              "t": 4.076,
-              "xYards": 18.44,
-              "yYards": 6.11
-            },
-            {
               "t": 5,
-              "xYards": 16.13,
-              "yYards": 6.54
+              "xYards": 24.36,
+              "yYards": 8.08
             }
           ],
-          "assignmentNote": "Run your route as shown."
+          "assignmentNote": "Run your route to the right-side corner. "
         }
       ],
       "ball": {
@@ -1309,37 +1294,27 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 1.471,
-              "xYards": 15.17,
-              "yYards": 4.01
+              "t": 3.087,
+              "xYards": 15.37,
+              "yYards": 5.33
             },
             {
-              "t": 2.77,
-              "xYards": 18.7,
-              "yYards": 4.36
+              "t": 4.571,
+              "xYards": 17.62,
+              "yYards": 6.57
             },
             {
-              "t": 3.093,
-              "xYards": 19.58,
-              "yYards": 4.36
-            },
-            {
-              "t": 3.874,
-              "xYards": 21.71,
-              "yYards": 4.31
-            },
-            {
-              "t": 4.698,
-              "xYards": 23.94,
-              "yYards": 4.61
+              "t": 4.763,
+              "xYards": 17.94,
+              "yYards": 6.48
             },
             {
               "t": 5,
-              "xYards": 24.76,
-              "yYards": 4.53
+              "xYards": 18.35,
+              "yYards": 6.48
             }
           ],
-          "assignmentNote": "Snap the ball to the quarterback, run straight and then drag right into open space. "
+          "assignmentNote": "Snap the ball to the quarterback, run straight and veer right into open space. "
         },
         {
           "positionId": "QB",
@@ -1386,17 +1361,12 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 4.046,
-              "xYards": 11.64,
-              "yYards": 6.46
-            },
-            {
               "t": 5,
-              "xYards": 11.73,
-              "yYards": 7.98
+              "xYards": 6.51,
+              "yYards": 7.9
             }
           ],
-          "assignmentNote": "Run a deep fly. "
+          "assignmentNote": "Run your route to the deep left-side corner. "
         },
         {
           "positionId": "Y",
@@ -1412,37 +1382,37 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 1.112,
+              "t": 1.05,
               "xYards": 15.83,
               "yYards": -0.61
             },
             {
-              "t": 2.14,
+              "t": 2.021,
               "xYards": 13.3,
               "yYards": -0.52
             },
             {
-              "t": 2.915,
+              "t": 2.752,
               "xYards": 11.77,
               "yYards": 0.62
             },
             {
-              "t": 3.768,
-              "xYards": 10.16,
-              "yYards": 1.97
+              "t": 3.918,
+              "xYards": 12.2,
+              "yYards": 3.63
             },
             {
-              "t": 4.536,
-              "xYards": 9.33,
-              "yYards": 3.67
+              "t": 4.664,
+              "xYards": 13.94,
+              "yYards": 4.5
             },
             {
               "t": 5,
-              "xYards": 8.99,
-              "yYards": 4.76
+              "xYards": 14.77,
+              "yYards": 4.78
             }
           ],
-          "assignmentNote": "Fake as if you have the ball, get open on the left side. "
+          "assignmentNote": "Fake as if you have the ball, get open over the middle. "
         },
         {
           "positionId": "Z",
@@ -1458,27 +1428,12 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 1.545,
-              "xYards": 24.5,
-              "yYards": 3.93
-            },
-            {
-              "t": 2.829,
-              "xYards": 21.45,
-              "yYards": 5.1
-            },
-            {
-              "t": 4.076,
-              "xYards": 18.44,
-              "yYards": 6.11
-            },
-            {
               "t": 5,
-              "xYards": 16.13,
-              "yYards": 6.54
+              "xYards": 24.59,
+              "yYards": 8.82
             }
           ],
-          "assignmentNote": "Run straight and break hard left, find open space."
+          "assignmentNote": "Run your route to the deep right-side corner. "
         }
       ],
       "ball": {
@@ -1716,7 +1671,7 @@ window.PUBLISHED_TEAM_DATA = {
       "id": "evt-sample",
       "type": "practice",
       "date": "2026-09-04",
-      "startTime": "15:30",
+      "startTime": "13:15",
       "location": "Memorial Park",
       "opponent": "",
       "captainRosterPlayerIds": [],
@@ -1773,16 +1728,8 @@ window.PUBLISHED_TEAM_DATA = {
           null
         ]
       },
-      "itinerary": [
-        {
-          "id": "83986e28-d496-40c9-9bc7-8ce074ae6fc0",
-          "label": "",
-          "durationMinutes": 1,
-          "linkedPlayId": null,
-          "linkedDrillId": null,
-          "notes": ""
-        }
-      ]
+      "itinerary": [],
+      "endTime": "14:45"
     },
     {
       "id": "a6c66d2d-815b-4949-999b-36c53c294e9e",
@@ -1805,7 +1752,8 @@ window.PUBLISHED_TEAM_DATA = {
         "LD": [],
         "RD": []
       },
-      "itinerary": []
+      "itinerary": [],
+      "endTime": "16:45"
     },
     {
       "id": "c1fff654-8535-4821-8c49-5d6f7cfc14ec",
@@ -1814,6 +1762,31 @@ window.PUBLISHED_TEAM_DATA = {
       "startTime": "09:00",
       "location": "Lamp Park #3",
       "opponent": "Ravens",
+      "captainRosterPlayerIds": [],
+      "unavailableRosterPlayerIds": [],
+      "lineup": {
+        "C": [],
+        "QB": [],
+        "X": [],
+        "Y": [],
+        "Z": [],
+        "RUSH": [],
+        "LU": [],
+        "RU": [],
+        "LD": [],
+        "RD": []
+      },
+      "itinerary": [],
+      "endTime": "10:00"
+    },
+    {
+      "id": "a63b0698-3527-4146-b646-54b66bb32b8d",
+      "type": "practice",
+      "date": "2026-09-07",
+      "startTime": "17:00",
+      "endTime": "18:30",
+      "location": "Memorial Park",
+      "opponent": "",
       "captainRosterPlayerIds": [],
       "unavailableRosterPlayerIds": [],
       "lineup": {
@@ -1850,7 +1823,7 @@ window.PUBLISHED_TEAM_DATA = {
     },
     {
       "id": "d398e782-a0d7-40d5-ae60-a4b19ed71620",
-      "name": "Power Z Pass — drill",
+      "name": "Power Pass — drill",
       "playId": "a24afcd0-2029-4b93-a718-1b2cd8a5bcde",
       "positions": [
         "QB",
@@ -1866,7 +1839,7 @@ window.PUBLISHED_TEAM_DATA = {
     },
     {
       "id": "e9e8cafe-d34f-424c-bfe7-177a4339b487",
-      "name": "Power Z Pass — drill",
+      "name": "Power Pass — drill",
       "playId": "a24afcd0-2029-4b93-a718-1b2cd8a5bcde",
       "positions": [
         "C",
@@ -1957,7 +1930,7 @@ window.PUBLISHED_TEAM_DATA = {
       "notes": {
         "QB": "Make sure formation is correct. Hands out ready to receive. Take snap, fake handoff to Y. Step back, look for open receivers and throw.",
         "X": "Face straight ahead, one foot forward at the line. At the snap, run the route as shown, find open space, ready to receive.",
-        "Y": "Face straight ahead, one foot forward at the line. At the snap, break hard R in front of QB, accept the fake, and find open space on the R side, ready to receive."
+        "Y": "Face straight ahead, one foot forward at the line. At the snap, break hard L in front of QB, accept the fake, and find open space over the middle, ready to receive."
       }
     },
     {
@@ -1971,7 +1944,7 @@ window.PUBLISHED_TEAM_DATA = {
       ],
       "description": "",
       "notes": {
-        "C": "Snap the ball to the QB, then break into open space, ready to receive.",
+        "C": "Snap the ball to the QB, then break into open space on the deep R, ready to receive.",
         "QB": "Make sure formation is correct. Hands ready to receive. Take the snap, fake to Y coming from R. Find an open receiver and throw.",
         "Z": "Face straight ahead, one foot forward at the line. Run the route as shown, ready to receive."
       }

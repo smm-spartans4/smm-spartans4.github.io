@@ -45,6 +45,15 @@
       { weekday: 'long', month: 'long', day: 'numeric' });
   }
 
+  /* An event runs between two times, but older data may carry only a start,
+     in which case there is nothing honest to show but the start. */
+  function fmtWindow(evt) {
+    var a = fmtTime(evt.startTime);
+    if (!evt.endTime) return a;
+    var b = fmtTime(evt.endTime);
+    return (a.slice(-2) === b.slice(-2) ? a.slice(0, -2) : a) + '–' + b;
+  }
+
   function fmtTime(hhmm) {
     if (!hhmm) return '';
     var p = hhmm.split(':');
@@ -102,7 +111,7 @@
       h('span', { 'class': 'ff-pill' + (evt.type === 'game' ? ' is-game' : ''),
         text: evt.type === 'game' ? 'Game' : 'Practice' }),
       h('strong', { text: fmtDate(evt.date) }),
-      h('span', { 'class': 'ff-muted', text: fmtTime(evt.startTime) })
+      h('span', { 'class': 'ff-muted', text: fmtWindow(evt) })
     ]));
 
     var where = evt.location || 'Location TBD';

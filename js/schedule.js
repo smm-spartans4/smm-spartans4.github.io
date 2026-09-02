@@ -94,6 +94,48 @@
     }, 0);
   }
 
+  /* An event runs between two times. Data written before the end time existed
+     falls back to the plan, then to a plain default, so an older practice
+     never renders a blank or a NaN where its finish should be. */
+  function endMinutes(evt) {
+    if (evt.endTime) return toMinutes(evt.endTime);
+    var planned = totalMinutes(evt);
+    return toMinutes(evt.startTime)
+      + (planned >= 30 ? planned : (evt.type === 'game' ? 60 : 90));
+  }
+
+  /* "5:30–7:00pm" when both ends share a meridiem, "11:30am–1:00pm" when
+     they do not. Spelling out both every time reads like a train timetable. */
+  function rangeLabel(startMin, endMin) {
+    var a = clockLabel(startMin), b = clockLabel(endMin);
+    return (a.slice(-2) === b.slice(-2) ? a.slice(0, -2) : a) + '–' + b;
+  }
+
+  function windowLabel(evt) {
+    return rangeLabel(toMinutes(evt.startTime), endMinutes(evt));
+  }
+
+  /* Back to what an <input type="time"> wants. */
+  function hhmm(minutes) {
+    var m = Math.max(0, Math.min(minutes, 23 * 60 + 59));
+    return String(Math.floor(m / 60)).padStart(2, '0') + ':'
+      + String(m % 60).padStart(2, '0');
+  }
+
+  /* How the plan compares with the time there actually is. A practice gets
+     overfilled by twenty minutes without anyone noticing until the parents
+     are waiting in the car park; this says so while it can still be fixed. */
+  function planFit(evt) {
+    var planned = totalMinutes(evt);
+    if (!planned) return '';
+    var diff = planned - (endMinutes(evt) - toMinutes(evt.startTime));
+    var head = planned + ' min planned';
+    if (diff > 0) return head + ' · ' + diff + ' min past '
+      + clockLabel(endMinutes(evt));
+    if (diff < 0) return head + ' · ' + (-diff) + ' min spare';
+    return head + ' · fills the window';
+  }
+
   /* ---------- list view --------------------------------------------------- */
 
   function eventSummary(evt) {
@@ -104,7 +146,7 @@
     if (evt.type === 'game' && evt.opponent) bits.push('vs ' + evt.opponent);
     if (caps.length) bits.push('Captains: ' + caps.join(' & '));
     var mins = totalMinutes(evt);
-    if (mins) bits.push(mins + ' min');
+    if (mins) bits.push(mins + ' min planned');
     return bits.join(' · ');
   }
 
@@ -324,7 +366,7 @@
             h('span', { 'class': 'ff-pill' + (evt.type === 'game' ? ' is-game' : ''),
               text: evt.type === 'game' ? 'Game' : 'Practice' }),
             h('strong', { text: dateLabel(evt.date) }),
-            h('span', { 'class': 'ff-muted', text: clockLabel(toMinutes(evt.startTime)) })
+            h('span', { 'class': 'ff-muted', text: windowLabel(evt) })
           ]),
           h('div', { 'class': 'ff-small ff-muted', text: eventSummary(evt) })
         ]),
@@ -347,6 +389,7 @@
         type: type,
         date: todayISO(),
         startTime: type === 'game' ? '10:00' : '17:30',
+        endTime: type === 'game' ? '11:00' : '19:00',
         location: '',
         opponent: '',
         captainRosterPlayerIds: [],
@@ -377,7 +420,7 @@
     ]));
     card.appendChild(h('h1', { text: dateLabel(evt.date) }));
     card.appendChild(h('p', {
-      text: clockLabel(toMinutes(evt.startTime))
+      text: windowLabel(evt)
         + (evt.location ? ' · ' + evt.location : '')
         + (evt.type === 'game' && evt.opponent ? ' · vs ' + evt.opponent : '')
     }));
@@ -426,8 +469,7 @@
         h('div', { 'class': 'ff-card-head' }, [
           h('h2', { text: 'Plan' }),
           h('span', { 'class': 'ff-small ff-muted',
-            text: totalMinutes(evt) + ' min · ends '
-              + clockLabel(toMinutes(evt.startTime) + totalMinutes(evt)) })
+            text: windowLabel(evt) })
         ])
       ]);
 
@@ -499,11 +541,32 @@
     date.addEventListener('change', function () { evt.date = date.value; saveNow(); });
     grid.appendChild(labelled('Date', date));
 
+    /* Moving the start drags the end along with it, keeping the practice the
+       same length - the way every calendar behaves. Setting it back an hour
+       should not quietly turn a ninety-minute session into a thirty. */
     var time = h('input', { type: 'time', value: evt.startTime || '17:30' });
     time.addEventListener('change', function () {
-      evt.startTime = time.value; saveNow(); renderEvent(evt);
+      var shift = toMinutes(time.value) - toMinutes(evt.startTime);
+      var end = Math.min(endMinutes(evt) + shift, 23 * 60 + 59);
+      evt.startTime = time.value;
+      evt.endTime = hhmm(end);
+      saveNow();
+      renderEvent(evt);
     });
     grid.appendChild(labelled('Start time', time));
+
+    /* Kept exactly as typed rather than nudged to something legal, because
+       silently moving a coach's time is worse than saying it looks wrong. */
+    var endEl = h('input', { type: 'time', value: evt.endTime || '19:00' });
+    endEl.addEventListener('change', function () {
+      evt.endTime = endEl.value; saveNow(); renderEvent(evt);
+    });
+    var endField = labelled('End time', endEl);
+    if (endMinutes(evt) <= toMinutes(evt.startTime)) {
+      endField.appendChild(h('p', { 'class': 'ff-small ff-note is-warn',
+        text: 'That is not after the start time.' }));
+    }
+    grid.appendChild(endField);
 
     var loc = h('input', { type: 'text', value: evt.location || '',
       placeholder: 'Field / address' });
@@ -761,11 +824,7 @@
     var card = h('section', { 'class': 'ff-card ff-itin-card' }, [
       h('div', { 'class': 'ff-card-head' }, [
         h('h2', { text: 'Itinerary' }),
-        h('span', { 'class': 'ff-small ff-muted',
-          text: totalMinutes(evt)
-            ? totalMinutes(evt) + ' min · ends ' +
-              clockLabel(toMinutes(evt.startTime) + totalMinutes(evt))
-            : '' })
+        h('span', { 'class': 'ff-small ff-muted', text: planFit(evt) })
       ])
     ]);
 
@@ -924,7 +983,7 @@
     sheet.appendChild(h('h1', { text: t.name + ' — '
       + (evt.type === 'game' ? 'Game' : 'Practice') }));
     sheet.appendChild(h('p', { text: dateLabel(evt.date) + ' · '
-      + clockLabel(toMinutes(evt.startTime))
+      + windowLabel(evt)
       + (evt.location ? ' · ' + evt.location : '')
       + (evt.type === 'game' && evt.opponent ? ' · vs ' + evt.opponent : '') }));
 
@@ -980,8 +1039,9 @@
       running += mins;
     });
     sheet.appendChild(table);
-    sheet.appendChild(h('p', { text: 'Ends ' + clockLabel(running)
-      + ' · ' + totalMinutes(evt) + ' minutes total' }));
+    sheet.appendChild(h('p', { text: 'Plan ends ' + clockLabel(running)
+      + ' · ' + totalMinutes(evt) + ' minutes · field until '
+      + clockLabel(endMinutes(evt)) }));
     return sheet;
   }
 

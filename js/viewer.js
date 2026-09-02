@@ -378,7 +378,10 @@
     }
 
     function buildAnnouncerRow() {
-      if (isDrill()) return;
+      /* A drill teaches a spot rather than a particular kid, so there are no
+         names to read out - but it is still worth taking to the field as a
+         video, which is why the download survives this early return. */
+      if (isDrill()) { buildDownloadRow(); return; }
       /* No announcer on defense at all - there is no ball to call, and reading
          five zone assignments aloud is not how anybody coaches a defense. */
       if (isDefense()) { buildDownloadRow(); return; }
@@ -446,7 +449,6 @@
     /* ---- MP4 download ----------------------------------------------------- */
 
     function buildDownloadRow() {
-      if (isDrill()) return;
       /* Nothing on a defensive play moves, so a video of one is just a still
          image held for five seconds. */
       if (isDefense()) return;

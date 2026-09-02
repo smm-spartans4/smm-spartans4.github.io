@@ -104,7 +104,29 @@
       }
     }
 
-    d.schemaVersion = 6;
+    /* v7: an event has a window, not just a kick-off. "What time do I pick
+       him up?" was only answerable while an itinerary happened to exist, and
+       the answer moved every time a block was retimed. Seeded from the plan
+       where there is one, so no existing practice appears to change length. */
+    if (from < 7) {
+      (d.practices || []).forEach(function (evt) {
+        if (evt.endTime) return;
+        var planned = (evt.itinerary || []).reduce(function (sum, b) {
+          return sum + (parseInt(b.durationMinutes, 10) || 0);
+        }, 0);
+        /* Only trust the plan when it looks like a whole session. A leftover
+           stub block - one empty ten-minute row nobody filled in - would
+           otherwise seed a practice that ends before it starts. */
+        var p = String(evt.startTime || '17:30').split(':');
+        var end = (parseInt(p[0], 10) || 0) * 60 + (parseInt(p[1], 10) || 0)
+          + (planned >= 30 ? planned : (evt.type === 'game' ? 60 : 90));
+        end = Math.min(end, 23 * 60 + 59);
+        evt.endTime = String(Math.floor(end / 60)).padStart(2, '0') + ':'
+          + String(end % 60).padStart(2, '0');
+      });
+    }
+
+    d.schemaVersion = 7;
     return from !== d.schemaVersion;
   }
 
@@ -133,7 +155,11 @@
         state = base;
       }
     } else {
+      /* The published file exactly as shipped - a parent's phone, or this
+         browser for the first time. Migrate it in memory as well, otherwise
+         a schema change only ever reaches the one browser that did edits. */
       state = base;
+      migrate(state);
     }
     return state;
   }

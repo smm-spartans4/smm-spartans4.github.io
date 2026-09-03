@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-03T15:46:02.129Z
+   Exported 2026-09-03T16:12:53.841Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -817,29 +817,24 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 1.937,
+              "t": 2.581,
               "xYards": 15.04,
               "yYards": -0.56
             },
             {
-              "t": 2.294,
+              "t": 3.057,
               "xYards": 15.61,
               "yYards": -0.56
             },
             {
-              "t": 3.073,
+              "t": 4.096,
               "xYards": 16.74,
               "yYards": -0.04
             },
             {
-              "t": 3.751,
+              "t": 5,
               "xYards": 17.66,
               "yYards": 0.53
-            },
-            {
-              "t": 5,
-              "xYards": 18.7,
-              "yYards": 2.23
             }
           ],
           "assignmentNote": "Run to the right, take the handoff in front of the QB. Run full speed into daylight. "
@@ -858,14 +853,9 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 4.238,
+              "t": 5,
               "xYards": 15.87,
               "yYards": 3.74
-            },
-            {
-              "t": 5,
-              "xYards": 15.09,
-              "yYards": 4
             }
           ],
           "assignmentNote": "Run your route as shown to clear space for the ball carrier. "
@@ -884,12 +874,27 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
+              "t": 2.191,
+              "xYards": 24.36,
+              "yYards": 6.16
+            },
+            {
+              "t": 3.431,
+              "xYards": 21.24,
+              "yYards": 7.72
+            },
+            {
+              "t": 4.241,
+              "xYards": 19.04,
+              "yYards": 8.31
+            },
+            {
               "t": 5,
-              "xYards": 24.55,
-              "yYards": 8.37
+              "xYards": 17.02,
+              "yYards": 9
             }
           ],
-          "assignmentNote": "Run a deep fly. "
+          "assignmentNote": "Run the route as shown to clear space for the ball carrier."
         }
       ],
       "ball": {

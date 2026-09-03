@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-03T16:12:53.841Z
+   Exported 2026-09-03T18:27:42.752Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -765,14 +765,19 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 2.736,
-              "xYards": 14.91,
-              "yYards": 3.58
+              "t": 2.655,
+              "xYards": 15.09,
+              "yYards": 4.04
+            },
+            {
+              "t": 4.083,
+              "xYards": 13.12,
+              "yYards": 4.96
             },
             {
               "t": 5,
-              "xYards": 12.04,
-              "yYards": 4.32
+              "xYards": 11.88,
+              "yYards": 5.6
             }
           ],
           "assignmentNote": "Snap the ball to the quarterback, then release and find open space."
@@ -791,14 +796,9 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": -1.5
             },
             {
-              "t": 1.798,
-              "xYards": 15,
-              "yYards": -0.04
-            },
-            {
               "t": 5,
-              "xYards": 16,
-              "yYards": -2.44
+              "xYards": 15.03,
+              "yYards": -0.31
             }
           ],
           "assignmentNote": "Take the snap, immediately hand off to the X coming from the left. "
@@ -907,7 +907,7 @@ window.PUBLISHED_TEAM_DATA = {
             "toPositionId": "QB"
           },
           {
-            "t": 1.4,
+            "t": 2.62,
             "type": "handoff",
             "toPositionId": "X"
           }
@@ -962,14 +962,19 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": -1.5
             },
             {
-              "t": 1.798,
-              "xYards": 15,
-              "yYards": -0.04
+              "t": 1.619,
+              "xYards": 15.03,
+              "yYards": -0.43
+            },
+            {
+              "t": 4.157,
+              "xYards": 15.84,
+              "yYards": -1.9
             },
             {
               "t": 5,
-              "xYards": 16,
-              "yYards": -2.44
+              "xYards": 15.93,
+              "yYards": -2.45
             }
           ],
           "assignmentNote": "Take the snap, fake the handoff to X. Find an open receiver and throw. "

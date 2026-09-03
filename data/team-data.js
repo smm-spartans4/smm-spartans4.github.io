@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-03T18:27:42.752Z
+   Exported 2026-09-03T19:51:25.596Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -1749,7 +1749,7 @@ window.PUBLISHED_TEAM_DATA = {
         ]
       },
       "itinerary": [],
-      "endTime": "14:45"
+      "endTime": "14:30"
     },
     {
       "id": "a6c66d2d-815b-4949-999b-36c53c294e9e",

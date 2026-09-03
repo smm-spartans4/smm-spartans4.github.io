@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-02T03:23:25.841Z
+   Exported 2026-09-03T15:46:02.129Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -1481,22 +1481,32 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 1.96,
-              "xYards": 14.35,
-              "yYards": 3.49
+              "t": 1.725,
+              "xYards": 15.05,
+              "yYards": 3.03
             },
             {
-              "t": 3.083,
-              "xYards": 12.34,
-              "yYards": 3.8
+              "t": 1.884,
+              "xYards": 15.05,
+              "yYards": 3.31
+            },
+            {
+              "t": 3.37,
+              "xYards": 17.66,
+              "yYards": 3.4
+            },
+            {
+              "t": 4.556,
+              "xYards": 19.73,
+              "yYards": 3.63
             },
             {
               "t": 5,
-              "xYards": 8.9,
-              "yYards": 4.28
+              "xYards": 20.51,
+              "yYards": 3.59
             }
           ],
-          "assignmentNote": "Snap the ball to the quarterback, run your route as shown and find open space. "
+          "assignmentNote": "Snap the ball to the quarterback, run your route as shown and find open space on the R side. "
         },
         {
           "positionId": "QB",

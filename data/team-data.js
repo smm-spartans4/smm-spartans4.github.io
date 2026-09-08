@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-06T17:53:41.311Z
+   Exported 2026-09-08T10:41:50.809Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -1758,19 +1758,62 @@ window.PUBLISHED_TEAM_DATA = {
       "startTime": "15:30",
       "location": "Memorial Park",
       "opponent": "",
-      "captainRosterPlayerIds": [],
+      "captainRosterPlayerIds": [
+        "p06",
+        "p03"
+      ],
       "unavailableRosterPlayerIds": [],
       "lineup": {
-        "C": [],
-        "QB": [],
-        "X": [],
-        "Y": [],
-        "Z": [],
-        "RUSH": [],
-        "LU": [],
-        "RU": [],
-        "LD": [],
-        "RD": []
+        "C": [
+          "p10",
+          "p05",
+          null,
+          null
+        ],
+        "QB": [
+          "p02",
+          "p01",
+          null,
+          null
+        ],
+        "X": [
+          "p04",
+          "p06",
+          null,
+          null
+        ],
+        "Y": [
+          "p08",
+          "p07",
+          null,
+          null
+        ],
+        "Z": [
+          "p03",
+          "p09",
+          null,
+          null
+        ],
+        "RUSH": [
+          "p06",
+          "p10"
+        ],
+        "LU": [
+          "p05",
+          "p08"
+        ],
+        "RU": [
+          "p09",
+          "p04"
+        ],
+        "LD": [
+          "p01",
+          "p03"
+        ],
+        "RD": [
+          "p07",
+          "p02"
+        ]
       },
       "itinerary": [],
       "endTime": "16:45"
@@ -1782,7 +1825,10 @@ window.PUBLISHED_TEAM_DATA = {
       "startTime": "09:00",
       "location": "Lamp Park #3",
       "opponent": "Ravens",
-      "captainRosterPlayerIds": [],
+      "captainRosterPlayerIds": [
+        "p06",
+        "p03"
+      ],
       "unavailableRosterPlayerIds": [],
       "lineup": {
         "C": [],
@@ -1863,6 +1909,169 @@ window.PUBLISHED_TEAM_DATA = {
           "p07",
           "p02"
         ]
+      },
+      "itinerary": []
+    },
+    {
+      "id": "fb662fd6-069c-4fa3-8979-c9d5f53fed4b",
+      "type": "game",
+      "date": "2026-09-12",
+      "startTime": "10:00",
+      "endTime": "11:00",
+      "location": "Lamp Park #3",
+      "opponent": "Falcons",
+      "captainRosterPlayerIds": [
+        "p05",
+        "p07"
+      ],
+      "unavailableRosterPlayerIds": [],
+      "lineup": {
+        "C": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "QB": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "X": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "Y": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "Z": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "RUSH": [
+          null,
+          null
+        ],
+        "LU": [
+          null,
+          null
+        ],
+        "RU": [
+          null,
+          null
+        ],
+        "LD": [
+          null,
+          null
+        ],
+        "RD": [
+          null,
+          null
+        ]
+      },
+      "itinerary": []
+    },
+    {
+      "id": "b37d75ed-ade8-4853-86db-ae883119ede8",
+      "type": "game",
+      "date": "2026-09-19",
+      "startTime": "09:00",
+      "endTime": "10:00",
+      "location": "Lamp Park #3",
+      "opponent": "Ravens",
+      "captainRosterPlayerIds": [],
+      "unavailableRosterPlayerIds": [],
+      "lineup": {
+        "C": [],
+        "QB": [],
+        "X": [],
+        "Y": [],
+        "Z": [],
+        "RUSH": [],
+        "LU": [],
+        "RU": [],
+        "LD": [],
+        "RD": []
+      },
+      "itinerary": []
+    },
+    {
+      "id": "583b8ac8-92c5-42be-a12a-00defd63fe11",
+      "type": "practice",
+      "date": "2026-09-18",
+      "startTime": "15:30",
+      "endTime": "16:45",
+      "location": "Memorial Park",
+      "opponent": "",
+      "captainRosterPlayerIds": [],
+      "unavailableRosterPlayerIds": [],
+      "lineup": {
+        "C": [],
+        "QB": [],
+        "X": [],
+        "Y": [],
+        "Z": [],
+        "RUSH": [],
+        "LU": [],
+        "RU": [],
+        "LD": [],
+        "RD": []
+      },
+      "itinerary": []
+    },
+    {
+      "id": "e50c8060-bf5b-4a0c-bc02-7e7ad8fb2218",
+      "type": "game",
+      "date": "2026-09-26",
+      "startTime": "09:00",
+      "endTime": "10:00",
+      "location": "Lamp Park #3",
+      "opponent": "Falcons",
+      "captainRosterPlayerIds": [],
+      "unavailableRosterPlayerIds": [],
+      "lineup": {
+        "C": [],
+        "QB": [],
+        "X": [],
+        "Y": [],
+        "Z": [],
+        "RUSH": [],
+        "LU": [],
+        "RU": [],
+        "LD": [],
+        "RD": []
+      },
+      "itinerary": []
+    },
+    {
+      "id": "859c23da-63c2-4338-a47b-2029c4c2f4a7",
+      "type": "practice",
+      "date": "2026-09-25",
+      "startTime": "15:30",
+      "endTime": "16:45",
+      "location": "Memorial Park",
+      "opponent": "",
+      "captainRosterPlayerIds": [],
+      "unavailableRosterPlayerIds": [],
+      "lineup": {
+        "C": [],
+        "QB": [],
+        "X": [],
+        "Y": [],
+        "Z": [],
+        "RUSH": [],
+        "LU": [],
+        "RU": [],
+        "LD": [],
+        "RD": []
       },
       "itinerary": []
     }

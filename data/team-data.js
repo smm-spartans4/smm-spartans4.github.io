@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-10T00:54:22.137Z
+   Exported 2026-09-10T14:35:56.763Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -1728,19 +1728,34 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": -2
             },
             {
-              "t": 1.892,
-              "xYards": 13.81,
-              "yYards": -2.24
+              "t": 2.03,
+              "xYards": 15.05,
+              "yYards": -2.79
             },
             {
-              "t": 2.989,
-              "xYards": 14.08,
-              "yYards": -2.89
+              "t": 2.81,
+              "xYards": 15.32,
+              "yYards": -2.93
+            },
+            {
+              "t": 3.463,
+              "xYards": 15.5,
+              "yYards": -2.75
+            },
+            {
+              "t": 3.808,
+              "xYards": 15.6,
+              "yYards": -2.66
+            },
+            {
+              "t": 4.166,
+              "xYards": 15.73,
+              "yYards": -2.61
             },
             {
               "t": 5,
-              "xYards": 15.37,
-              "yYards": -2.89
+              "xYards": 15.96,
+              "yYards": -2.38
             }
           ],
           "assignmentNote": "Take the snap, put the ball in the belly of the Y. Read the Rusher. If he's coming, throw it to C. If the Rusher runs with the C, hand the ball to Y for a run. "
@@ -1770,29 +1785,49 @@ window.PUBLISHED_TEAM_DATA = {
           "positionId": "Y",
           "rosterPlayerId": null,
           "start": {
-            "xYards": 13,
-            "yYards": -3.5
+            "xYards": 17,
+            "yYards": -4
           },
           "route": [
             {
               "t": 0,
-              "xYards": 13,
-              "yYards": -3.5
+              "xYards": 17,
+              "yYards": -4
             },
             {
-              "t": 2,
-              "xYards": 14.31,
-              "yYards": -1.69
+              "t": 1.457,
+              "xYards": 15.92,
+              "yYards": -2.84
             },
             {
-              "t": 3.272,
-              "xYards": 14.31,
-              "yYards": -0.27
+              "t": 1.79,
+              "xYards": 15.64,
+              "yYards": -2.61
+            },
+            {
+              "t": 2.181,
+              "xYards": 15.92,
+              "yYards": -2.29
+            },
+            {
+              "t": 2.992,
+              "xYards": 16.61,
+              "yYards": -1.74
+            },
+            {
+              "t": 3.603,
+              "xYards": 16.79,
+              "yYards": -1.1
+            },
+            {
+              "t": 4.283,
+              "xYards": 16.79,
+              "yYards": -0.36
             },
             {
               "t": 5,
-              "xYards": 14.27,
-              "yYards": 1.66
+              "xYards": 16.79,
+              "yYards": 0.42
             }
           ],
           "assignmentNote": "Prepare to take the handoff from QB. If he gives it you, run!"
@@ -1829,15 +1864,15 @@ window.PUBLISHED_TEAM_DATA = {
             "toPositionId": "QB"
           },
           {
-            "t": 2.2,
-            "type": "pass",
-            "toPositionId": "C"
-          },
-          {
-            "t": 1,
+            "t": 1.4,
             "type": "fake-handoff",
             "toPositionId": "Y",
-            "durationSeconds": 0.6
+            "durationSeconds": 0.7
+          },
+          {
+            "t": 2.9,
+            "type": "pass",
+            "toPositionId": "C"
           }
         ]
       }

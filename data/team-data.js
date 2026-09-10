@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-08T10:41:50.809Z
+   Exported 2026-09-10T00:54:22.137Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -1681,6 +1681,163 @@ window.PUBLISHED_TEAM_DATA = {
             "t": 3,
             "type": "pass",
             "toPositionId": "X"
+          }
+        ]
+      }
+    },
+    {
+      "id": "8110ff78-164d-4e0f-9aef-72d081654231",
+      "name": "RPO",
+      "side": "offense",
+      "tags": [],
+      "durationSeconds": 5,
+      "lineOfScrimmageYard": 5,
+      "players": [
+        {
+          "positionId": "C",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": 0
+            },
+            {
+              "t": 5,
+              "xYards": 14.86,
+              "yYards": 15.29
+            }
+          ],
+          "assignmentNote": "Snap the ball to the quarterback, then release and go deep in the middle of the field. "
+        },
+        {
+          "positionId": "QB",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 15,
+            "yYards": -2
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 15,
+              "yYards": -2
+            },
+            {
+              "t": 1.892,
+              "xYards": 13.81,
+              "yYards": -2.24
+            },
+            {
+              "t": 2.989,
+              "xYards": 14.08,
+              "yYards": -2.89
+            },
+            {
+              "t": 5,
+              "xYards": 15.37,
+              "yYards": -2.89
+            }
+          ],
+          "assignmentNote": "Take the snap, put the ball in the belly of the Y. Read the Rusher. If he's coming, throw it to C. If the Rusher runs with the C, hand the ball to Y for a run. "
+        },
+        {
+          "positionId": "X",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 0.8,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 0.8,
+              "yYards": 0
+            },
+            {
+              "t": 5,
+              "xYards": 0.86,
+              "yYards": 18.68
+            }
+          ],
+          "assignmentNote": "Go deep. "
+        },
+        {
+          "positionId": "Y",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 13,
+            "yYards": -3.5
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 13,
+              "yYards": -3.5
+            },
+            {
+              "t": 2,
+              "xYards": 14.31,
+              "yYards": -1.69
+            },
+            {
+              "t": 3.272,
+              "xYards": 14.31,
+              "yYards": -0.27
+            },
+            {
+              "t": 5,
+              "xYards": 14.27,
+              "yYards": 1.66
+            }
+          ],
+          "assignmentNote": "Prepare to take the handoff from QB. If he gives it you, run!"
+        },
+        {
+          "positionId": "Z",
+          "rosterPlayerId": null,
+          "start": {
+            "xYards": 29.2,
+            "yYards": 0
+          },
+          "route": [
+            {
+              "t": 0,
+              "xYards": 29.2,
+              "yYards": 0
+            },
+            {
+              "t": 5,
+              "xYards": 29.27,
+              "yYards": 18.13
+            }
+          ],
+          "assignmentNote": "Go deep. "
+        }
+      ],
+      "ball": {
+        "mode": "auto",
+        "carrierEvents": [
+          {
+            "t": 0,
+            "type": "snap",
+            "fromPositionId": "C",
+            "toPositionId": "QB"
+          },
+          {
+            "t": 2.2,
+            "type": "pass",
+            "toPositionId": "C"
+          },
+          {
+            "t": 1,
+            "type": "fake-handoff",
+            "toPositionId": "Y",
+            "durationSeconds": 0.6
           }
         ]
       }

@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-12T23:09:03.507Z
+   Exported 2026-09-12T23:13:35.976Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -1116,7 +1116,7 @@ window.PUBLISHED_TEAM_DATA = {
       "name": "Spread Y Run",
       "side": "offense",
       "tags": [],
-      "durationSeconds": 5,
+      "durationSeconds": 8,
       "lineOfScrimmageYard": 5,
       "players": [
         {
@@ -1133,17 +1133,17 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 2.377,
+              "t": 3.804,
               "xYards": 15.17,
               "yYards": 4.01
             },
             {
-              "t": 4.479,
+              "t": 7.166,
               "xYards": 18.7,
               "yYards": 4.36
             },
             {
-              "t": 5,
+              "t": 8,
               "xYards": 19.58,
               "yYards": 4.36
             }
@@ -1164,17 +1164,17 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": -1.5
             },
             {
-              "t": 2.109,
+              "t": 3.375,
               "xYards": 15.04,
               "yYards": -0.34
             },
             {
-              "t": 3.931,
+              "t": 6.29,
               "xYards": 14.56,
               "yYards": -1.22
             },
             {
-              "t": 5,
+              "t": 8,
               "xYards": 14.22,
               "yYards": -1.7
             }
@@ -1195,7 +1195,7 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 5,
+              "t": 8,
               "xYards": 6.37,
               "yYards": 7.58
             }
@@ -1216,62 +1216,62 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 0.597,
+              "t": 0.955,
               "xYards": 15.83,
               "yYards": -0.61
             },
             {
-              "t": 1.149,
+              "t": 1.839,
               "xYards": 13.3,
               "yYards": -0.52
             },
             {
-              "t": 1.64,
+              "t": 2.624,
               "xYards": 11.79,
               "yYards": 1.15
             },
             {
-              "t": 2.022,
+              "t": 3.235,
               "xYards": 11.79,
               "yYards": 2.9
             },
             {
-              "t": 2.371,
+              "t": 3.794,
               "xYards": 11.88,
               "yYards": 4.5
             },
             {
-              "t": 2.746,
+              "t": 4.393,
               "xYards": 11.28,
               "yYards": 6.11
             },
             {
-              "t": 3.221,
+              "t": 5.153,
               "xYards": 10.27,
               "yYards": 8.04
             },
             {
-              "t": 3.673,
+              "t": 5.877,
               "xYards": 9.08,
               "yYards": 9.74
             },
             {
-              "t": 4.175,
+              "t": 6.68,
               "xYards": 8.85,
               "yYards": 12.03
             },
             {
-              "t": 4.428,
+              "t": 7.085,
               "xYards": 8.48,
               "yYards": 13.13
             },
             {
-              "t": 4.788,
+              "t": 7.661,
               "xYards": 8.57,
               "yYards": 14.78
             },
             {
-              "t": 5,
+              "t": 8,
               "xYards": 8.62,
               "yYards": 15.75
             }
@@ -1292,7 +1292,7 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 5,
+              "t": 8,
               "xYards": 24.36,
               "yYards": 8.08
             }
@@ -1310,7 +1310,7 @@ window.PUBLISHED_TEAM_DATA = {
             "toPositionId": "QB"
           },
           {
-            "t": 1.3,
+            "t": 0.9,
             "type": "handoff",
             "toPositionId": "Y"
           }

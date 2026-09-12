@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-12T22:55:25.245Z
+   Exported 2026-09-12T23:09:03.507Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -1216,29 +1216,64 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 1.259,
+              "t": 0.597,
               "xYards": 15.83,
               "yYards": -0.61
             },
             {
-              "t": 2.423,
+              "t": 1.149,
               "xYards": 13.3,
               "yYards": -0.52
             },
             {
-              "t": 3.459,
+              "t": 1.64,
               "xYards": 11.79,
               "yYards": 1.15
             },
             {
-              "t": 4.263,
+              "t": 2.022,
               "xYards": 11.79,
               "yYards": 2.9
             },
             {
-              "t": 5,
+              "t": 2.371,
               "xYards": 11.88,
               "yYards": 4.5
+            },
+            {
+              "t": 2.746,
+              "xYards": 11.28,
+              "yYards": 6.11
+            },
+            {
+              "t": 3.221,
+              "xYards": 10.27,
+              "yYards": 8.04
+            },
+            {
+              "t": 3.673,
+              "xYards": 9.08,
+              "yYards": 9.74
+            },
+            {
+              "t": 4.175,
+              "xYards": 8.85,
+              "yYards": 12.03
+            },
+            {
+              "t": 4.428,
+              "xYards": 8.48,
+              "yYards": 13.13
+            },
+            {
+              "t": 4.788,
+              "xYards": 8.57,
+              "yYards": 14.78
+            },
+            {
+              "t": 5,
+              "xYards": 8.62,
+              "yYards": 15.75
             }
           ],
           "assignmentNote": "Run to the left, take the handoff in front of the QB. Run full speed into daylight. "
@@ -1281,7 +1316,7 @@ window.PUBLISHED_TEAM_DATA = {
           }
         ]
       },
-      "narration": "Means Spread Y Run. Snap to Andrew. Handoff to Jude B... Jude B runs 40 yard for touchdown only."
+      "narration": "Means Spread Y Run only. Snap to Andrew.\nHandoff to Jude B. \nJude B rumbles 40 yard for touchdown only!"
     },
     {
       "id": "9ed8fd04-2def-415b-a720-4a2c22799395",

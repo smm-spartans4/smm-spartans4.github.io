@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-10T14:35:56.763Z
+   Exported 2026-09-12T12:59:39.295Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -142,7 +142,7 @@ window.PUBLISHED_TEAM_DATA = {
   "roster": [
     {
       "id": "p01",
-      "name": "Andrew Z",
+      "name": "harry n",
       "jersey": "1"
     },
     {
@@ -152,37 +152,37 @@ window.PUBLISHED_TEAM_DATA = {
     },
     {
       "id": "p03",
-      "name": "Harry N",
+      "name": "jude b",
       "jersey": "3"
     },
     {
       "id": "p04",
-      "name": "Isaac O",
+      "name": "jude d",
       "jersey": "4"
     },
     {
       "id": "p05",
-      "name": "Jack K",
+      "name": "andrew z",
       "jersey": "5"
     },
     {
       "id": "p06",
-      "name": "Joe D",
+      "name": "teddy b",
       "jersey": "6"
     },
     {
       "id": "p07",
-      "name": "Jude B",
+      "name": "isaac o",
       "jersey": "7"
     },
     {
       "id": "p08",
-      "name": "Jude D",
+      "name": "joe d",
       "jersey": "8"
     },
     {
       "id": "p09",
-      "name": "Teddy B",
+      "name": "jack k",
       "jersey": "9"
     },
     {

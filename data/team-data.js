@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-12T23:13:35.976Z
+   Exported 2026-09-12T23:45:54.841Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -1116,7 +1116,7 @@ window.PUBLISHED_TEAM_DATA = {
       "name": "Spread Y Run",
       "side": "offense",
       "tags": [],
-      "durationSeconds": 8,
+      "durationSeconds": 5,
       "lineOfScrimmageYard": 5,
       "players": [
         {
@@ -1133,17 +1133,17 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 3.804,
+              "t": 2.377,
               "xYards": 15.17,
               "yYards": 4.01
             },
             {
-              "t": 7.166,
+              "t": 4.479,
               "xYards": 18.7,
               "yYards": 4.36
             },
             {
-              "t": 8,
+              "t": 5,
               "xYards": 19.58,
               "yYards": 4.36
             }
@@ -1164,17 +1164,17 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": -1.5
             },
             {
-              "t": 3.375,
+              "t": 2.109,
               "xYards": 15.04,
               "yYards": -0.34
             },
             {
-              "t": 6.29,
+              "t": 3.931,
               "xYards": 14.56,
               "yYards": -1.22
             },
             {
-              "t": 8,
+              "t": 5,
               "xYards": 14.22,
               "yYards": -1.7
             }
@@ -1195,7 +1195,7 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 8,
+              "t": 5,
               "xYards": 6.37,
               "yYards": 7.58
             }
@@ -1216,64 +1216,24 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 0.955,
+              "t": 1.477,
               "xYards": 15.83,
               "yYards": -0.61
             },
             {
-              "t": 1.839,
+              "t": 2.842,
               "xYards": 13.3,
               "yYards": -0.52
             },
             {
-              "t": 2.624,
+              "t": 4.056,
               "xYards": 11.79,
               "yYards": 1.15
             },
             {
-              "t": 3.235,
+              "t": 5,
               "xYards": 11.79,
               "yYards": 2.9
-            },
-            {
-              "t": 3.794,
-              "xYards": 11.88,
-              "yYards": 4.5
-            },
-            {
-              "t": 4.393,
-              "xYards": 11.28,
-              "yYards": 6.11
-            },
-            {
-              "t": 5.153,
-              "xYards": 10.27,
-              "yYards": 8.04
-            },
-            {
-              "t": 5.877,
-              "xYards": 9.08,
-              "yYards": 9.74
-            },
-            {
-              "t": 6.68,
-              "xYards": 8.85,
-              "yYards": 12.03
-            },
-            {
-              "t": 7.085,
-              "xYards": 8.48,
-              "yYards": 13.13
-            },
-            {
-              "t": 7.661,
-              "xYards": 8.57,
-              "yYards": 14.78
-            },
-            {
-              "t": 8,
-              "xYards": 8.62,
-              "yYards": 15.75
             }
           ],
           "assignmentNote": "Run to the left, take the handoff in front of the QB. Run full speed into daylight. "
@@ -1292,7 +1252,7 @@ window.PUBLISHED_TEAM_DATA = {
               "yYards": 0
             },
             {
-              "t": 8,
+              "t": 5,
               "xYards": 24.36,
               "yYards": 8.08
             }
@@ -1310,13 +1270,13 @@ window.PUBLISHED_TEAM_DATA = {
             "toPositionId": "QB"
           },
           {
-            "t": 0.9,
+            "t": 1.5,
             "type": "handoff",
             "toPositionId": "Y"
           }
         ]
       },
-      "narration": "Means Spread Y Run only. Snap to Andrew.\nHandoff to Jude B. \nJude B rumbles 40 yard for touchdown only!"
+      "narration": ""
     },
     {
       "id": "9ed8fd04-2def-415b-a720-4a2c22799395",

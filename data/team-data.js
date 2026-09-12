@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-12T22:52:16.005Z
+   Exported 2026-09-12T22:55:25.245Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -1280,7 +1280,8 @@ window.PUBLISHED_TEAM_DATA = {
             "toPositionId": "Y"
           }
         ]
-      }
+      },
+      "narration": "Means Spread Y Run. Snap to Andrew. Handoff to Jude B... Jude B runs 40 yard for touchdown only."
     },
     {
       "id": "9ed8fd04-2def-415b-a720-4a2c22799395",

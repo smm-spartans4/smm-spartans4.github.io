@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-12T12:59:39.295Z
+   Exported 2026-09-12T22:52:16.005Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -142,7 +142,7 @@ window.PUBLISHED_TEAM_DATA = {
   "roster": [
     {
       "id": "p01",
-      "name": "harry n",
+      "name": "Harry N",
       "jersey": "1"
     },
     {
@@ -152,37 +152,37 @@ window.PUBLISHED_TEAM_DATA = {
     },
     {
       "id": "p03",
-      "name": "jude b",
+      "name": "Jude B",
       "jersey": "3"
     },
     {
       "id": "p04",
-      "name": "jude d",
+      "name": "Jude D",
       "jersey": "4"
     },
     {
       "id": "p05",
-      "name": "andrew z",
+      "name": "Andrew Z",
       "jersey": "5"
     },
     {
       "id": "p06",
-      "name": "teddy b",
+      "name": "Teddy B",
       "jersey": "6"
     },
     {
       "id": "p07",
-      "name": "isaac o",
+      "name": "Isaac O",
       "jersey": "7"
     },
     {
       "id": "p08",
-      "name": "joe d",
+      "name": "Joe D",
       "jersey": "8"
     },
     {
       "id": "p09",
-      "name": "jack k",
+      "name": "Jack K",
       "jersey": "9"
     },
     {
@@ -2018,21 +2018,61 @@ window.PUBLISHED_TEAM_DATA = {
       "location": "Lamp Park #3",
       "opponent": "Ravens",
       "captainRosterPlayerIds": [
-        "p06",
-        "p03"
+        "p08",
+        "p01"
       ],
       "unavailableRosterPlayerIds": [],
       "lineup": {
-        "C": [],
-        "QB": [],
-        "X": [],
-        "Y": [],
-        "Z": [],
-        "RUSH": [],
-        "LU": [],
-        "RU": [],
-        "LD": [],
-        "RD": []
+        "C": [
+          "p09",
+          "p10",
+          null,
+          null
+        ],
+        "QB": [
+          "p05",
+          "p02",
+          null,
+          null
+        ],
+        "X": [
+          "p08",
+          "p07",
+          null,
+          null
+        ],
+        "Y": [
+          "p03",
+          "p04",
+          null,
+          null
+        ],
+        "Z": [
+          "p06",
+          "p01",
+          null,
+          null
+        ],
+        "RUSH": [
+          "p06",
+          "p10"
+        ],
+        "LU": [
+          "p05",
+          "p08"
+        ],
+        "RU": [
+          "p09",
+          "p04"
+        ],
+        "LD": [
+          "p01",
+          "p03"
+        ],
+        "RD": [
+          "p07",
+          "p02"
+        ]
       },
       "itinerary": [],
       "endTime": "10:00"
@@ -2113,60 +2153,60 @@ window.PUBLISHED_TEAM_DATA = {
       "location": "Lamp Park #3",
       "opponent": "Falcons",
       "captainRosterPlayerIds": [
-        "p05",
-        "p07"
+        "p09",
+        "p03"
       ],
       "unavailableRosterPlayerIds": [],
       "lineup": {
         "C": [
-          null,
-          null,
+          "p09",
+          "p10",
           null,
           null
         ],
         "QB": [
-          null,
-          null,
+          "p05",
+          "p02",
           null,
           null
         ],
         "X": [
-          null,
-          null,
+          "p08",
+          "p07",
           null,
           null
         ],
         "Y": [
-          null,
-          null,
+          "p03",
+          "p04",
           null,
           null
         ],
         "Z": [
-          null,
-          null,
+          "p06",
+          "p01",
           null,
           null
         ],
         "RUSH": [
-          null,
-          null
+          "p06",
+          "p10"
         ],
         "LU": [
-          null,
-          null
+          "p05",
+          "p08"
         ],
         "RU": [
-          null,
-          null
+          "p09",
+          "p04"
         ],
         "LD": [
-          null,
-          null
+          "p01",
+          "p03"
         ],
         "RD": [
-          null,
-          null
+          "p07",
+          "p02"
         ]
       },
       "itinerary": []

@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-12T23:45:54.841Z
+   Exported 2026-09-13T22:03:14.040Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -2050,24 +2050,24 @@ window.PUBLISHED_TEAM_DATA = {
           null
         ],
         "RUSH": [
-          "p06",
+          "p08",
           "p10"
         ],
         "LU": [
-          "p05",
-          "p08"
+          "p06",
+          "p07"
         ],
         "RU": [
           "p09",
           "p04"
         ],
         "LD": [
-          "p01",
-          "p03"
+          "p05",
+          "p02"
         ],
         "RD": [
-          "p07",
-          "p02"
+          "p03",
+          "p01"
         ]
       },
       "itinerary": [],
@@ -2185,23 +2185,23 @@ window.PUBLISHED_TEAM_DATA = {
           null
         ],
         "RUSH": [
-          "p06",
+          "p08",
           "p10"
         ],
         "LU": [
-          "p05",
-          "p08"
+          "p06",
+          "p07"
         ],
         "RU": [
           "p09",
           "p04"
         ],
         "LD": [
-          "p01",
-          "p03"
+          "p05",
+          "p01"
         ],
         "RD": [
-          "p07",
+          "p03",
           "p02"
         ]
       },

@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-13T22:03:14.040Z
+   Exported 2026-09-15T01:41:04.543Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -2235,23 +2235,66 @@ window.PUBLISHED_TEAM_DATA = {
       "id": "583b8ac8-92c5-42be-a12a-00defd63fe11",
       "type": "practice",
       "date": "2026-09-18",
-      "startTime": "15:30",
-      "endTime": "16:45",
+      "startTime": "16:00",
+      "endTime": "17:30",
       "location": "Memorial Park",
       "opponent": "",
-      "captainRosterPlayerIds": [],
+      "captainRosterPlayerIds": [
+        "p10",
+        "p07"
+      ],
       "unavailableRosterPlayerIds": [],
       "lineup": {
-        "C": [],
-        "QB": [],
-        "X": [],
-        "Y": [],
-        "Z": [],
-        "RUSH": [],
-        "LU": [],
-        "RU": [],
-        "LD": [],
-        "RD": []
+        "C": [
+          "p01",
+          "p08",
+          null,
+          null
+        ],
+        "QB": [
+          "p04",
+          "p03",
+          null,
+          null
+        ],
+        "X": [
+          "p02",
+          "p06",
+          null,
+          null
+        ],
+        "Y": [
+          "p10",
+          "p09",
+          null,
+          null
+        ],
+        "Z": [
+          "p07",
+          "p05",
+          null,
+          null
+        ],
+        "RUSH": [
+          "p03",
+          "p02"
+        ],
+        "LU": [
+          "p08",
+          "p10"
+        ],
+        "RU": [
+          "p09",
+          "p01"
+        ],
+        "LD": [
+          "p06",
+          "p04"
+        ],
+        "RD": [
+          "p05",
+          "p07"
+        ]
       },
       "itinerary": []
     },

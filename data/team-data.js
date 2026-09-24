@@ -1,6 +1,6 @@
 /* ==========================================================================
    PUBLISHED TEAM DATA - the version every visitor sees by default.
-   Exported 2026-09-15T01:41:04.543Z
+   Exported 2026-09-24T00:04:16.294Z
    Replace data/team-data.js with this file and push. See README.md.
    ======================================================================== */
 window.PUBLISHED_TEAM_DATA = {
@@ -2327,22 +2327,65 @@ window.PUBLISHED_TEAM_DATA = {
       "type": "practice",
       "date": "2026-09-25",
       "startTime": "15:30",
-      "endTime": "16:45",
+      "endTime": "17:00",
       "location": "Memorial Park",
       "opponent": "",
-      "captainRosterPlayerIds": [],
+      "captainRosterPlayerIds": [
+        "p02",
+        "p04"
+      ],
       "unavailableRosterPlayerIds": [],
       "lineup": {
-        "C": [],
-        "QB": [],
-        "X": [],
-        "Y": [],
-        "Z": [],
-        "RUSH": [],
-        "LU": [],
-        "RU": [],
-        "LD": [],
-        "RD": []
+        "C": [
+          "p06",
+          "p10",
+          null,
+          null
+        ],
+        "QB": [
+          "p09",
+          "p07",
+          null,
+          null
+        ],
+        "X": [
+          "p05",
+          "p04",
+          null,
+          null
+        ],
+        "Y": [
+          "p08",
+          "p01",
+          null,
+          null
+        ],
+        "Z": [
+          "p03",
+          "p02",
+          null,
+          null
+        ],
+        "RUSH": [
+          "p01",
+          "p06"
+        ],
+        "LU": [
+          "p02",
+          "p05"
+        ],
+        "RU": [
+          "p07",
+          "p03"
+        ],
+        "LD": [
+          "p04",
+          "p09"
+        ],
+        "RD": [
+          "p10",
+          "p08"
+        ]
       },
       "itinerary": []
     }
